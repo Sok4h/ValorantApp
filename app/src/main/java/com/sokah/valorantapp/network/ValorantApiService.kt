@@ -1,0 +1,22 @@
+package com.sokah.valorantapp.network
+
+import com.sokah.valorantapp.model.AgentModel
+import com.sokah.valorantapp.model.BaseModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+class ValorantApiService {
+
+    private val retrofit = RetrofitHelper.getRetrofit()
+
+    suspend fun getAgents(): List<AgentModel>{
+
+        return withContext(Dispatchers.IO) {
+
+            val response = retrofit.create(ValorantApi::class.java).getAgents()
+
+                response.body() ?: emptyList()
+        }
+
+    }
+}

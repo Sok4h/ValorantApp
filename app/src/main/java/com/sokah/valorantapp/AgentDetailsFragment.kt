@@ -22,6 +22,8 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
         // Inflate the layout for this fragment
 
         _binding = FragmentAgentDetailsBinding.inflate(inflater,container,false)
+
+
         return binding.root
     }
 
