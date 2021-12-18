@@ -14,7 +14,10 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
     var agentList = mutableListOf<AgentModel>()
 
     fun setAgents(agents: List<AgentModel>) {
-        this.agentList = agents.toMutableList()
+
+        this.agentList = agents.filter { it.isPlayableCharacter }.toMutableList()
+
+        Log.e("TAG", agentList[0].displayName )
         notifyDataSetChanged()
     }
 
@@ -27,9 +30,11 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
-       val item = agentList[position]
+        val listFilter = agentList.filter { it.isPlayableCharacter }
+       val item = listFilter[position]
 
-        holder.bind(item)
+        if(item.isPlayableCharacter)holder.bind(item)
+
     }
 
     override fun getItemCount(): Int {
@@ -42,10 +47,18 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
          fun bind(agent: AgentModel){
 
-             Log.e("TAG", agent.displayName, )
-             binding.tvAgentName.text=agent.displayName
-             Glide.with(view.context).load(agent.killfeedPortrait).into(binding.imgAgent)
-             Glide.with(view.context).load(agent.role.displayIcon).into(binding.imgAgent)
+                if(agent.isPlayableCharacter){
+
+                    binding.tvAgentName.text=agent.displayName
+                    Glide.with(view.context).load(agent.killfeedPortrait).into(binding.imgAgent)
+
+                    Glide.with(view.context).load(agent.role.displayIcon).into(binding.imgAgentIcon)
+                }
+             else{
+                 return
+             }
+
+
 
         }
 
