@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.56" />
+        app:layout_constraintGuide_percent="0.46" />
 
     <ImageView
         android:id="@+id/imgAgentDetail"
@@ -87,7 +87,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black">
+            android:background="@drawable/container_rounded_corners">
 
             <TextView
                 android:id="@+id/textView4"
@@ -103,13 +103,13 @@
 
 
             <ImageView
-                android:id="@+id/ability1"
+                android:id="@+id/ability0"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
+                app:layout_constraintEnd_toStartOf="@+id/ability1"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toStartOf="parent"
@@ -121,7 +121,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
                 android:text="Duelist"
                 android:textAppearance="@style/subtitle"
@@ -164,52 +164,52 @@
                 app:layout_constraintTop_toBottomOf="@id/tvAgentDeveloperName" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ability1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/ability2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ability0"
+                app:layout_constraintTop_toTopOf="@+id/ability0"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/ability2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toStartOf="@+id/ability3"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/ability1"
                 app:layout_constraintTop_toTopOf="@+id/ability1"
                 tools:src="@tools:sample/avatars" />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:scaleType="fitCenter"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ability3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView3"
+                app:layout_constraintStart_toEndOf="@+id/ability2"
+                app:layout_constraintTop_toTopOf="@+id/ability2"
                 tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/tvAbilityName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@+id/ability1"
-                app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="TextView"
                 android:textAppearance="@style/subtitle3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ability0"
 
                 />
 

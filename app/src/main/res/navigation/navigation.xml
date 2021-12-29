@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/agentsFragment"
         android:name="com.sokah.valorantapp.AgentsFragment"
-        android:label="fragment_agents"
-        tools:layout="@layout/fragment_agents" >
+        android:label="Agent List"
+        tools:layout="@layout/fragment_agents">
         <action
             android:id="@+id/action_agentsFragment_to_agentDetailsFragment"
             app:destination="@id/agentDetailsFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/agentDetailsFragment"
         android:name="com.sokah.valorantapp.AgentDetailsFragment"
-        android:label="fragment_agent_details"
-        tools:layout="@layout/fragment_agent_details" >
+        android:label="Agent Details"
+        tools:layout="@layout/fragment_agent_details">
         <argument
             android:name="agentUuid"
             app:argType="string" />
