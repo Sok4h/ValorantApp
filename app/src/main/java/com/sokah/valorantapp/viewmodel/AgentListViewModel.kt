@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.network.ValorantApiService
 import com.sokah.valorantapp.model.AgentList
+import com.sokah.valorantapp.model.AgentModel
+import com.sokah.valorantapp.model.BaseModel
 import kotlinx.coroutines.launch
 
 class AgentListViewModel : ViewModel() {
 
     private var service = ValorantApiService()
-    val agentList = MutableLiveData<AgentList>()
+    val agentList = MutableLiveData <BaseModel<List<AgentModel>>>()
 
     init {
 

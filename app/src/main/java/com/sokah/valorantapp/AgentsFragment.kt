@@ -35,8 +35,8 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
         viewmodel.agentList.observe(this,{
 
-            adapter.setAgents(it.agents)
-            Log.e("TAG", "onCreateView: ")
+            adapter.setAgents(it.data)
+
 
         })
         return binding.root

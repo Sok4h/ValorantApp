@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.databinding.AgentCardBinding
@@ -17,7 +18,6 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
         this.agentList = agents.filter { it.isPlayableCharacter }.toMutableList()
 
-        Log.e("TAG", agentList[0].displayName )
         notifyDataSetChanged()
     }
 
@@ -31,9 +31,10 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
         val listFilter = agentList.filter { it.isPlayableCharacter }
-       val item = listFilter[position]
+        val item = listFilter[position]
 
         if(item.isPlayableCharacter)holder.bind(item)
+
 
     }
 
@@ -43,7 +44,7 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
     class AgentViewHolder(val view: View) :RecyclerView.ViewHolder(view) {
 
-        val binding = AgentCardBinding.bind(view)
+        private val binding = AgentCardBinding.bind(view)
 
          fun bind(agent: AgentModel){
 
@@ -53,14 +54,22 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
                     Glide.with(view.context).load(agent.killfeedPortrait).into(binding.imgAgent)
 
                     Glide.with(view.context).load(agent.role.displayIcon).into(binding.imgAgentIcon)
+
+                    binding.root.setOnClickListener{
+
+                        view.findNavController().navigate(AgentsFragmentDirections.actionAgentsFragmentToAgentDetailsFragment(agent.uuid))
+                    }
                 }
+
+
              else{
                  return
              }
 
-
-
         }
+
+
+
 
 
 
