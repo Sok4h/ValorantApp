@@ -52,7 +52,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
         viewmodel.agentDetail.observe(this,{agent ->
 
-            Glide.with(this).load(agent.fullPortrait).into(binding.imgAgentDetail)
+            Glide.with(this).load(agent.bustPortrait).into(binding.imgAgentDetail)
             Glide.with(this).load(agent.role.displayIcon).into(binding.imgAgentTypeDetail)
             binding.tvAgentNameDetail.text=agent.displayName
             binding.tvAgentRole.text=agent.role.displayName
