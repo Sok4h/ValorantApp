@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.network.ValorantApiService
-import com.sokah.valorantapp.model.AgentList
 import com.sokah.valorantapp.model.AgentModel
 import com.sokah.valorantapp.model.BaseModel
 import kotlinx.coroutines.launch

@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/red"
+    android:background="@color/black"
     tools:context=".AgentDetailsFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_agent_background"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -38,14 +47,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.76" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <TextView
         android:id="@+id/tvAgentNameDetail"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
         android:gravity="fill_vertical"
         android:rotation="-90"
@@ -56,20 +64,6 @@
         app:layout_constraintTop_toTopOf="@+id/imgAgentDetail"
         app:layout_constraintVertical_bias="1.0"
         tools:text="Reyna" />
-
-    <ImageView
-        android:id="@+id/imgAgentTypeDetail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgAgentDetail"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/avatars" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -87,6 +81,16 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgAgentTypeDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAgentRole"
+                app:layout_constraintStart_toEndOf="@+id/tvAgentRole"
+                app:layout_constraintTop_toTopOf="@+id/tvAgentRole"
+                tools:src="@tools:sample/avatars" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -117,15 +121,14 @@
 
             <TextView
                 android:id="@+id/tvAgentRole"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:text="Duelist"
+                android:layout_marginTop="8dp"
                 android:textAppearance="@style/subtitle"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Duelist" />
 
             <TextView
                 android:id="@+id/tvAgentDescription"
@@ -133,22 +136,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
-                android:text="TextView"
                 android:textAppearance="@style/content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/tvAgentRole"
-                app:layout_constraintTop_toBottomOf="@+id/tvAgentRole" />
+                app:layout_constraintTop_toBottomOf="@+id/tvAgentRole"
+                tools:text="Description" />
 
             <TextView
                 android:id="@+id/tvAgentDeveloperName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="TextView"
                 android:textAppearance="@style/content"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintStart_toEndOf="@+id/textView4"
-                app:layout_constraintTop_toTopOf="@+id/textView4" />
+                app:layout_constraintTop_toTopOf="@+id/textView4"
+                tools:text="developerName" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -204,12 +207,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
-                android:text="TextView"
                 android:textAppearance="@style/subtitle3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ability0"
 
-                />
+                tools:text="Ability name" />
 
             <TextView
                 android:id="@+id/tvAbilityDescription"
@@ -228,4 +230,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

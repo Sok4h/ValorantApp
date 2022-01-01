@@ -1,6 +1,5 @@
 package com.sokah.valorantapp.network
 
-import com.sokah.valorantapp.model.AgentList
 import com.sokah.valorantapp.model.AgentModel
 import com.sokah.valorantapp.model.BaseModel
 import retrofit2.Response

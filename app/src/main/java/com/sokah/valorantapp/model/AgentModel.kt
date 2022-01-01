@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AgentModel(
     @SerializedName("abilities")
-    val abilities: List<Ability>,
+    val abilities: MutableList<Ability>,
     @SerializedName("assetPath")
     val assetPath: String,
     @SerializedName("bustPortrait")

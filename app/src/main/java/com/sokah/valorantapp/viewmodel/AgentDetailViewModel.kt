@@ -22,7 +22,16 @@ class AgentDetailViewModel(agentUuid:String) : ViewModel() {
 
             val result = service.getAgent(agentUuid)
 
-            agentDetail.postValue(result.data!!)
+            val agent = result.data
+
+            for((index,ability) in agent.abilities.withIndex()) {
+
+                if(ability.slot.contentEquals("Passive")){
+
+                    agent.abilities.removeAt(index)
+                }
+            }
+            agentDetail.postValue(agent)
         }
     }
 
