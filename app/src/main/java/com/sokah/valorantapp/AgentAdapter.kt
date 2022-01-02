@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sokah.valorantapp.databinding.AgentCardBinding
 import com.sokah.valorantapp.model.AgentModel
 import com.sokah.valorantapp.view.fragments.AgentsFragmentDirections
@@ -52,9 +53,12 @@ class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
                 if(agent.isPlayableCharacter){
 
                     binding.tvAgentName.text=agent.displayName
-                    Glide.with(view.context).load(agent.killfeedPortrait).into(binding.imgAgent)
+                    Glide.with(view.context) .load(agent.bustPortrait)
+                        .override(1000,1000)
+                        .thumbnail( 0.5f )
+                        .into(binding.imgAgent)
 
-                    Glide.with(view.context).load(agent.role.displayIcon).into(binding.imgAgentIcon)
+                   /* Glide.with(view.context).load(agent.role.displayIcon).into(binding.imgAgentIcon)*/
 
                     binding.root.setOnClickListener{
 

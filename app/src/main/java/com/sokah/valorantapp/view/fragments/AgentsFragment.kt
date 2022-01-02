@@ -9,7 +9,9 @@ import android.widget.CompoundButton
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.sokah.valorantapp.AgentAdapter
 import com.sokah.valorantapp.R
@@ -31,7 +33,8 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         // Inflate the layout for this fragment
         _binding = FragmentAgentsBinding.inflate(inflater,container,false)
 
-        binding.rvAgents.layoutManager= LinearLayoutManager(context)
+
+        binding.rvAgents.layoutManager= GridLayoutManager(context,2)
 
         chips = arrayOf(binding.chipDuelist,binding.chipController)
         val adapter = AgentAdapter()
@@ -52,7 +55,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
             val chip = binding.chipGroup.findViewById<Chip>(checkedId)
 
-            if (chip.isChecked) {
+            if (chip.isCheckable) {
                 Log.e("TAG", chip.id.toString())
                 viewmodel.filterAgent(chip.text.toString())
 
