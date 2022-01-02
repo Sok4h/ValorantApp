@@ -71,5 +71,9 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding=null;
+    }
 
 }

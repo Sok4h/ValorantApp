@@ -1,15 +1,13 @@
 package com.sokah.valorantapp
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sokah.valorantapp.databinding.AgentCardBinding
-import com.sokah.valorantapp.model.AgentModel
+import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.view.fragments.AgentsFragmentDirections
 
 class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {

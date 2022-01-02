@@ -1,12 +1,10 @@
 package com.sokah.valorantapp.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.network.ValorantApiService
-import com.sokah.valorantapp.model.AgentModel
+import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
 import kotlinx.coroutines.launch
 
@@ -14,15 +12,15 @@ class AgentListViewModel : ViewModel() {
 
     private var service = ValorantApiService()
     val mutableAgentList = MutableLiveData <BaseModel<MutableList<AgentModel>>>()
-
+    lateinit var agents : BaseModel<MutableList<AgentModel>>
     init {
 
         viewModelScope.launch {
 
             val result= service.getAgents()
-
+            agents=result
             if(result!=null){
-                var agents = mutableAgentList
+
                 mutableAgentList.postValue(result!!)
             }
 
@@ -32,7 +30,8 @@ class AgentListViewModel : ViewModel() {
 
     fun getAgents(){
 
-        viewModelScope.launch {
+        mutableAgentList.postValue(agents)
+      /*  viewModelScope.launch {
 
             val result= service.getAgents()
 
@@ -41,7 +40,7 @@ class AgentListViewModel : ViewModel() {
                 mutableAgentList.postValue(result!!)
             }
 
-        }
+        }*/
 
     }
     fun filterAgent(role:String){

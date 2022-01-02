@@ -6,4 +6,10 @@
     <string name="sentinel">Sentinel</string>
     <string name="initiator">Initiator</string>
     <string name="controller">Controller</string>
+    <string name="pistols">Pistols</string>
+    <string name="smg">SMG</string>
+    <string name="shotgun">Shotgun</string>
+    <string name="heavy">Heavy</string>
+    <string name="rifle">Rifle</string>
+    <string name="sniper">Sniper</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.sokah.valorantapp.model
+package com.sokah.valorantapp.model.agents
 
 
 import com.google.gson.annotations.SerializedName
