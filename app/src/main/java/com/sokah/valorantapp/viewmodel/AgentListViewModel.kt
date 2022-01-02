@@ -30,12 +30,22 @@ class AgentListViewModel : ViewModel() {
 
     }
 
+    fun getAgents(){
+
+        viewModelScope.launch {
+
+            val result= service.getAgents()
+
+            if(result!=null){
+                var agents = mutableAgentList
+                mutableAgentList.postValue(result!!)
+            }
+
+        }
+
+    }
     fun filterAgent(role:String){
 
-   /*  var data = Transformations.map(mutableAgentList){
-         it.data.filter { it.role.displayName.contentEquals(role)}
-     }
-    mutableAgentList.postValue(data)*/
         viewModelScope.launch {
 
             val result= service.getAgents()
