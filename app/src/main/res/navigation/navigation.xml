@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/agentsFragment">
+    app:startDestination="@id/weaponListFragment">
 
     <fragment
         android:id="@+id/agentsFragment"
@@ -27,4 +27,9 @@
             app:destination="@id/agentsFragment"
             app:popUpTo="@id/agentsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/weaponListFragment"
+        android:name="com.sokah.valorantapp.view.fragments.WeaponListFragment"
+        android:label="fragment_weapon_list"
+        tools:layout="@layout/fragment_weapon_list" />
 </navigation>

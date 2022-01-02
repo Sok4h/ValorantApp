@@ -5,15 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
-import com.sokah.valorantapp.AgentAdapter
+import com.sokah.valorantapp.view.AgentAdapter
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentsBinding
 import com.sokah.valorantapp.viewmodel.AgentListViewModel

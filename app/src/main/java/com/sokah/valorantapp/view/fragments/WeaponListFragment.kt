@@ -5,14 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
+import com.sokah.valorantapp.view.WeaponAdapter
+import com.sokah.valorantapp.viewmodel.WeaponListViewModel
 
 
 class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
+    lateinit var viewmodel :WeaponListViewModel
     private  var _binding :FragmentWeaponListBinding ?=null
     val binding get()=_binding!!
+    lateinit var adapter : WeaponAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,8 +26,30 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentWeaponListBinding.inflate(inflater, container, false)
+
+        adapter = WeaponAdapter()
+        binding.rvWeapons.adapter=adapter
+        binding.rvWeapons.layoutManager= LinearLayoutManager(context)
+        viewmodel=ViewModelProvider(this).get(WeaponListViewModel::class.java)
+
+        viewmodel.weaponList.observe(this,{
+
+
+            adapter.setAgents(it.data)
+        })
+
+
+
+
+
+
         return binding.root
     }
+
+
+
+
+
 
     override fun onDestroy() {
         super.onDestroy()

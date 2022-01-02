@@ -18,10 +18,17 @@ class AgentListViewModel : ViewModel() {
         viewModelScope.launch {
 
             val result= service.getAgents()
-            agents=result
+
             if(result!=null){
 
-                mutableAgentList.postValue(result!!)
+                //filtra que no salga sova npc
+                result.data.filter{ it.isPlayableCharacter }.also{
+
+                    result.data=it.toMutableList()
+                    mutableAgentList.postValue(result)
+                    agents=result
+                }
+
             }
 
         }

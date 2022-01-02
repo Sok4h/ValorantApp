@@ -2,6 +2,7 @@ package com.sokah.valorantapp.network
 
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.model.weapons.WeaponModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -26,10 +27,17 @@ class ValorantApiService {
         return  withContext(Dispatchers.IO) {
 
             val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid)
-
-
             response.body()!!
         }
 
+    }
+
+    suspend fun getWeapons():BaseModel<MutableList<WeaponModel>>{
+
+        return withContext(Dispatchers.IO) {
+
+            val response = retrofit.create(ValorantApi::class.java).getWeapons()
+            response.body()!!
+        }
     }
 }
