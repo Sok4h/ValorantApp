@@ -9,7 +9,7 @@ import retrofit2.http.Path
 interface ValorantApi {
 
     @GET("agents")
-    suspend fun getAgents():Response <BaseModel<List<AgentModel>>>
+    suspend fun getAgents():Response <BaseModel<MutableList<AgentModel>>>
 
     @GET("agents/{agentUuid}")
     suspend fun getAgent(

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.databinding.AgentCardBinding
 import com.sokah.valorantapp.model.AgentModel
+import com.sokah.valorantapp.view.fragments.AgentsFragmentDirections
 
 class AgentAdapter() : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 

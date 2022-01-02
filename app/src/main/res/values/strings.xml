@@ -2,4 +2,8 @@
     <string name="app_name">Valorant App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="duelist">Duelist</string>
+    <string name="sentinel">Sentinel</string>
+    <string name="initiator">Initiator</string>
+    <string name="controller">Controller</string>
 </resources>

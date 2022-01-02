@@ -1,4 +1,4 @@
-package com.sokah.valorantapp
+package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,11 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentDetailsBinding
-import com.sokah.valorantapp.network.ValorantApiService
 import com.sokah.valorantapp.viewmodel.AgentDetailViewModel
 import com.sokah.valorantapp.viewmodel.AgentDetailViewModelFactory
 
