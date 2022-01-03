@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.AgentCardBinding
 import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.utils.MyDiffUtil
 import com.sokah.valorantapp.view.fragments.AgentsFragmentDirections
 
 class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
@@ -17,9 +19,13 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
     fun setAgents(agents: MutableList<AgentModel>) {
 
-        this.agentList = agents
+        val diffUtil=MyDiffUtil(agentList,agents)
 
-        notifyDataSetChanged()
+        val diffresult = DiffUtil.calculateDiff(diffUtil)
+
+        diffresult.dispatchUpdatesTo(this)
+        this.agentList = agents
+        
     }
 
 
