@@ -12,4 +12,7 @@
     <string name="heavy">Heavy</string>
     <string name="rifle">Rifle</string>
     <string name="sniper">Sniper</string>
+    <string name="agents">Agents</string>
+    <string name="weapons">Weapons</string>
+    <string name="skins">Skins</string>
 </resources>
