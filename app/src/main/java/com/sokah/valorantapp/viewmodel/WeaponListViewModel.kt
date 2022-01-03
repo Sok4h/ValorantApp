@@ -26,4 +26,28 @@ class WeaponListViewModel : ViewModel() {
             weaponList.postValue(response)
         }
     }
+
+    fun getWeapons(){
+
+        weaponList.postValue(weapons)
+    }
+     fun sortWeapon(type:String){
+
+        viewModelScope.launch {
+
+            val response = service.getWeapons()
+
+            response.data.filter {
+                it.category.contains(type)
+            }.also {
+
+                response.data=it.toMutableList()
+                weaponList.postValue(response)
+            }
+
+        }
+
+
+
+    }
 }

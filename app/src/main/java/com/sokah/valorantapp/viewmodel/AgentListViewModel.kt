@@ -38,16 +38,7 @@ class AgentListViewModel : ViewModel() {
     fun getAgents(){
 
         mutableAgentList.postValue(agents)
-      /*  viewModelScope.launch {
 
-            val result= service.getAgents()
-
-            if(result!=null){
-                var agents = mutableAgentList
-                mutableAgentList.postValue(result!!)
-            }
-
-        }*/
 
     }
     fun filterAgent(role:String){

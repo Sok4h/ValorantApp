@@ -24,10 +24,12 @@
             android:orientation="horizontal">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupWeapons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                app:chipSpacingHorizontal="16dp">
+                app:chipSpacingHorizontal="16dp"
+                app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipPistols"

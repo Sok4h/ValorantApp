@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
 import com.sokah.valorantapp.view.WeaponAdapter
@@ -38,7 +39,27 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
             adapter.setAgents(it.data)
         })
 
+        binding.chipGroupWeapons.setOnCheckedChangeListener {group,checkedId ->
 
+            val chip = group.findViewById<Chip>(checkedId)
+
+            if (chip != null) {
+
+                if(chip.id==binding.chipPistols.id){
+
+                    viewmodel.sortWeapon("Sidearm")
+                }
+                else{
+
+                    viewmodel.sortWeapon(chip.text.toString())
+                }
+
+            }
+            else{
+
+                viewmodel.getWeapons()
+            }
+        }
 
 
 

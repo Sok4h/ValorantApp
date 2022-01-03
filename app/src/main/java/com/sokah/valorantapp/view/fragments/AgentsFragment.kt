@@ -50,7 +50,6 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
 
 
-            Log.e("TAG", checkedId.toString())
             val chip = binding.chipGroup.findViewById<Chip>(checkedId)
 
             if (chip != null) {
