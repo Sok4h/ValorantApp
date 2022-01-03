@@ -3,12 +3,16 @@ package com.sokah.valorantapp.view
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.WeaponCardBinding
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.view.fragments.WeaponListFragmentDirections
 
 class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
@@ -17,9 +21,12 @@ class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
     fun setAgents(weapons: MutableList<WeaponModel>) {
 
+        val diffUtil = WeaponDiffUtil(weaponList,weapons)
+        val diffresult = DiffUtil.calculateDiff(diffUtil)
+        diffresult.dispatchUpdatesTo(this)
         this.weaponList = weapons
 
-        notifyDataSetChanged()
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeaponViewHolder {
 
@@ -37,8 +44,17 @@ class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
         holder.binding.tvWeaponPrice.text= agent.shopData?.cost.toString()
 
-        var category = agent.category.split("::")
+        val category = agent.category.split("::")
         holder.binding.tvWeaponType.text = category[1]
+
+        val agentString = Gson().toJson(agent)
+        holder.binding.root.setOnClickListener {
+
+           it.findNavController().navigate(WeaponListFragmentDirections.actionWeaponListFragmentToWeaponDetailFragment(agentString))
+
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -49,5 +65,36 @@ class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
     class WeaponViewHolder(val binding:WeaponCardBinding) : RecyclerView.ViewHolder(binding.root)
 
 
+
+    class WeaponDiffUtil (
+
+        private val oldList: MutableList<WeaponModel>,
+        private val newList : MutableList<WeaponModel>
+    ): DiffUtil.Callback() {
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+
+            return oldList[oldItemPosition].uuid.contentEquals(newList[newItemPosition].uuid)
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return when{
+
+                !oldList[oldItemPosition].uuid.contentEquals(newList[newItemPosition].uuid) ->false
+
+                !oldList[oldItemPosition].displayName.contentEquals(newList[newItemPosition].displayName) ->false
+
+                else -> true
+            }
+        }
+    }
 
 }

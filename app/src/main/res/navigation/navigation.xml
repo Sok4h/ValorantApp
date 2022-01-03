@@ -30,5 +30,22 @@
     <fragment
         android:id="@+id/weaponListFragment"
         android:name="com.sokah.valorantapp.view.fragments.WeaponListFragment"
-        tools:layout="@layout/fragment_weapon_list" />
+        android:label="Weapons"
+        tools:layout="@layout/fragment_weapon_list">
+        <action
+            android:id="@+id/action_weaponListFragment_to_weaponDetailFragment"
+            app:destination="@id/weaponDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/weaponDetailFragment"
+        android:name="com.sokah.valorantapp.view.fragments.WeaponDetailFragment"
+        android:label="Weapon Details"
+        tools:layout="@layout/fragment_weapon_detail">
+        <argument
+            android:name="weapon"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_weaponDetailFragment_to_weaponListFragment"
+            app:destination="@id/weaponListFragment" />
+    </fragment>
 </navigation>
