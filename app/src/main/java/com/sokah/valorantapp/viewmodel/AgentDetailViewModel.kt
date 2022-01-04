@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.network.ValorantApiService
 import kotlinx.coroutines.launch
+import java.util.*
 
 class AgentDetailViewModel(agentUuid:String) : ViewModel() {
 
@@ -19,7 +21,19 @@ class AgentDetailViewModel(agentUuid:String) : ViewModel() {
 
         viewModelScope.launch{
 
-            val result = service.getAgent(agentUuid)
+            lateinit var languageCode :String
+
+            Log.e("TAG", Locale.getDefault().getLanguage(), )
+            when (Locale.getDefault().getLanguage() ){
+
+                "es"-> languageCode="es-ES"
+
+                else -> languageCode="en-US"
+            }
+
+
+            Log.e("TAG", languageCode )
+            val result = service.getAgent(agentUuid,languageCode)
 
             val agent = result.data
 

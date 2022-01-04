@@ -6,6 +6,7 @@ import com.sokah.valorantapp.model.weapons.WeaponModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ValorantApi {
 
@@ -14,7 +15,8 @@ interface ValorantApi {
 
     @GET("agents/{agentUuid}")
     suspend fun getAgent(
-        @Path("agentUuid") agentUuid:String
+        @Path("agentUuid") agentUuid:String,
+        @Query("language") language:String
     ):Response <BaseModel<AgentModel>>
 
     @GET("weapons")

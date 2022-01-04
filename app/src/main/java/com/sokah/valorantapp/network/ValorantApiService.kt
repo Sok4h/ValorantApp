@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.network
 
+import android.util.Log
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
 import com.sokah.valorantapp.model.weapons.WeaponModel
@@ -22,13 +23,19 @@ class ValorantApiService {
 
     }
 
-    suspend fun getAgent(agentUuid:String) :BaseModel<AgentModel>{
+    suspend fun getAgent(agentUuid:String,language:String) :BaseModel<AgentModel>{
 
+        Log.e("TAG", language )
         return  withContext(Dispatchers.IO) {
 
-            val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid)
+
+            val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid,language)
+
+            Log.e("TAG", response.toString())
             response.body()!!
+
         }
+
 
     }
 
