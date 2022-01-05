@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(binding.root)
-
+        
         navController = findNavController(R.id.navHost)
         binding.bottomNavigationView.setupWithNavController(navController)
 
