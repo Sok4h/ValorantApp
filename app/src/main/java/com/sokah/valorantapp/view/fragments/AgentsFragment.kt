@@ -1,7 +1,6 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.chip.Chip
-import com.sokah.valorantapp.view.AgentAdapter
+import com.sokah.valorantapp.view.adapters.AgentAdapter
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentsBinding
 import com.sokah.valorantapp.viewmodel.AgentListViewModel

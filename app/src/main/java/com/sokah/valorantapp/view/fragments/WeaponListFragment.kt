@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
-import com.sokah.valorantapp.view.WeaponAdapter
+import com.sokah.valorantapp.view.adapters.WeaponAdapter
 import com.sokah.valorantapp.viewmodel.WeaponListViewModel
 
 

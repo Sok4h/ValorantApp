@@ -1,4 +1,4 @@
-package com.sokah.valorantapp.view
+package com.sokah.valorantapp.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -56,7 +56,7 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
             binding.tvAgentName.text = agent.displayName
             Glide.with(view.context).load(agent.bustPortrait)
-                .override(1000, 1000)
+                .override(800, 800)
                 .thumbnail(0.5f)
                 .into(binding.imgAgent)
 

@@ -48,4 +48,9 @@
             android:id="@+id/action_weaponDetailFragment_to_weaponListFragment"
             app:destination="@id/weaponListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/skinsFragment"
+        android:name="com.sokah.valorantapp.view.fragments.SkinsFragment"
+        android:label="@string/skins"
+        tools:layout="@layout/skins_fragment" />
 </navigation>

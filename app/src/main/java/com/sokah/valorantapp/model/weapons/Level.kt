@@ -7,11 +7,11 @@ data class Level(
     @SerializedName("assetPath")
     val assetPath: String,
     @SerializedName("displayIcon")
-    val displayIcon: String,
+    val displayIcon: String?,
     @SerializedName("displayName")
     val displayName: String,
     @SerializedName("levelItem")
-    val levelItem: Any,
+    val levelItem: String?,
     @SerializedName("streamedVideo")
     val streamedVideo: String,
     @SerializedName("uuid")

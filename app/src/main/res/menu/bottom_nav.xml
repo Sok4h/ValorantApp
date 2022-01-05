@@ -11,6 +11,7 @@
         android:icon="@drawable/ic_ghost" />
     <item
 
+        android:id="@+id/skinsFragment"
         android:title="@string/skins" />
 
 </menu>

@@ -2,6 +2,7 @@ package com.sokah.valorantapp.network
 
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.model.weapons.WeaponModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -22,4 +23,6 @@ interface ValorantApi {
     @GET("weapons")
     suspend fun getWeapons():Response <BaseModel<MutableList<WeaponModel>>>
 
+    @GET("weapons/skins")
+    suspend fun getSkins():Response <BaseModel<MutableList<Skin>>>
 }

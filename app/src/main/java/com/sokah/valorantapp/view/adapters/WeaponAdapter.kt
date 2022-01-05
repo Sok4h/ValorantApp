@@ -1,4 +1,4 @@
-package com.sokah.valorantapp.view
+package com.sokah.valorantapp.view.adapters
 
 import android.view.LayoutInflater
 
@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
-import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.WeaponCardBinding
-import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.weapons.WeaponModel
 import com.sokah.valorantapp.view.fragments.WeaponListFragmentDirections
 
