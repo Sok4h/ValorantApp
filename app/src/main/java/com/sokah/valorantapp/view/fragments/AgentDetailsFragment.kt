@@ -65,7 +65,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
             for ((index,img) in abilitiesimg.withIndex()){
 
                 abilitiesimg[index].alpha=0.3f
-                // TODO: 29/12/2021  hacer que no explote cuando el agente tiene 5 habilidades 
+
                 img.setOnClickListener {
                     abilitiesimg.forEach { img ->img.alpha=0.3f }
                     img.alpha=1f

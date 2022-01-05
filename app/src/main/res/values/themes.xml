@@ -10,12 +10,9 @@
 
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/black</item>
 
-        <!-- Customize your theme here. -->
 
-   <!--     <item name="android:outlineAmbientShadowColor">@color/yourAmbientShadow</item>
-        <item name="android:outlineSpotShadowColor">@color/yourSpotShadow</item>-->
+
     </style>
 
     <style name="chipGroupTextStyle" parent="TextAppearance.MaterialComponents.Caption">

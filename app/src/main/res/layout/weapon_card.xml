@@ -28,9 +28,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAppearance="@style/subtitle2"
+        android:textAppearance="@style/subtitle3"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvWeaponPrice"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgWeapon"
         app:layout_constraintTop_toBottomOf="@+id/tvWeaponType"
         tools:text="Vandal" />
@@ -39,11 +41,14 @@
         android:id="@+id/tvWeaponType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:textAppearance="@style/content"
+        app:layout_constraintBottom_toTopOf="@+id/tvWeaponName"
         app:layout_constraintEnd_toEndOf="@+id/tvWeaponName"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/tvWeaponName"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Sniper" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -58,9 +63,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="TextView"
         android:textAppearance="@style/content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tvWeaponName"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/tvWeaponName"
         app:layout_constraintTop_toBottomOf="@+id/tvWeaponName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

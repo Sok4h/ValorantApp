@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -37,6 +38,11 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
 
             adapter.setAgents(it.data)
+        })
+
+        viewmodel.isLoading.observe(this,{
+
+            binding.progressBar2.isVisible=it
         })
 
         binding.chipGroupWeapons.setOnCheckedChangeListener {group,checkedId ->

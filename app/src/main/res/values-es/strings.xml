@@ -11,8 +11,9 @@
     <string name="heavy">Heavy</string>
     <string name="rifle">Rifle</string>
     <string name="sniper">Sniper</string>
-    <string name="agents">Agents</string>
-    <string name="weapons">Weapons</string>
+    <string name="agents">Agentes</string>
+    <string name="weapons">Armas</string>
     <string name="skins">Skins</string>
     <string name="abilities">Habilidades</string>
+    <string name="stats">Estadisticas</string>
 </resources>

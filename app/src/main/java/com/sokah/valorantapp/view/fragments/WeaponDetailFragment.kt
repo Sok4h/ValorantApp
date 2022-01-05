@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.github.mikephil.charting.data.Entry
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponDetailBinding
+import com.sokah.valorantapp.model.weapons.WeaponModel
 import com.sokah.valorantapp.viewmodel.WeaponDetailViewModel
 import com.sokah.valorantapp.viewmodel.WeaponDetailViewModelFactory
 import java.lang.reflect.Array.get
@@ -36,19 +38,7 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
 
         viewModel.agentWeapon.observe(this,{
 
-            Glide.with(this).load(it.displayIcon).into(binding.imgWeaponDetail)
-            binding.tvWeaponNameDetail.text=it.displayName
-
-            val type = it.category.split("::")
-
-            binding.tvWeaponTypeDetail.text=type[1]
-            if(it.shopData==null){
-
-                binding.tvWeaponPriceDetail.text="0"
-            }
-            else{
-                binding.tvWeaponPriceDetail.text=it.shopData.cost.toString()
-            }
+            loadWeapon(it)
         })
         return binding.root
     }
@@ -57,5 +47,27 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    fun loadWeapon(weapon: WeaponModel){
+
+        Glide.with(this).load(weapon.displayIcon).into(binding.imgWeaponDetail)
+        binding.tvWeaponNameDetail.text=weapon.displayName
+
+        val type = weapon.category.split("::")
+
+        binding.tvWeaponTypeDetail.text=type[1]
+        if(weapon.shopData==null){
+
+            binding.tvWeaponPriceDetail.text="0"
+        }
+        else{
+            binding.tvWeaponPriceDetail.text=weapon.shopData.cost.toString()
+        }
+
+        //graph stuff
+
+
+
     }
 }

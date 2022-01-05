@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 
 class WeaponListViewModel : ViewModel() {
 
+    val isLoading = MutableLiveData<Boolean>()
     private var service = ValorantApiService()
 
       val weaponList = MutableLiveData <BaseModel<MutableList<WeaponModel>>>()
@@ -20,7 +21,9 @@ class WeaponListViewModel : ViewModel() {
 
         viewModelScope.launch {
 
+            isLoading.postValue(true)
             val  response = service.getWeapons()
+            isLoading.postValue(false)
             weapons=response
 
             weaponList.postValue(response)

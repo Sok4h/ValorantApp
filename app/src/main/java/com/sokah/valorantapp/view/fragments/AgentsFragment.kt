@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,6 +46,11 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
             adapter.setAgents(it.data)
 
 
+        })
+
+        viewmodel.isLoading.observe(this,{
+
+            binding.progressBar.isVisible=it
         })
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->

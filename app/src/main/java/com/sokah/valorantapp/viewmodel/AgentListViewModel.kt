@@ -13,14 +13,18 @@ class AgentListViewModel : ViewModel() {
     private var service = ValorantApiService()
     val mutableAgentList = MutableLiveData <BaseModel<MutableList<AgentModel>>>()
     lateinit var agents : BaseModel<MutableList<AgentModel>>
+
+     val isLoading = MutableLiveData<Boolean>()
     init {
 
         viewModelScope.launch {
 
+            isLoading.postValue(true)
             val result= service.getAgents()
 
             if(result!=null){
 
+                isLoading.postValue(false)
                 //filtra que no salga sova npc
                 result.data.filter{ it.isPlayableCharacter }.also{
 

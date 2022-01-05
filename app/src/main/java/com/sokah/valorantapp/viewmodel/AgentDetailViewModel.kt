@@ -23,16 +23,15 @@ class AgentDetailViewModel(agentUuid:String) : ViewModel() {
 
             lateinit var languageCode :String
 
-            Log.e("TAG", Locale.getDefault().getLanguage(), )
-            when (Locale.getDefault().getLanguage() ){
+            languageCode = when (Locale.getDefault().language){
 
-                "es"-> languageCode="es-ES"
+                "es"-> "es-ES"
 
-                else -> languageCode="en-US"
+                else -> "en-US"
             }
 
 
-            Log.e("TAG", languageCode )
+
             val result = service.getAgent(agentUuid,languageCode)
 
             val agent = result.data
