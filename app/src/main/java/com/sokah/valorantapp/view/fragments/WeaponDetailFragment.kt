@@ -1,6 +1,7 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -57,6 +58,7 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
         val type = weapon.category.split("::")
 
         binding.tvWeaponTypeDetail.text=type[1]
+
         if(weapon.shopData==null){
 
             binding.tvWeaponPriceDetail.text="0"
@@ -65,7 +67,12 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
             binding.tvWeaponPriceDetail.text=weapon.shopData.cost.toString()
         }
 
-        //graph stuff
+
+
+        binding.tvFireRate.text= getString(R.string.fire_rate_value, String.format("%.1f",weapon.weaponStats.fireRate))
+        binding.tvEquipSpeed.text= getString(R.string.equip_speed_value, String.format("%.1f",weapon.weaponStats.equipTimeSeconds))
+        binding.tvReloadSpeed.text= getString(R.string.reload_speed_value, String.format("%.1f",weapon.weaponStats.reloadTimeSeconds))
+        binding.tvMagazine.text= getString(R.string.magazine_value, weapon.weaponStats.magazineSize.toString())
 
 
 

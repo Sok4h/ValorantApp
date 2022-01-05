@@ -16,4 +16,12 @@
     <string name="skins">Skins</string>
     <string name="abilities">Habilidades</string>
     <string name="stats">Estadisticas</string>
+    <string name="fire_rate">Cadencia Disparo</string>
+    <string name="equip_speed">Velocidad Equipado</string>
+    <string name="reload_speed">Velocidad Recarga</string>
+    <string name="magazine">Cargador</string>
+    <string name="fire_rate_value">%1$s Rds/Seg</string>
+    <string name="equip_speed_value">%1$s Seg</string>
+    <string name="reload_speed_value">%1$s Seg</string>
+
 </resources>

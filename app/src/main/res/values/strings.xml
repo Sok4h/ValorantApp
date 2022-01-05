@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Valorant App</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <!-- filtros  personajes-->
+
     <string name="duelist">Duelist</string>
     <string name="sentinel">Sentinel</string>
     <string name="initiator">Initiator</string>
@@ -11,9 +12,23 @@
     <string name="heavy">Heavy</string>
     <string name="rifle">Rifle</string>
     <string name="sniper">Sniper</string>
+    <!-- nav bar-->
     <string name="agents">Agents</string>
     <string name="weapons">Weapons</string>
     <string name="skins">Skins</string>
+
+    <!-- agent details-->
     <string name="abilities">Abilities</string>
+
+
     <string name="stats">Stats</string>
+    <string name="fire_rate">Fire rate</string>
+    <string name="equip_speed">Equip Speed</string>
+    <string name="reload_speed">Reload Speed</string>
+    <string name="magazine">Magazine</string>
+
+    <string name="fire_rate_value"> %1$s Rds/Sec</string>
+    <string name="equip_speed_value">%1$s Sec</string>
+    <string name="reload_speed_value">%1$s Sec</string>
+    <string name="magazine_value" translatable="false">%1$s Rds</string>
 </resources>
