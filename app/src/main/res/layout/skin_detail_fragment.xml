@@ -22,22 +22,21 @@
         android:src="@drawable/ic_bg_rotated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWeaponTypeDetail" />
+        app:layout_constraintTop_toBottomOf="@+id/tvWeaponNameDetail" />
 
-    <ImageView
+    <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/imgSkinDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/tvSkinName"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/tvWeaponTypeDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWeaponNameDetail"
         tools:src="@tools:sample/avatars" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -64,18 +63,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Phantom" />
-
-    <TextView
-        android:id="@+id/tvWeaponTypeDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto"
-        android:textAppearance="@style/subtitle2"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvWeaponNameDetail"
-        app:layout_constraintTop_toBottomOf="@+id/tvWeaponNameDetail"
-        tools:text="Rifle" />
 
     <TextView
         android:id="@+id/tvSkinName"

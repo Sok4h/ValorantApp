@@ -17,8 +17,7 @@ import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModel
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModelFactory
 import android.widget.RelativeLayout
-
-
+import com.bumptech.glide.load.DecodeFormat
 
 
 class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
@@ -53,7 +52,9 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
 
     fun loadSkin(skin:Skin){
 
-        Glide.with(this).load(skin.levels[0].displayIcon).into(binding.imgSkinDetail)
+        Glide.with(this).load(skin.levels[0].displayIcon)
+            .format(DecodeFormat.PREFER_ARGB_8888)
+            .into(binding.imgSkinDetail)
         binding.tvSkinName.text=skin.displayName
 
         for((index,chroma) in skin.chromas.withIndex()){

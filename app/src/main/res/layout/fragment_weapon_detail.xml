@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWeaponTypeDetail" />
 
-    <ImageView
+    <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/imgWeaponDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -34,9 +34,9 @@
         android:layout_marginBottom="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/tvWeaponPriceDetail"
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvWeaponTypeDetail"
         tools:src="@tools:sample/avatars" />
 
