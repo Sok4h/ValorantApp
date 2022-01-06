@@ -38,18 +38,20 @@ class SkinAdapter :RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
         holder.binding.tvSkinTitle.text = skinList[position].displayName
 
         // no tiene display icon clase base
-        if(skinList[position].displayIcon.isNullOrEmpty()){
+
+
+        Glide.with(holder.binding.root).load(skinList[position].levels[0].displayIcon)
+            .override(500, 500)
+            .thumbnail(0.5f).into(holder.binding.imgSkin)
+        /*  if(skinList[position].displayIcon.isNullOrEmpty()){
 
             Log.e("TAG","sin display " + skinList[position].displayName )
 
             // not tiene display icon clase chroma
-            if(skinList[position].chromas[0].displayIcon.isNullOrEmpty()){
+          *//*  if(skinList[position].chromas[0].displayIcon.isNullOrEmpty()){
 
                 Log.e("TAG","sin chroma " + skinList[position].displayName )
 
-                Glide.with(holder.binding.root).load(skinList[position].levels[0].displayIcon)
-                    .override(500, 500)
-                    .thumbnail(0.5f).into(holder.binding.imgSkin)
 
 
             }else{
@@ -65,9 +67,9 @@ class SkinAdapter :RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
             Glide.with(holder.binding.root).load(skinList[position].displayIcon)
                 .override(500, 500)
                 .thumbnail(0.5f).into(holder.binding.imgSkin)
-        }
+        }*//*
+    }*/
     }
-
     override fun getItemCount(): Int {
         return this.skinList.size
     }

@@ -25,9 +25,18 @@ class SkinsViewModel : ViewModel() {
 
             val response = service.getSkins()
 
-            mutableSkinList.postValue(response)
+            response.data.filterNot{
 
-            isLoading.postValue(false)
+                it.displayName.contains("Standar")|| it.displayName.contentEquals("Melee")
+
+            }.also {
+
+                response.data=it.toMutableList()
+                mutableSkinList.postValue(response)
+
+                isLoading.postValue(false)
+            }
+
         }
 
     }

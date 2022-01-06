@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
                 .Builder(
                     R.id.agentsFragment,
                     R.id.weaponListFragment,
+                    R.id.skinsFragment,
                     )
                 .build()
             NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration)
