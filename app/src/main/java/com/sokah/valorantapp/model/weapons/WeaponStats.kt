@@ -21,13 +21,13 @@ data class WeaponStats(
     @SerializedName("fireMode")
     val fireMode: Any,
     @SerializedName("fireRate")
-    val fireRate: Double,
+    val fireRate: Double?,
     @SerializedName("firstBulletAccuracy")
     val firstBulletAccuracy: Double,
     @SerializedName("magazineSize")
-    val magazineSize: Int,
+    val magazineSize: Int?,
     @SerializedName("reloadTimeSeconds")
-    val reloadTimeSeconds: Double,
+    val reloadTimeSeconds: Double?,
     @SerializedName("runSpeedMultiplier")
     val runSpeedMultiplier: Double,
     @SerializedName("shotgunPelletCount")

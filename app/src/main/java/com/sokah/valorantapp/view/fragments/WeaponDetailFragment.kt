@@ -67,12 +67,15 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
             binding.tvWeaponPriceDetail.text=weapon.shopData.cost.toString()
         }
 
+        if(weapon.weaponStats!=null){
 
+            binding.tvFireRate.text= getString(R.string.fire_rate_value, String.format("%.1f",weapon.weaponStats.fireRate))
+            binding.tvEquipSpeed.text= getString(R.string.equip_speed_value, String.format("%.1f",weapon.weaponStats.equipTimeSeconds))
+            binding.tvReloadSpeed.text= getString(R.string.reload_speed_value, String.format("%.1f",weapon.weaponStats.reloadTimeSeconds))
+            binding.tvMagazine.text= getString(R.string.magazine_value, weapon.weaponStats.magazineSize.toString())
 
-        binding.tvFireRate.text= getString(R.string.fire_rate_value, String.format("%.1f",weapon.weaponStats.fireRate))
-        binding.tvEquipSpeed.text= getString(R.string.equip_speed_value, String.format("%.1f",weapon.weaponStats.equipTimeSeconds))
-        binding.tvReloadSpeed.text= getString(R.string.reload_speed_value, String.format("%.1f",weapon.weaponStats.reloadTimeSeconds))
-        binding.tvMagazine.text= getString(R.string.magazine_value, weapon.weaponStats.magazineSize.toString())
+        }
+
 
 
 

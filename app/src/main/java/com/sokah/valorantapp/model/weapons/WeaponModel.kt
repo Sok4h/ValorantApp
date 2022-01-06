@@ -23,5 +23,5 @@ data class WeaponModel(
     @SerializedName("uuid")
     val uuid: String,
     @SerializedName("weaponStats")
-    val weaponStats: WeaponStats
+    val weaponStats: WeaponStats?
 )
