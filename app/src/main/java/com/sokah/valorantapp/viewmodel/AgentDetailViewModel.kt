@@ -16,7 +16,6 @@ class AgentDetailViewModel(agentUuid:String) : ViewModel() {
     val agentDetail = MutableLiveData <AgentModel>()
 
 
-
     init {
 
         viewModelScope.launch{

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
-            if (nd.id == R.id.agentDetailsFragment) {
+            if (nd.id == R.id.agentDetailsFragment||nd.id==R.id.skinDetailFragment||nd.id == R.id.weaponDetailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE

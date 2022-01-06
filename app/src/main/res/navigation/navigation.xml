@@ -52,5 +52,17 @@
         android:id="@+id/skinsFragment"
         android:name="com.sokah.valorantapp.view.fragments.SkinsFragment"
         android:label="@string/skins"
-        tools:layout="@layout/skins_fragment" />
+        tools:layout="@layout/skins_fragment" >
+        <action
+            android:id="@+id/action_skinsFragment_to_skinDetailFragment"
+            app:destination="@id/skinDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/skinDetailFragment"
+        android:name="com.sokah.valorantapp.view.fragments.SkinDetailFragment"
+        android:label="Skin" >
+        <argument
+            android:name="skin"
+            app:argType="string" />
+    </fragment>
 </navigation>

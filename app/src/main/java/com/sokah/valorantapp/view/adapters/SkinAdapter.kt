@@ -3,13 +3,16 @@ package com.sokah.valorantapp.view.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 
 import com.sokah.valorantapp.databinding.SkinCardBinding
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.view.fragments.SkinsFragmentDirections
 
 class SkinAdapter :RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
 
@@ -43,32 +46,16 @@ class SkinAdapter :RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
         Glide.with(holder.binding.root).load(skinList[position].levels[0].displayIcon)
             .override(500, 500)
             .thumbnail(0.5f).into(holder.binding.imgSkin)
-        /*  if(skinList[position].displayIcon.isNullOrEmpty()){
 
-            Log.e("TAG","sin display " + skinList[position].displayName )
+        holder.binding.root.setOnClickListener {
 
-            // not tiene display icon clase chroma
-          *//*  if(skinList[position].chromas[0].displayIcon.isNullOrEmpty()){
+            val gson = Gson()
 
-                Log.e("TAG","sin chroma " + skinList[position].displayName )
+            val skin = gson.toJson(skinList[position])
 
+            it.findNavController().navigate(SkinsFragmentDirections.actionSkinsFragmentToSkinDetailFragment(skin))
+        }
 
-
-            }else{
-
-                Glide.with(holder.binding.root).load(skinList[position].chromas[0].displayIcon)
-                    .override(500, 500)
-                    .thumbnail(0.5f).into(holder.binding.imgSkin)
-            }
-
-        }else{
-
-
-            Glide.with(holder.binding.root).load(skinList[position].displayIcon)
-                .override(500, 500)
-                .thumbnail(0.5f).into(holder.binding.imgSkin)
-        }*//*
-    }*/
     }
     override fun getItemCount(): Int {
         return this.skinList.size

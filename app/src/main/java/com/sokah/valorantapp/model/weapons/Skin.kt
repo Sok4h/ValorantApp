@@ -11,7 +11,7 @@ data class Skin(
     @SerializedName("contentTierUuid")
     val contentTierUuid: String,
     @SerializedName("displayIcon")
-    val displayIcon: String?,
+    val displayIcon: String?    ,
     @SerializedName("displayName")
     val displayName: String,
     @SerializedName("levels")
