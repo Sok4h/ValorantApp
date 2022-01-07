@@ -92,74 +92,83 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tvNoChromas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="No chromas :("
-                android:textAppearance="@style/subtitle3"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvChroma" />
-
-            <ImageView
-                android:id="@+id/chroma0"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/chroma1"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvChroma"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/chroma1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/chroma2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/chroma0"
-                app:layout_constraintTop_toTopOf="@+id/chroma0"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/chroma2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
-                app:layout_constraintEnd_toStartOf="@+id/chroma3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/chroma1"
-                app:layout_constraintTop_toTopOf="@+id/chroma1"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/chroma3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:scaleType="fitCenter"
-                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/chroma2"
-                app:layout_constraintTop_toTopOf="@+id/chroma2"
-                tools:src="@tools:sample/avatars" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvChroma">
+
+                <TextView
+                    android:id="@+id/tvNoChromas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No chromas :("
+                    android:textAppearance="@style/subtitle3"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/chroma0"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toStartOf="@+id/chroma1"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/chroma1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toStartOf="@+id/chroma2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/chroma0"
+                    app:layout_constraintTop_toTopOf="@+id/chroma0"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/chroma2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toStartOf="@+id/chroma3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/chroma1"
+                    app:layout_constraintTop_toTopOf="@+id/chroma1"
+                    tools:src="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/chroma3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/chroma2"
+                    app:layout_constraintTop_toTopOf="@+id/chroma2"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvChroma"
@@ -168,9 +177,34 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:text="Chromas"
-                android:textAppearance="@style/subtitle2"
+                android:textAppearance="@style/subtitle3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvCollection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="More"
+                android:textAppearance="@style/subtitle3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSkinsFromCollection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCollection" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

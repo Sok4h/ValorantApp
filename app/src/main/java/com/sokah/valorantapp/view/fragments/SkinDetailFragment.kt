@@ -17,16 +17,21 @@ import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModel
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModelFactory
 import android.widget.RelativeLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.DecodeFormat
+import com.sokah.valorantapp.view.adapters.SkinAdapter
 
 
 class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
 
-    private var _binding :SkinDetailFragmentBinding?=null
-    private lateinit var factory :SkinDetailViewModelFactory
+    private var _binding: SkinDetailFragmentBinding? = null
+    private lateinit var factory: SkinDetailViewModelFactory
     private val binding get() = _binding!!
     private lateinit var viewModel: SkinDetailViewModel
-    lateinit var  chromasImg: Array<ImageView>
+    lateinit var chromasImg: Array<ImageView>
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,29 +40,37 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
 
         val arg = SkinDetailFragmentArgs.fromBundle(arguments!!)
 
-        factory= SkinDetailViewModelFactory(arg.skin)
+        factory = SkinDetailViewModelFactory(arg.skin)
+        _binding = SkinDetailFragmentBinding.inflate(inflater, container, false)
+        chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
+        viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)
 
+        val adapter = SkinAdapter()
 
+        binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+        binding.rvSkinsFromCollection.adapter = adapter
 
-        _binding = SkinDetailFragmentBinding.inflate(inflater,container,false)
-        chromasImg = arrayOf(binding.chroma0,binding.chroma1,binding.chroma2,binding.chroma3)
-        viewModel = ViewModelProvider(this, factory  ).get(SkinDetailViewModel::class.java)
+        viewModel.skinLive.observe(this, {
 
-        viewModel.skinLive.observe(this,{
+            loadSkin(it)
+        })
 
-           loadSkin(it)
+        viewModel.mutableSkinList.observe(this, {
+
+        adapter.SetSkins(it.data)
         })
         return binding.root
     }
 
-    fun loadSkin(skin:Skin){
+
+    fun loadSkin(skin: Skin) {
 
         Glide.with(this).load(skin.levels[0].displayIcon)
             .format(DecodeFormat.PREFER_ARGB_8888)
             .into(binding.imgSkinDetail)
-        binding.tvSkinName.text=skin.displayName
+        binding.tvSkinName.text = skin.displayName
 
-        for((index,chroma) in skin.chromas.withIndex()){
+        for ((index, chroma) in skin.chromas.withIndex()) {
 
             Glide.with(this).load(chroma.swatch)
                 .override(200, 200)
@@ -65,17 +78,17 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
                 .into(chromasImg.get(index))
 
 
-            chromasImg.get(index).visibility=View.VISIBLE
+            chromasImg.get(index).visibility = View.VISIBLE
 
         }
-
-        Log.e("TAG", skin.chromas.toString() )
-        if(skin.chromas.get(0).swatch.isNullOrEmpty() )   binding.tvNoChromas.visibility=View.VISIBLE
-        for((index,img) in chromasImg.withIndex()){
-
+        //muestra texto si no hay ningun chroma
+        if (skin.chromas.get(0).swatch.isNullOrEmpty()) binding.tvNoChromas.visibility =
+            View.VISIBLE
+        for ((index, img) in chromasImg.withIndex()) {
+            // cambia imagenes skin
             img.setOnClickListener {
 
-                Log.e("TAG", index.toString() )
+                Log.e("TAG", index.toString())
                 Glide.with(this).load(skin.chromas[index].fullRender).into(binding.imgSkinDetail)
 
             }
@@ -84,8 +97,9 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
 
 
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 }

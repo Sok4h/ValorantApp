@@ -31,4 +31,17 @@
     <string name="equip_speed_value">%1$s Sec</string>
     <string name="reload_speed_value">%1$s Sec</string>
     <string name="magazine_value" translatable="false">%1$s Rds</string>
+
+    <string-array name="weapon_types">
+
+        <item>Classic</item>
+        <item>Sheriff</item>
+        <item>Ghost</item>
+        <item>Frenzy</item>
+        <item>Shorty</item>
+        <item>Spectre</item>
+        <item>Stinger</item>
+        <item>Classic</item>
+
+    </string-array>
 </resources>

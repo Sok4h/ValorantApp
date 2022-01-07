@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/agentsFragment"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/ic_agent_icon"
         android:title="@string/agents" />
     <item
         android:id="@+id/weaponListFragment"
@@ -12,6 +12,7 @@
     <item
 
         android:id="@+id/skinsFragment"
+        android:icon="@drawable/ic_karambit_icon"
         android:title="@string/skins" />
 
 </menu>
