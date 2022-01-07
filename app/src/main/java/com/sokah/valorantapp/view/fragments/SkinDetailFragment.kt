@@ -23,14 +23,14 @@ import com.bumptech.glide.load.DecodeFormat
 import com.sokah.valorantapp.view.adapters.SkinAdapter
 
 
-class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
+class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.OnSkinListener {
 
     private var _binding: SkinDetailFragmentBinding? = null
     private lateinit var factory: SkinDetailViewModelFactory
     private val binding get() = _binding!!
     private lateinit var viewModel: SkinDetailViewModel
     lateinit var chromasImg: Array<ImageView>
-
+    lateinit var skinsList : MutableList<Skin>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +45,9 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
         chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
         viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)
 
-        val adapter = SkinAdapter()
+        val adapter = SkinAdapter(this)
 
-        binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+        binding.rvSkinsFromCollection.layoutManager = GridLayoutManager(context, 2)
         binding.rvSkinsFromCollection.adapter = adapter
 
         viewModel.skinLive.observe(this, {
@@ -58,6 +58,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
         viewModel.mutableSkinList.observe(this, {
 
         adapter.SetSkins(it.data)
+            skinsList=it.data
         })
         return binding.root
     }
@@ -101,5 +102,10 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onSkinClick(position: Int) {
+
+        loadSkin(skinsList.get(position))
     }
 }

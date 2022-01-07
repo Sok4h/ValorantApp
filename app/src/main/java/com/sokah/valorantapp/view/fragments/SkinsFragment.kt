@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.view.fragments
 
+import android.app.Activity
 import android.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -24,19 +25,22 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.airbnb.paris.extensions.style
+import com.google.gson.Gson
+import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.view.MainActivity
 
 
-
-
-
-class SkinsFragment : Fragment(R.layout.skins_fragment) {
+class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListener {
 
     private lateinit var viewModel: SkinsViewModel
     private var _binding: SkinsFragmentBinding? = null
     private val binding get() = _binding!!
-    lateinit var weapons : Array<String>
+    lateinit var weapons: Array<String>
+    lateinit var skinsList : MutableList<Skin>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,7 +50,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment) {
 
         binding.rvSkins.layoutManager = GridLayoutManager(context, 2)
 
-        val adapter = SkinAdapter()
+        val adapter = SkinAdapter(this)
 
         binding.rvSkins.adapter = adapter
         viewModel = ViewModelProvider(this).get(SkinsViewModel::class.java)
@@ -56,6 +60,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment) {
 
             Log.e("TAG", it.data.size.toString())
             adapter.SetSkins(it.data)
+            skinsList=it.data
         })
 
         viewModel.isLoading.observe(this, {
@@ -63,20 +68,19 @@ class SkinsFragment : Fragment(R.layout.skins_fragment) {
             binding.progressBar3.isVisible = it
         })
 
-      /*   weapons = resources.getStringArray(R.array.weapon_types)
+        /*   weapons = resources.getStringArray(R.array.weapon_types)
 
-        val spinnerAdapter = ArrayAdapter(context!!, R.layout.custom_spinner, weapons)
-        binding.autoCompleteTextView.setAdapter(spinnerAdapter)
+          val spinnerAdapter = ArrayAdapter(context!!, R.layout.custom_spinner, weapons)
+          binding.autoCompleteTextView.setAdapter(spinnerAdapter)
 
-        binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
+          binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
-            Toast.makeText(context, weapons.get(position), Toast.LENGTH_SHORT).show()
-        }*/
+              Toast.makeText(context, weapons.get(position), Toast.LENGTH_SHORT).show()
+          }*/
 
 
         return binding.root
     }
-
 
 
     override fun onDestroy() {
@@ -84,6 +88,16 @@ class SkinsFragment : Fragment(R.layout.skins_fragment) {
 
         _binding = null
 
+    }
+
+    override fun onSkinClick(position: Int) {
+
+        val gson = Gson()
+
+        val skin = gson.toJson(skinsList[position])
+
+        binding.root.findNavController()
+            .navigate(SkinsFragmentDirections.actionSkinsFragmentToSkinDetailFragment(skin))
     }
 
 
