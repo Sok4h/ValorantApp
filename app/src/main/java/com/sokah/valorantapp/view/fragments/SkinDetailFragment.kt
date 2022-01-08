@@ -47,7 +47,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
 
         val adapter = SkinAdapter(this)
 
-        binding.rvSkinsFromCollection.layoutManager = GridLayoutManager(context, 2)
+        binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.rvSkinsFromCollection.adapter = adapter
 
         viewModel.skinLive.observe(this, {
@@ -57,8 +57,8 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
 
         viewModel.mutableSkinList.observe(this, {
 
-        adapter.SetSkins(it.data)
-            skinsList=it.data
+        adapter.SetSkins(it)
+            skinsList=it
         })
         return binding.root
     }
@@ -83,18 +83,36 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
 
         }
         //muestra texto si no hay ningun chroma
-        if (skin.chromas.get(0).swatch.isNullOrEmpty()) binding.tvNoChromas.visibility =
-            View.VISIBLE
-        for ((index, img) in chromasImg.withIndex()) {
-            // cambia imagenes skin
-            img.setOnClickListener {
+        if (skin.chromas.size==1){
+            binding.tvNoChromas.visibility = View.VISIBLE
 
-                Log.e("TAG", index.toString())
-                Glide.with(this).load(skin.chromas[index].fullRender).into(binding.imgSkinDetail)
+            for(img in chromasImg){
+
+                img.visibility=View.GONE
+            }
+        }
+        else{
+            binding.tvNoChromas.visibility = View.INVISIBLE
+
+
+        }
+
+        Log.e("TAG", "loadSkin: "+ skin.chromas.size.toString() )
+        for(chroma in skin.chromas){
+
+            for ((index, img) in chromasImg.withIndex()) {
+                // cambia imagenes skin
+                img.setOnClickListener {
+
+                    Log.e("TAG", index.toString())
+                    Glide.with(this).load(skin.chromas[index].fullRender).into(binding.imgSkinDetail)
+
+                }
 
             }
 
         }
+
 
 
     }

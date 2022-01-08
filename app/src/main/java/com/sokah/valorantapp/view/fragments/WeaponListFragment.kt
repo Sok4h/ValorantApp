@@ -31,13 +31,15 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
         adapter = WeaponAdapter()
         binding.rvWeapons.adapter=adapter
-        binding.rvWeapons.layoutManager= LinearLayoutManager(context)
+        val layoutManager = LinearLayoutManager(context)
+        binding.rvWeapons.layoutManager= layoutManager
         viewmodel=ViewModelProvider(this).get(WeaponListViewModel::class.java)
 
         viewmodel.weaponList.observe(this,{
 
 
             adapter.setAgents(it.data)
+            layoutManager.scrollToPositionWithOffset(0, 0)
         })
 
         viewmodel.isLoading.observe(this,{

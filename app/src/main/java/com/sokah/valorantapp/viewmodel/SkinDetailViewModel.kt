@@ -13,7 +13,7 @@ class SkinDetailViewModel(skin: String) : ViewModel() {
 
     val skinLive = MutableLiveData<Skin>()
 
-    val mutableSkinList = MutableLiveData<BaseModel<MutableList<Skin>>>()
+    val mutableSkinList = MutableLiveData<MutableList<Skin>>()
     val service = ValorantApiService()
     val isLoading = MutableLiveData<Boolean>()
     var skinObject: Skin
@@ -44,11 +44,11 @@ class SkinDetailViewModel(skin: String) : ViewModel() {
 
             it.filter {
 
-                it.themeUuid.contentEquals(skinObject.themeUuid)
+                it.themeUuid.contentEquals(skinObject.themeUuid).and(!it.displayName.contentEquals(skinObject.displayName))
             }.also {
 
                 response.data = it.toMutableList()
-                mutableSkinList.postValue(response)
+                mutableSkinList.postValue(response.data!!)
                 isLoading.postValue(false)
             }
 

@@ -48,7 +48,8 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         _binding = SkinsFragmentBinding.inflate(inflater, container, false)
 
-        binding.rvSkins.layoutManager = GridLayoutManager(context, 2)
+        val layoutManager = GridLayoutManager(context, 2)
+        binding.rvSkins.layoutManager = layoutManager
 
         val adapter = SkinAdapter(this)
 
@@ -58,9 +59,11 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         viewModel.mutableSkinList.observe(this, {
 
-            Log.e("TAG", it.data.size.toString())
-            adapter.SetSkins(it.data)
-            skinsList=it.data
+            Log.e("TAG", it.size.toString())
+            adapter.SetSkins(it)
+            // hace que se suba el scroll cuando cambia algo en la lista
+            layoutManager.scrollToPositionWithOffset(0, 0)
+            skinsList=it
         })
 
         viewModel.isLoading.observe(this, {
@@ -68,15 +71,20 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
             binding.progressBar3.isVisible = it
         })
 
-        /*   weapons = resources.getStringArray(R.array.weapon_types)
 
-          val spinnerAdapter = ArrayAdapter(context!!, R.layout.custom_spinner, weapons)
-          binding.autoCompleteTextView.setAdapter(spinnerAdapter)
 
           binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
               Toast.makeText(context, weapons.get(position), Toast.LENGTH_SHORT).show()
-          }*/
+
+              if(position ==0){
+
+                  viewModel.filterSkins("")
+              }else{
+                  viewModel.filterSkins(weapons.get(position))
+              }
+
+          }
 
 
         return binding.root
@@ -88,6 +96,15 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         _binding = null
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        weapons = resources.getStringArray(R.array.weapon_types)
+
+        val spinnerAdapter = ArrayAdapter(context!!, R.layout.custom_spinner, weapons)
+        binding.autoCompleteTextView.setAdapter(spinnerAdapter)
     }
 
     override fun onSkinClick(position: Int) {

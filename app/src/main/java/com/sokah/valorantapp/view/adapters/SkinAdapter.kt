@@ -28,6 +28,8 @@ class SkinAdapter(var listener: OnSkinListener) :
 
         diffresult.dispatchUpdatesTo(this)
 
+
+
         this.skinList = newList
     }
 

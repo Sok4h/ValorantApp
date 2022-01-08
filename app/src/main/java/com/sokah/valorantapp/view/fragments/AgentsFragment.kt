@@ -30,8 +30,10 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         _binding = FragmentAgentsBinding.inflate(inflater,container,false)
 
 
-        binding.rvAgents.layoutManager= GridLayoutManager(context,2)
 
+
+        val layoutManager =GridLayoutManager(context,2)
+        binding.rvAgents.layoutManager= layoutManager
         chips = arrayOf(binding.chipDuelist,binding.chipController)
         val adapter = AgentAdapter()
 
@@ -43,7 +45,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         viewmodel.mutableAgentList.observe(this,{
 
             adapter.setAgents(it.data)
-
+            layoutManager.scrollToPositionWithOffset(0, 0)
 
         })
 

@@ -38,6 +38,10 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/container_rounded_corners_border"
+        app:boxBackgroundColor="@color/red"
+        app:boxBackgroundMode="outline"
+        app:endIconTint="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +52,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
             android:inputType="none"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
+            android:text="All"
+            android:textColor="#FFFFFF"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 

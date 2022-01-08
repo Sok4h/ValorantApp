@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/card_bg.xml" value="0.35342465753424657" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/container_rounded_corners.xml" value="0.35342465753424657" />
+        <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/container_rounded_corners_border.xml" value="0.403125" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/container_rounded_corners_top.xml" value="0.19583333333333333" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.403125" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.19583333333333333" />
@@ -17,8 +18,8 @@
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/fragment_weapon_detail.xml" value="0.33" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/fragment_weapon_list.xml" value="0.33" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/skin_card.xml" value="0.38697916666666665" />
-        <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/skin_detail_fragment.xml" value="0.67" />
-        <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/skins_fragment.xml" value="0.38697916666666665" />
+        <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/skin_detail_fragment.xml" value="0.33" />
+        <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/skins_fragment.xml" value="0.33" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/layout/weapon_card.xml" value="0.5" />
         <entry key="..\:/Proyectos_Android/ValorantApp/app/src/main/res/menu/bottom_nav.xml" value="0.1814814814814815" />
       </map>

@@ -59,4 +59,14 @@ class ValorantApiService {
             response.body()!!
         }
     }
+
+    suspend fun getWeapon(weaponUuid:String):BaseModel<WeaponModel>{
+
+        return withContext(Dispatchers.IO) {
+
+            val response = retrofit.create(ValorantApi::class.java).getWeapon(weaponUuid)
+
+            response.body()!!
+        }
+    }
 }

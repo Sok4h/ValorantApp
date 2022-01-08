@@ -34,6 +34,7 @@
 
     <string-array name="weapon_types">
 
+        <item>All</item>
         <item>Classic</item>
         <item>Sheriff</item>
         <item>Ghost</item>
@@ -41,7 +42,19 @@
         <item>Shorty</item>
         <item>Spectre</item>
         <item>Stinger</item>
-        <item>Classic</item>
+        <item>Judge</item>
+        <item>Bucky</item>
+        <item>Odin</item>
+        <item>Ares</item>
+        <item>Vandal</item>
+        <item>Bulldog</item>
+        <item>Phantom</item>
+        <item>Guardian</item>
+        <item>Operator</item>
+        <item>Marshal</item>
+
+
+
 
     </string-array>
 </resources>

@@ -25,4 +25,10 @@ interface ValorantApi {
 
     @GET("weapons/skins")
     suspend fun getSkins():Response <BaseModel<MutableList<Skin>>>
+
+    @GET("weapons/{weaponUuid}")
+
+    suspend fun getWeapon(
+        @Path("weaponUuid") weaponUuid:String
+    ):Response <BaseModel<WeaponModel>>
 }

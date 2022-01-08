@@ -5,6 +5,9 @@
     android:id="@+id/textView1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/red"
+    android:layout_marginTop="8dp"
+    android:textColor="@color/black"
+    android:background="@drawable/container_rounded_corners"
+    android:backgroundTint="#00FFFFFF"
     android:padding="8dp"
     android:textAppearance="@style/content" />
