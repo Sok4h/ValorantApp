@@ -44,7 +44,7 @@ class SkinDetailViewModel(skin: String) : ViewModel() {
 
             it.filter {
 
-                it.themeUuid.contentEquals(skinObject.themeUuid).and(!it.displayName.contentEquals(skinObject.displayName))
+                it.themeUuid.contentEquals(skinObject.themeUuid)
             }.also {
 
                 response.data = it.toMutableList()

@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.skinsFragment,
                     )
                 .build()
+            
             NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration)
 
 
