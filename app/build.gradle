@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id("androidx.navigation.safeargs.kotlin")
+    id("androidx.navigation.safeargs")
 
 
 }
@@ -90,9 +90,13 @@ dependencies {
     implementation 'com.jsibbold:zoomage:1.3.1'
 
     implementation 'com.airbnb.android:paris:2.0.0'
-    // Apply the Paris processor if you're using Paris annotations for code gen.
 
-    // or if you are using Kotlin Symbol Processing
+
+    //room
+
+
+    implementation("androidx.room:room-runtime:2.4.0")
+    annotationProcessor("androidx.room:room-compiler:2.4.0")
     
 
 

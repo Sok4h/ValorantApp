@@ -50,12 +50,12 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
         binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.rvSkinsFromCollection.adapter = adapter
 
-        viewModel.skinLive.observe(this, {
+        viewModel.skinLive.observe(viewLifecycleOwner, {
 
             loadSkin(it)
         })
 
-        viewModel.mutableSkinList.observe(this, {
+        viewModel.mutableSkinList.observe(viewLifecycleOwner, {
 
         adapter.SetSkins(it)
             skinsList=it
