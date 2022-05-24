@@ -27,7 +27,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
     ): View? {
         _binding = FragmentAgentDetailsBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
-        val args = AgentDetailsFragmentArgs.fromBundle(arguments!!)
+        val args = AgentDetailsFragmentArgs.fromBundle(requireArguments())
 
         abilitiesimg= arrayOf(binding.ability0, binding.ability1, binding.ability2,binding.ability3)
 
@@ -49,35 +49,35 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
     fun setupAgent(){
 
-        viewmodel.agentDetail.observe(this,{agent ->
+        viewmodel.agentDetail.observe(viewLifecycleOwner) { agent ->
 
             Glide.with(this).load(agent.bustPortrait)
-                .override(1000,1000)
-                .thumbnail( 0.5f )
+                .override(1000, 1000)
+                .thumbnail(0.5f)
                 .into(binding.imgAgentDetail)
             Glide.with(this).load(agent.role.displayIcon).into(binding.imgAgentTypeDetail)
-            binding.tvAgentNameDetail.text=agent.displayName
-            binding.tvAgentRole.text=agent.role.displayName
-            binding.tvAgentDescription.text=agent.description
-            binding.tvAgentDeveloperName.text=agent.developerName
+            binding.tvAgentNameDetail.text = agent.displayName
+            binding.tvAgentRole.text = agent.role.displayName
+            binding.tvAgentDescription.text = agent.description
+            binding.tvAgentDeveloperName.text = agent.developerName
 
             // TODO: 29/12/2021  pensar como hacer esto sin dos loops
-            for ((index,img) in abilitiesimg.withIndex()){
+            for ((index, img) in abilitiesimg.withIndex()) {
 
-                abilitiesimg[index].alpha=0.3f
+                abilitiesimg[index].alpha = 0.3f
 
                 img.setOnClickListener {
-                    abilitiesimg.forEach { img ->img.alpha=0.3f }
-                    img.alpha=1f
-                    binding.tvAbilityName.text=agent.abilities[index].displayName
-                    binding.tvAbilityDescription.text=agent.abilities[index].description
+                    abilitiesimg.forEach { img -> img.alpha = 0.3f }
+                    img.alpha = 1f
+                    binding.tvAbilityName.text = agent.abilities[index].displayName
+                    binding.tvAbilityDescription.text = agent.abilities[index].description
                 }
             }
 
             //first time setup for ability
-            abilitiesimg[0].alpha=1f
-            binding.tvAbilityName.text=agent.abilities[0].displayName
-            binding.tvAbilityDescription.text=agent.abilities[0].description
+            abilitiesimg[0].alpha = 1f
+            binding.tvAbilityName.text = agent.abilities[0].displayName
+            binding.tvAbilityDescription.text = agent.abilities[0].description
 
             //loads every ability into a imageview
             for ((index, ability) in agent.abilities.withIndex()) {
@@ -86,8 +86,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
             }
 
 
-
-        })
+        }
     }
 
 

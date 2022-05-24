@@ -38,7 +38,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
     ): View? {
 
 
-        val arg = SkinDetailFragmentArgs.fromBundle(arguments!!)
+        val arg = SkinDetailFragmentArgs.fromBundle(requireArguments())
 
         factory = SkinDetailViewModelFactory(arg.skin)
         _binding = SkinDetailFragmentBinding.inflate(inflater, container, false)
@@ -50,16 +50,16 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
         binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.rvSkinsFromCollection.adapter = adapter
 
-        viewModel.skinLive.observe(viewLifecycleOwner, {
+        viewModel.skinLive.observe(viewLifecycleOwner) {
 
             loadSkin(it)
-        })
+        }
 
-        viewModel.mutableSkinList.observe(viewLifecycleOwner, {
+        viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
         adapter.SetSkins(it)
             skinsList=it
-        })
+        }
         return binding.root
     }
 

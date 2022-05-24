@@ -20,6 +20,8 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
     private lateinit var viewmodel : AgentListViewModel
     private var _binding : FragmentAgentsBinding?=null
     private val binding get()= _binding!!
+    val adapter = AgentAdapter()
+
 
     lateinit var  chips: Array<Chip>
     override fun onCreateView(
@@ -35,24 +37,23 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         val layoutManager =GridLayoutManager(context,2)
         binding.rvAgents.layoutManager= layoutManager
         chips = arrayOf(binding.chipDuelist,binding.chipController)
-        val adapter = AgentAdapter()
 
 
         binding.rvAgents.adapter = adapter
 
         viewmodel = ViewModelProvider(this).get(AgentListViewModel::class.java)
 
-        viewmodel.mutableAgentList.observe(this,{
+        viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
 
             adapter.setAgents(it.data)
             layoutManager.scrollToPositionWithOffset(0, 0)
 
-        })
+        }
 
-        viewmodel.isLoading.observe(this,{
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
 
-            binding.progressBar.isVisible=it
-        })
+            binding.progressBar.isVisible = it
+        }
 
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
 

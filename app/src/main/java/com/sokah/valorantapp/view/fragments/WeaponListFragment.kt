@@ -20,7 +20,7 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
     lateinit var viewmodel :WeaponListViewModel
     private  var _binding :FragmentWeaponListBinding ?=null
     val binding get()=_binding!!
-    lateinit var adapter : WeaponAdapter
+     val adapter =WeaponAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,23 +29,22 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
         // Inflate the layout for this fragment
         _binding = FragmentWeaponListBinding.inflate(inflater, container, false)
 
-        adapter = WeaponAdapter()
         binding.rvWeapons.adapter=adapter
         val layoutManager = LinearLayoutManager(context)
         binding.rvWeapons.layoutManager= layoutManager
         viewmodel=ViewModelProvider(this).get(WeaponListViewModel::class.java)
 
-        viewmodel.weaponList.observe(this,{
+        viewmodel.weaponList.observe(viewLifecycleOwner) {
 
 
             adapter.setAgents(it.data)
             layoutManager.scrollToPositionWithOffset(0, 0)
-        })
+        }
 
-        viewmodel.isLoading.observe(this,{
+        viewmodel.isLoading.observe(viewLifecycleOwner) {
 
-            binding.progressBar2.isVisible=it
-        })
+            binding.progressBar2.isVisible = it
+        }
 
         binding.chipGroupWeapons.setOnCheckedChangeListener {group,checkedId ->
 
@@ -74,11 +73,6 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
         return binding.root
     }
-
-
-
-
-
 
     override fun onDestroy() {
         super.onDestroy()

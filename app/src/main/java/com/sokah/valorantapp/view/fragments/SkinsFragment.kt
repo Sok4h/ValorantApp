@@ -57,23 +57,23 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
         viewModel = ViewModelProvider(this).get(SkinsViewModel::class.java)
 
 
-        viewModel.mutableSkinList.observe(this, {
+        viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
             Log.e("TAG", it.size.toString())
             adapter.SetSkins(it)
             // hace que se suba el scroll cuando cambia algo en la lista
             layoutManager.scrollToPositionWithOffset(0, 0)
-            skinsList=it
-        })
+            skinsList = it
+        }
 
-        viewModel.isLoading.observe(this, {
+        viewModel.isLoading.observe(viewLifecycleOwner) {
 
             binding.progressBar3.isVisible = it
-        })
+        }
 
 
 
-          binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
+        binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
               Toast.makeText(context, weapons.get(position), Toast.LENGTH_SHORT).show()
 
@@ -103,7 +103,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         weapons = resources.getStringArray(R.array.weapon_types)
 
-        val spinnerAdapter = ArrayAdapter(context!!, R.layout.custom_spinner, weapons)
+        val spinnerAdapter = ArrayAdapter(requireContext(), R.layout.custom_spinner, weapons)
         binding.autoCompleteTextView.setAdapter(spinnerAdapter)
     }
 

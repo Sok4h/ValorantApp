@@ -30,17 +30,17 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
     ): View? {
         // Inflate the layout for this fragment
 
-        val args = WeaponDetailFragmentArgs.fromBundle(arguments!!)
+        val args = WeaponDetailFragmentArgs.fromBundle(requireArguments())
         _binding = FragmentWeaponDetailBinding.inflate(inflater,container,false)
 
         val provider = WeaponDetailViewModelFactory(args.weapon)
 
         viewModel = ViewModelProvider(this,provider).get(WeaponDetailViewModel::class.java)
 
-        viewModel.agentWeapon.observe(this,{
+        viewModel.agentWeapon.observe(viewLifecycleOwner) {
 
             loadWeapon(it)
-        })
+        }
         return binding.root
     }
 
