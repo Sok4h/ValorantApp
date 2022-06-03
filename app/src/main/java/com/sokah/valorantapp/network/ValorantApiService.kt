@@ -1,6 +1,7 @@
 package com.sokah.valorantapp.network
 
 import android.util.Log
+import android.widget.Toast
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
 import com.sokah.valorantapp.model.weapons.Skin
@@ -17,7 +18,14 @@ class ValorantApiService {
         return withContext(Dispatchers.IO) {
 
             val response = retrofit.create(ValorantApi::class.java).getAgents()
+            if(response.isSuccessful){
 
+                Log.e("TAG", "todo bien", )
+            }
+            else{
+
+                Log.e("TAG", response.message() )
+            }
 
             response.body()!!
         }

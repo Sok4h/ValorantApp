@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,11 +42,24 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
         binding.rvAgents.adapter = adapter
 
-        viewmodel = ViewModelProvider(this).get(AgentListViewModel::class.java)
+        viewmodel = ViewModelProvider(this)[AgentListViewModel::class.java]
+
+
+        viewmodel.connectionLiveData.observe(viewLifecycleOwner){
+
+            if(it){
+
+                Toast.makeText(requireContext(), "No hay internet", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(requireContext(), "Hay hay internet", Toast.LENGTH_SHORT).show()
+
+            }
+        }
 
         viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
 
-            adapter.setAgents(it.data)
+            adapter.setAgents(it)
             layoutManager.scrollToPositionWithOffset(0, 0)
 
         }

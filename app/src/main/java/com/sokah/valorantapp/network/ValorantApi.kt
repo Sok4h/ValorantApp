@@ -12,7 +12,9 @@ import retrofit2.http.Query
 interface ValorantApi {
 
     @GET("agents")
-    suspend fun getAgents():Response <BaseModel<MutableList<AgentModel>>>
+    suspend fun getAgents(
+        @Query("isPlayableCharacter") isPlayableCharacter: Boolean =true
+    ): Response<BaseModel<MutableList<AgentModel>>>
 
     @GET("agents/{agentUuid}")
     suspend fun getAgent(

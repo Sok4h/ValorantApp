@@ -4,12 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import com.codingwithmitch.food2forkcompose.presentation.util.ConnectionLiveData
+import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.ActivityMainBinding
 
@@ -17,8 +20,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+
+    lateinit var connectionLiveData: ConnectionLiveData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        connectionLiveData= ConnectionLiveData(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -28,6 +35,21 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.navHost)
         binding.bottomNavigationView.setupWithNavController(navController)
 
+
+        connectionLiveData.observe(this) {
+
+            if (it) {
+
+               Toast.makeText(this,"Tienes internet",Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+
+                Toast.makeText(this,"No tienes internet",Toast.LENGTH_SHORT).show()
+
+            }
+
+        }
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
             if (nd.id == R.id.agentDetailsFragment||nd.id==R.id.skinDetailFragment||nd.id == R.id.weaponDetailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
