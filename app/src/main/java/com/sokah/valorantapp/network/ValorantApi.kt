@@ -13,6 +13,7 @@ interface ValorantApi {
 
     @GET("agents")
     suspend fun getAgents(
+        @Query("language") language:String,
         @Query("isPlayableCharacter") isPlayableCharacter: Boolean =true
     ): Response<BaseModel<MutableList<AgentModel>>>
 

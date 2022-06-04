@@ -17,14 +17,9 @@ class AgentListViewModel(application: Application) : AndroidViewModel(applicatio
     val mutableAgentList = MutableLiveData<MutableList<AgentModel>?>()
     var agents: MutableList<AgentModel>? = null
     val repository: AgentRepository
-    var internetConnection = MutableLiveData<Boolean>()
-    var connectionLiveData = ConnectionLiveData(application)
     val isLoading = MutableLiveData<Boolean>()
 
     init {
-
-
-        Log.e("TAG", connectionLiveData.value.toString())
 
         val agentDao = ValorantDatabase.getInstance(application).agentDao()
         repository = AgentRepository(agentDao)

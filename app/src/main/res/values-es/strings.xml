@@ -1,16 +1,10 @@
 <resources>
     <string name="app_name">Valorant App</string>
 
-    <string name="duelist">Duelist</string>
-    <string name="sentinel">Sentinel</string>
-    <string name="initiator">Initiator</string>
-    <string name="controller">Controller</string>
-    <string name="pistols">Pistols</string>
-    <string name="smg">SMG</string>
-    <string name="shotgun">Shotgun</string>
-    <string name="heavy">Heavy</string>
-    <string name="rifle">Rifle</string>
-    <string name="sniper">Sniper</string>
+    <string name="duelist">Duelista</string>
+    <string name="sentinel">Centinela</string>
+    <string name="initiator">Iniciador</string>
+    <string name="controller">Controlador</string>
     <string name="agents">Agentes</string>
     <string name="weapons">Armas</string>
     <string name="skins">Skins</string>

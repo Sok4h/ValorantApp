@@ -8,6 +8,7 @@ import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.model.weapons.WeaponModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.*
 
 class ValorantApiService {
 
@@ -15,17 +16,21 @@ class ValorantApiService {
 
     suspend fun getAgents(): BaseModel<MutableList<AgentModel>> {
 
+        lateinit var languageCode :String
+
+        languageCode = when (Locale.getDefault().language){
+
+            "es"-> "es-ES"
+            "fr"->"fr-FR"
+            "id"->"id-ID"
+            else -> "en-US"
+        }
+
+        //Log.e("idioma", languageCode )
         return withContext(Dispatchers.IO) {
 
-            val response = retrofit.create(ValorantApi::class.java).getAgents()
-            if(response.isSuccessful){
 
-                Log.e("TAG", "todo bien", )
-            }
-            else{
-
-                Log.e("TAG", response.message() )
-            }
+            val response = retrofit.create(ValorantApi::class.java).getAgents(languageCode)
 
             response.body()!!
         }

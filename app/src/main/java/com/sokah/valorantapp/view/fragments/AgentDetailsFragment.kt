@@ -2,11 +2,11 @@ package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,24 +18,26 @@ import com.sokah.valorantapp.viewmodel.AgentDetailViewModelFactory
 
 class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
-    private var _binding:FragmentAgentDetailsBinding? = null
+    private var _binding: FragmentAgentDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewmodel : AgentDetailViewModel
-    lateinit var  abilitiesimg: Array<ImageView>
+    private lateinit var viewmodel: AgentDetailViewModel
+    lateinit var abilitiesimg: Array<ImageView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAgentDetailsBinding.inflate(inflater,container,false)
+        _binding = FragmentAgentDetailsBinding.inflate(inflater, container, false)
         // Inflate the layout for this fragment
         val args = AgentDetailsFragmentArgs.fromBundle(requireArguments())
 
-        abilitiesimg= arrayOf(binding.ability0, binding.ability1, binding.ability2,binding.ability3)
+        abilitiesimg =
+            arrayOf(binding.ability0, binding.ability1, binding.ability2, binding.ability3)
 
-        val viewmodelfactory = AgentDetailViewModelFactory(args.agentUuid,requireActivity().application)
+        val viewmodelfactory =
+            AgentDetailViewModelFactory(args.agentUuid, requireActivity().application)
 
-        viewmodel = ViewModelProvider(this,viewmodelfactory).get(AgentDetailViewModel::class.java)
+        viewmodel = ViewModelProvider(this, viewmodelfactory).get(AgentDetailViewModel::class.java)
 
         setupAgent()
 
@@ -46,10 +48,10 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null;
+        _binding = null;
     }
 
-    fun setupAgent(){
+    fun setupAgent() {
 
         viewmodel.agentDetail.observe(viewLifecycleOwner) { agent ->
 

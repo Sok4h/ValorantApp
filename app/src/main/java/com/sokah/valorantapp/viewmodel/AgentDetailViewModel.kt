@@ -27,14 +27,7 @@ class AgentDetailViewModel(agentUuid:String,application: Application) : AndroidV
         repository = AgentRepository(agentDao)
         viewModelScope.launch{
 
-            lateinit var languageCode :String
 
-            languageCode = when (Locale.getDefault().language){
-
-                "es"-> "es-ES"
-
-                else -> "en-US"
-            }
 
 
 

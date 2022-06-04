@@ -6,12 +6,12 @@
     <string name="sentinel">Sentinel</string>
     <string name="initiator">Initiator</string>
     <string name="controller">Controller</string>
-    <string name="pistols">Pistols</string>
-    <string name="smg">SMG</string>
-    <string name="shotgun">Shotgun</string>
-    <string name="heavy">Heavy</string>
-    <string name="rifle">Rifle</string>
-    <string name="sniper">Sniper</string>
+    <string name="pistols" translatable="false">Pistols</string>
+    <string name="smg" translatable="false">SMG</string>
+    <string name="shotgun" translatable="false">Shotgun</string>
+    <string name="heavy" translatable="false">Heavy</string>
+    <string name="rifle" translatable="false">Rifle</string>
+    <string name="sniper" translatable="false">Sniper</string>
     <!-- nav bar-->
     <string name="agents">Agents</string>
     <string name="weapons">Weapons</string>
