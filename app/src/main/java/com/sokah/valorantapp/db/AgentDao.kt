@@ -18,7 +18,7 @@ interface AgentDao {
 
     suspend fun getAgentbyRole(role: String):MutableList<AgentModel>?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(agents: MutableList<AgentModel>)
+    suspend fun insertAgents(agents: MutableList<AgentModel>)
 
     @Query("SELECT * from agents where uuid==:agentId")
     suspend fun  getAgentById(agentId: String):AgentModel

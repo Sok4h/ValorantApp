@@ -6,19 +6,27 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.weapons.WeaponModel
 
 
 @Database(
 
-    entities = [AgentModel::class],
+    entities = [AgentModel::class, WeaponModel::class],
     version = 1,
     exportSchema = false
 )
 
-@TypeConverters(AbilityConverter::class,RoleConverter::class)
+@TypeConverters(
+    AbilityConverter::class,
+    RoleConverter::class,
+    ShopDataConverter::class,
+    SkinConverter::class,
+    WeaponStatsConverter::class
+)
 abstract class ValorantDatabase : RoomDatabase() {
 
     abstract fun agentDao(): AgentDao
+    abstract fun weaponDao(): WeaponDao
 
     companion object {
 

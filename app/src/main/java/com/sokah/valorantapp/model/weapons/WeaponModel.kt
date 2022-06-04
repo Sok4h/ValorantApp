@@ -1,8 +1,10 @@
 package com.sokah.valorantapp.model.weapons
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-
+@Entity(tableName = "weapons")
 data class WeaponModel(
     @SerializedName("assetPath")
     val assetPath: String,
@@ -21,6 +23,7 @@ data class WeaponModel(
     @SerializedName("skins")
     val skins: MutableList<Skin>,
     @SerializedName("uuid")
+    @PrimaryKey
     val uuid: String,
     @SerializedName("weaponStats")
     val weaponStats: WeaponStats?

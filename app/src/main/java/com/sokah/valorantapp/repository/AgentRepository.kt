@@ -47,7 +47,7 @@ class AgentRepository(private val agentDao: AgentDao) {
 
     suspend fun addAgents(agents: MutableList<AgentModel>) {
 
-        agentDao.insert(agents)
+        agentDao.insertAgents(agents)
     }
 
     suspend fun getAllAgentsdb(): MutableList<AgentModel>? {

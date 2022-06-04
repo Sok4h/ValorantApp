@@ -1,6 +1,6 @@
 package com.sokah.valorantapp.network
 
-ckimport com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.model.BaseModel
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.model.weapons.WeaponModel
