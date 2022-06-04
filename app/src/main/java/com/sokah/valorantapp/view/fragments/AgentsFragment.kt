@@ -9,10 +9,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
+import com.google.android.material.snackbar.BaseTransientBottomBar.*
 import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentsBinding
@@ -30,6 +32,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
     lateinit var layoutManager: GridLayoutManager
     lateinit var internetConnection: CheckInternet
 
+
     lateinit var chips: Array<Chip>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,9 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         internetConnection = CheckInternet(requireContext())
 
         setupRV()
+
+
+
 
         viewmodel = ViewModelProvider(this)[AgentListViewModel::class.java]
 
@@ -73,12 +79,16 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
     private fun showSnackBar() {
 
+        val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
+
         Snackbar.make(binding.root,"no data received, check your connection",LENGTH_INDEFINITE)
-            .setAnimationMode(ANIMATION_MODE_SLIDE)
+            .setAnimationMode(ANIMATION_MODE_FADE)
             .setAction("Retry"){
 
                 viewmodel.getAgents()
-            }.show()
+            }.setAnchorView(bottomNavView)
+
+            .show()
     }
 
     fun setupRV() {

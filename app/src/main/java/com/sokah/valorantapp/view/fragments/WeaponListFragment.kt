@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
@@ -85,8 +86,10 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
     private fun showSnackBar() {
 
-        Snackbar.make(binding.root,"no data received, check your connection",LENGTH_INDEFINITE)
+        val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
+        Snackbar.make(binding.root,R.string.no_internet,LENGTH_INDEFINITE)
             .setAnimationMode(ANIMATION_MODE_SLIDE)
+            .setAnchorView(bottomNavView)
             .setAction("Retry") { viewmodel.getWeapons() }.show()
     }
 

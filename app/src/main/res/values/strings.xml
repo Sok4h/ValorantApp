@@ -33,6 +33,7 @@
     <string name="magazine_value" translatable="false">%1$s Rds</string>
     <string name="agent_details">Agent Details</string>
     <string name="weapon_details">Weapon Details</string>
+    <string name="no_internet">No data received, check your connection</string>
 
     <string-array name="weapon_types">
 

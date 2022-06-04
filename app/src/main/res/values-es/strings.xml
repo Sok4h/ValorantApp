@@ -19,5 +19,6 @@
     <string name="reload_speed_value">%1$s Seg</string>
     <string name="agent_details">Detalles Agente</string>
     <string name="weapon_details">Detalles Arma</string>
+    <string name="no_internet">No se han recibido datos, verifique su conexión</string>
 
 </resources>

@@ -16,4 +16,5 @@
     <string name="controller">Contrôleur</string>
     <string name="agent_details">Détails de l\'agent</string>
     <string name="weapon_details">Détails de l\'arme</string>
+    <string name="no_internet">Aucune donnée reçue, vérifiez votre connexion</string>
 </resources>
