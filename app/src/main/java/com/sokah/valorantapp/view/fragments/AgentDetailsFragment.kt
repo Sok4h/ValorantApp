@@ -55,8 +55,6 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
         viewmodel.agentDetail.observe(viewLifecycleOwner) { agent ->
 
-
-            Log.e("TAG", agent.abilities[2].toString())
             Glide.with(this).load(agent.bustPortrait)
                 .override(1000, 1000)
                 .thumbnail(0.5f)

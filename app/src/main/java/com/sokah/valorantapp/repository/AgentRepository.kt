@@ -55,13 +55,13 @@ class AgentRepository(private val agentDao: AgentDao) {
         return agentDao.getAllAgents()
     }
 
-    suspend fun getAgentByRole(role:String):MutableList<AgentModel>?{
+    suspend fun getAgentByRole(role: String): MutableList<AgentModel>? {
 
         return agentDao.getAgentbyRole(role)
 
     }
 
-    suspend fun getAgentById(id:String):AgentModel {
+    suspend fun getAgentById(id: String): AgentModel {
 
         return agentDao.getAgentById(id)
     }

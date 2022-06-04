@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.agents.AgentModel
-import com.sokah.valorantapp.network.ValorantApiService
 import com.sokah.valorantapp.repository.AgentRepository
 import kotlinx.coroutines.launch
 
@@ -50,7 +49,7 @@ class AgentListViewModel(application: Application) : AndroidViewModel(applicatio
 
         val result = repository.getAgentByRole(role)
 
-        Log.e("TAG", result!!.size.toString() )
+        Log.e("TAG", result!!.size.toString())
         mutableAgentList.postValue(result)
 
 
