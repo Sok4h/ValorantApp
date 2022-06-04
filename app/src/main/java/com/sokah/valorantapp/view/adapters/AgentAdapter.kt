@@ -55,6 +55,11 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
         fun bind(agent: AgentModel) {
 
             binding.tvAgentName.text = agent.agentName
+
+            for(ability in agent.abilities){
+
+                Glide.with(view.context).load(ability.displayIcon).downloadOnly(500,500)
+            }
             Glide.with(view.context).load(agent.bustPortrait)
                 .override(800, 800)
                 .thumbnail(0.5f)

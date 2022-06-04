@@ -60,4 +60,9 @@ class AgentRepository(private val agentDao: AgentDao) {
         return agentDao.getAgentbyRole(role)
 
     }
+
+    suspend fun getAgentById(id:String):AgentModel {
+
+        return agentDao.getAgentById(id)
+    }
 }

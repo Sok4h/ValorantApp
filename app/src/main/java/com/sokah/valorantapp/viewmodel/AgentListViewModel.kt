@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 
 class AgentListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var service = ValorantApiService()
     val mutableAgentList = MutableLiveData<MutableList<AgentModel>?>()
     var agents: MutableList<AgentModel>? = null
     val repository: AgentRepository

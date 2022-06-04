@@ -20,6 +20,9 @@ interface AgentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(agents: MutableList<AgentModel>)
 
+    @Query("SELECT * from agents where uuid==:agentId")
+    suspend fun  getAgentById(agentId: String):AgentModel
+
 
 
 }

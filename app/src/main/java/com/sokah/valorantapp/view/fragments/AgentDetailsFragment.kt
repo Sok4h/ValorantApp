@@ -1,6 +1,7 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentDetailsBinding
 import com.sokah.valorantapp.viewmodel.AgentDetailViewModel
@@ -31,7 +33,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
         abilitiesimg= arrayOf(binding.ability0, binding.ability1, binding.ability2,binding.ability3)
 
-        val viewmodelfactory = AgentDetailViewModelFactory(args.agentUuid)
+        val viewmodelfactory = AgentDetailViewModelFactory(args.agentUuid,requireActivity().application)
 
         viewmodel = ViewModelProvider(this,viewmodelfactory).get(AgentDetailViewModel::class.java)
 
@@ -51,6 +53,8 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
         viewmodel.agentDetail.observe(viewLifecycleOwner) { agent ->
 
+
+            Log.e("TAG", agent.abilities[2].toString())
             Glide.with(this).load(agent.bustPortrait)
                 .override(1000, 1000)
                 .thumbnail(0.5f)
@@ -82,7 +86,9 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
             //loads every ability into a imageview
             for ((index, ability) in agent.abilities.withIndex()) {
 
-                Glide.with(this).load(ability.displayIcon).into(abilitiesimg[index])
+                Glide.with(this).load(ability.displayIcon)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(abilitiesimg[index])
             }
 
 

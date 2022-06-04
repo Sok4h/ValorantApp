@@ -52,27 +52,6 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
 
 
-        internetConnection.observe(viewLifecycleOwner) {
-
-            Log.e("tag", it.toString() )
-            if (it) {
-
-                /*Toast.makeText(requireContext(), "hay internet", Toast.LENGTH_SHORT).show()*/
-            } else {
-
-                Toast.makeText(requireContext(), "hay internet", Toast.LENGTH_SHORT).show()
-
-                Snackbar.make(
-                    binding.cr,
-                    "No hay internet",
-                    Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction("Intentar de nuevo") {
-
-                    }
-                    .show()
-            }
-        }
 
         viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
 

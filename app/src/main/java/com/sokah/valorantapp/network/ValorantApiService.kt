@@ -32,20 +32,21 @@ class ValorantApiService {
 
     }
 
-    suspend fun getAgent(agentUuid:String,language:String) :BaseModel<AgentModel>{
+/*
+    suspend fun getAgent(agentUuid:String,language:String) :AgentModel{
 
-        Log.e("TAG", language )
         return  withContext(Dispatchers.IO) {
 
 
             val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid,language)
 
-            response.body()!!
+            response.body()?.data!!
 
         }
 
 
     }
+*/
 
     suspend fun getWeapons():BaseModel<MutableList<WeaponModel>>{
 
