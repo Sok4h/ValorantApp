@@ -31,6 +31,8 @@
     <string name="equip_speed_value">%1$s Sec</string>
     <string name="reload_speed_value">%1$s Sec</string>
     <string name="magazine_value" translatable="false">%1$s Rds</string>
+    <string name="agent_details">Agent Details</string>
+    <string name="weapon_details">Weapon Details</string>
 
     <string-array name="weapon_types">
 

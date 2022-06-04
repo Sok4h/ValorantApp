@@ -9,7 +9,6 @@ import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.network.ValorantApiService
 import com.sokah.valorantapp.repository.AgentRepository
-import com.sokah.valorantapp.utils.ConnectionLiveData
 import kotlinx.coroutines.launch
 
 class AgentListViewModel(application: Application) : AndroidViewModel(application) {

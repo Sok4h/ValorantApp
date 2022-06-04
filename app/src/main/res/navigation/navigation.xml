@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/agentsFragment"
         android:name="com.sokah.valorantapp.view.fragments.AgentsFragment"
-        android:label="Agent List"
+        android:label="@string/agents"
         tools:layout="@layout/fragment_agents">
         <action
             android:id="@+id/action_agentsFragment_to_agentDetailsFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/agentDetailsFragment"
         android:name="com.sokah.valorantapp.view.fragments.AgentDetailsFragment"
-        android:label="Agent Details"
+        android:label="@string/agent_details"
         tools:layout="@layout/fragment_agent_details">
         <argument
             android:name="agentUuid"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/weaponListFragment"
         android:name="com.sokah.valorantapp.view.fragments.WeaponListFragment"
-        android:label="Weapons"
+        android:label="@string/weapons"
         tools:layout="@layout/fragment_weapon_list">
         <action
             android:id="@+id/action_weaponListFragment_to_weaponDetailFragment"
@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/weaponDetailFragment"
         android:name="com.sokah.valorantapp.view.fragments.WeaponDetailFragment"
-        android:label="Weapon Details"
+        android:label="@string/weapon_details"
         tools:layout="@layout/fragment_weapon_detail">
         <argument
             android:name="weapon"

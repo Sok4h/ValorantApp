@@ -18,7 +18,6 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentsBinding
-import com.sokah.valorantapp.utils.ConnectionLiveData
 import com.sokah.valorantapp.view.adapters.AgentAdapter
 import com.sokah.valorantapp.viewmodel.AgentListViewModel
 import kotlinx.coroutines.launch

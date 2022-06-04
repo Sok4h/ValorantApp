@@ -11,18 +11,15 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.ActivityMainBinding
-import com.sokah.valorantapp.utils.ConnectionLiveData
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
 
-    lateinit var connectionLiveData: ConnectionLiveData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        connectionLiveData = ConnectionLiveData(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
