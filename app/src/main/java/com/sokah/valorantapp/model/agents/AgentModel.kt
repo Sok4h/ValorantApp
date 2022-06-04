@@ -1,18 +1,16 @@
 package com.sokah.valorantapp.model.agents
 
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.google.gson.annotations.SerializedName
 @Entity(tableName = "agents")
 data class AgentModel(
     @SerializedName("abilities")
 
     val abilities: MutableList<Ability>,
-    @SerializedName("assetPath")
+   /* @SerializedName("assetPath")
     val assetPath: String,
-    @SerializedName("bustPortrait")
+    @SerializedName("bustPortrait")*/
     val bustPortrait: String,
     @SerializedName("description")
     val description: String,
@@ -23,7 +21,7 @@ data class AgentModel(
     @SerializedName("displayIconSmall")
     val displayIconSmall: String,
     @SerializedName("displayName")
-    val displayName: String,
+    val agentName: String,
     @SerializedName("fullPortrait")
     val fullPortrait: String,
     @SerializedName("isAvailableForTest")
@@ -37,6 +35,7 @@ data class AgentModel(
     @SerializedName("killfeedPortrait")
     val killfeedPortrait: String,
     @SerializedName("role")
+    @Embedded
     val role: Role,
     @SerializedName("uuid")
     @PrimaryKey(autoGenerate = false)

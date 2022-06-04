@@ -55,9 +55,9 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
                 .override(1000, 1000)
                 .thumbnail(0.5f)
                 .into(binding.imgAgentDetail)
-            Glide.with(this).load(agent.role.displayIcon).into(binding.imgAgentTypeDetail)
-            binding.tvAgentNameDetail.text = agent.displayName
-            binding.tvAgentRole.text = agent.role.displayName
+            Glide.with(this).load(agent.role.roleIcon).into(binding.imgAgentTypeDetail)
+            binding.tvAgentNameDetail.text = agent.agentName
+            binding.tvAgentRole.text = agent.role.roleName
             binding.tvAgentDescription.text = agent.description
             binding.tvAgentDeveloperName.text = agent.developerName
 

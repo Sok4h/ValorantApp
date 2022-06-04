@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
@@ -20,6 +21,7 @@ import com.sokah.valorantapp.databinding.FragmentAgentsBinding
 import com.sokah.valorantapp.utils.ConnectionLiveData
 import com.sokah.valorantapp.view.adapters.AgentAdapter
 import com.sokah.valorantapp.viewmodel.AgentListViewModel
+import kotlinx.coroutines.launch
 
 
 class AgentsFragment : Fragment(R.layout.fragment_agents) {
@@ -74,7 +76,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
         viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
 
-            adapter.setAgents(it)
+            adapter.setAgents(it!!)
             layoutManager.scrollToPositionWithOffset(0, 0)
 
         }
@@ -91,7 +93,11 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
             if (chip != null) {
 
-                viewmodel.filterAgent(chip.text.toString())
+                lifecycleScope.launch{
+
+                    viewmodel.filterAgent(chip.text.toString())
+
+                }
             } else {
                 viewmodel.getAgents()
             }
