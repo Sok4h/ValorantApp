@@ -3,11 +3,11 @@ package com.sokah.valorantapp.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
-import com.codingwithmitch.food2forkcompose.presentation.util.ConnectionLiveData
 import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.network.ValorantApiService
 import com.sokah.valorantapp.repository.AgentRepository
+import com.sokah.valorantapp.utils.ConnectionLiveData
 import kotlinx.coroutines.launch
 
 class AgentListViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,22 +16,24 @@ class AgentListViewModel(application: Application) : AndroidViewModel(applicatio
     val mutableAgentList = MutableLiveData<MutableList<AgentModel>>()
      var agents: MutableList<AgentModel>?=null
     val repository : AgentRepository
-    /*lateinit var internetConnection: MutableLiveData<Boolean>*/
+     var internetConnection= MutableLiveData<Boolean>()
     var connectionLiveData= ConnectionLiveData(application)
     val isLoading = MutableLiveData<Boolean>()
 
     init {
 
+
+        Log.e("TAG", connectionLiveData.value.toString())
+       //
+        // internetConnection=connectionLiveData
         val agentDao = ValorantDatabase.getInstance(application).agentDao()
 
         repository= AgentRepository(agentDao)
         var result: MutableList<AgentModel>?
         viewModelScope.launch {
 
-
             isLoading.postValue(true)
             result = repository.getAllAgents()
-            Log.e("Response", result.toString() )
             isLoading.postValue(false)
 
             if (result!=null) {
@@ -50,6 +52,8 @@ class AgentListViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun filterAgent(role: String) {
+
+
 
 
         viewModelScope.launch {

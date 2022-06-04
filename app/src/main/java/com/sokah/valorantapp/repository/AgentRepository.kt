@@ -23,7 +23,6 @@ class AgentRepository(private val agentDao: AgentDao) {
         try {
 
             resultApi = service.getAgents()
-            Log.e("TAG", resultApi.toString())
         } catch (e: IOException) {
 
             Log.e("TAG", e.message.toString())
@@ -34,7 +33,6 @@ class AgentRepository(private val agentDao: AgentDao) {
 
         }
 
-        Log.e("API", resultApi.toString())
         if (resultApi != null) {
 
             addAgents(resultApi.data)

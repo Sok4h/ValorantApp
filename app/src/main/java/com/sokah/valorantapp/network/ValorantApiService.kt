@@ -40,7 +40,6 @@ class ValorantApiService {
 
             val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid,language)
 
-            Log.e("TAG", response.toString())
             response.body()!!
 
         }
@@ -63,7 +62,6 @@ class ValorantApiService {
 
              val response = retrofit.create(ValorantApi::class.java).getSkins()
 
-            Log.e("TAG", response.toString())
             response.body()!!
         }
     }

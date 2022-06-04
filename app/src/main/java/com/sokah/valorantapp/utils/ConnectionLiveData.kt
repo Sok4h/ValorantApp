@@ -1,5 +1,4 @@
-package com.codingwithmitch.food2forkcompose.presentation.util
-
+package com.sokah.valorantapp.utils
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
