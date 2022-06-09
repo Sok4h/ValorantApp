@@ -81,7 +81,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
         val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
 
-        Snackbar.make(binding.root,"no data received, check your connection",LENGTH_INDEFINITE)
+        Snackbar.make(binding.root,R.string.no_internet,LENGTH_INDEFINITE)
             .setAnimationMode(ANIMATION_MODE_FADE)
             .setAction("Retry"){
 

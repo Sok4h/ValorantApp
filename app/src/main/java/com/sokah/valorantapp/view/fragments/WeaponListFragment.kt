@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
-import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.BaseTransientBottomBar.*
 import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
@@ -88,7 +88,7 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
         val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
         Snackbar.make(binding.root,R.string.no_internet,LENGTH_INDEFINITE)
-            .setAnimationMode(ANIMATION_MODE_SLIDE)
+            .setAnimationMode(ANIMATION_MODE_FADE)
             .setAnchorView(bottomNavView)
             .setAction("Retry") { viewmodel.getWeapons() }.show()
     }
