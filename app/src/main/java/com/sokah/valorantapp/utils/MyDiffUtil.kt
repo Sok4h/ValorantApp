@@ -27,7 +27,7 @@ class MyDiffUtil (
 
             !oldList[oldItemPosition].uuid.contentEquals(newList[newItemPosition].uuid) ->false
 
-            !oldList[oldItemPosition].displayName.contentEquals(newList[newItemPosition].displayName) ->false
+            !oldList[oldItemPosition].agentName.contentEquals(newList[newItemPosition].agentName) ->false
 
             else -> true
         }

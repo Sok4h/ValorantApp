@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinCardBinding
 import com.sokah.valorantapp.model.weapons.Skin
 
@@ -47,13 +48,11 @@ class SkinAdapter(var listener: OnSkinListener) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         onSkinLister = listener
-
         holder.binding.tvSkinTitle.text = skinList[position].displayName
-
         // no tiene display icon clase base
         Glide.with(holder.binding.root).load(skinList[position].levels[0].displayIcon)
             .override(500, 500)
-            .thumbnail(0.5f).into(holder.binding.imgSkin)
+            /*.thumbnail(0.5f)*/.into(holder.binding.imgSkin)
 
         holder.binding.root.setOnClickListener {
 
@@ -67,6 +66,8 @@ class SkinAdapter(var listener: OnSkinListener) :
     }
 
     class ViewHolder(val binding: SkinCardBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
 
     }
 

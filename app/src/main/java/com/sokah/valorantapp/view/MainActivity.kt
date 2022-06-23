@@ -1,9 +1,8 @@
 package com.sokah.valorantapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -17,19 +16,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
 
         setContentView(binding.root)
-        
+
         navController = findNavController(R.id.navHost)
         binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
-            if (nd.id == R.id.agentDetailsFragment||nd.id==R.id.skinDetailFragment||nd.id == R.id.weaponDetailFragment) {
+            if (nd.id == R.id.agentDetailsFragment || nd.id == R.id.skinDetailFragment || nd.id == R.id.weaponDetailFragment) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
@@ -39,10 +40,10 @@ class MainActivity : AppCompatActivity() {
                     R.id.agentsFragment,
                     R.id.weaponListFragment,
                     R.id.skinsFragment,
-                    )
+                )
                 .build()
-            
-            NavigationUI.setupActionBarWithNavController(this, navController,appBarConfiguration)
+
+            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
 
         }

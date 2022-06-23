@@ -12,46 +12,38 @@ import com.sokah.valorantapp.databinding.WeaponCardBinding
 import com.sokah.valorantapp.model.weapons.WeaponModel
 import com.sokah.valorantapp.view.fragments.WeaponListFragmentDirections
 
-class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
+class WeaponAdapter : RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
 
     var weaponList = mutableListOf<WeaponModel>()
 
     fun setAgents(weapons: MutableList<WeaponModel>) {
 
-        val diffUtil = WeaponDiffUtil(weaponList,weapons)
+        val diffUtil = WeaponDiffUtil(weaponList, weapons)
         val diffresult = DiffUtil.calculateDiff(diffUtil)
         diffresult.dispatchUpdatesTo(this)
         this.weaponList = weapons
 
 
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeaponViewHolder {
 
-        return WeaponViewHolder(WeaponCardBinding.inflate(LayoutInflater.from(parent.context), parent,false))
+        return WeaponViewHolder(
+            WeaponCardBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
 
     override fun onBindViewHolder(holder: WeaponViewHolder, position: Int) {
 
-        val agent = this.weaponList[position]
+        val weapon = this.weaponList[position]
 
-        Glide.with(holder.binding.root).load(agent.displayIcon).into(holder.binding.imgWeapon)
-
-        holder.binding.tvWeaponName.text= agent.displayName
-
-        holder.binding.tvWeaponPrice.text= agent.shopData?.cost.toString()
-
-        val category = agent.category.split("::")
-        holder.binding.tvWeaponType.text = category[1]
-
-        val agentString = Gson().toJson(agent)
-        holder.binding.root.setOnClickListener {
-
-           it.findNavController().navigate(WeaponListFragmentDirections.actionWeaponListFragmentToWeaponDetailFragment(agentString))
-
-        }
-
+        holder.bind(weapon)
 
     }
 
@@ -60,15 +52,40 @@ class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
     }
 
 
-    class WeaponViewHolder(val binding:WeaponCardBinding) : RecyclerView.ViewHolder(binding.root)
+    class WeaponViewHolder(val binding: WeaponCardBinding) : RecyclerView.ViewHolder(binding.root) {
 
 
+        fun bind(weapon: WeaponModel) {
+            Glide.with(binding.root).load(weapon.displayIcon).into(binding.imgWeapon)
 
-    class WeaponDiffUtil (
+            binding.tvWeaponName.text = weapon.displayName
+
+            binding.tvWeaponPrice.text = weapon.shopData?.cost.toString()
+
+            val category = weapon.category.split("::")
+            binding.tvWeaponType.text = category[1]
+
+            val weaponString = Gson().toJson(weapon)
+
+            binding.root.setOnClickListener {
+
+                it.findNavController().navigate(
+                    WeaponListFragmentDirections.actionWeaponListFragmentToWeaponDetailFragment(
+                        weaponString
+                    )
+                )
+
+            }
+
+        }
+    }
+
+
+    class WeaponDiffUtil(
 
         private val oldList: MutableList<WeaponModel>,
-        private val newList : MutableList<WeaponModel>
-    ): DiffUtil.Callback() {
+        private val newList: MutableList<WeaponModel>
+    ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int {
             return oldList.size
@@ -84,11 +101,11 @@ class WeaponAdapter :RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return when{
+            return when {
 
-                !oldList[oldItemPosition].uuid.contentEquals(newList[newItemPosition].uuid) ->false
+                !oldList[oldItemPosition].uuid.contentEquals(newList[newItemPosition].uuid) -> false
 
-                !oldList[oldItemPosition].displayName.contentEquals(newList[newItemPosition].displayName) ->false
+                !oldList[oldItemPosition].displayName.contentEquals(newList[newItemPosition].displayName) -> false
 
                 else -> true
             }

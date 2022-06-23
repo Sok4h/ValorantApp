@@ -1,66 +1,61 @@
 package com.sokah.valorantapp.viewmodel
 
+import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.agents.AgentModel
-import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.repository.AgentRepository
 import kotlinx.coroutines.launch
 
-class AgentListViewModel : ViewModel() {
+class AgentListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var service = ValorantApiService()
-    val mutableAgentList = MutableLiveData <BaseModel<MutableList<AgentModel>>>()
-    lateinit var agents : BaseModel<MutableList<AgentModel>>
+    val mutableAgentList = MutableLiveData<MutableList<AgentModel>?>()
+    var agents: MutableList<AgentModel>? = null
+    val repository: AgentRepository
+    val isLoading = MutableLiveData<Boolean>()
 
-     val isLoading = MutableLiveData<Boolean>()
     init {
 
+        val agentDao = ValorantDatabase.getInstance(application).agentDao()
+        repository = AgentRepository(agentDao)
+
+        getAgents()
+
+    }
+
+    fun getAgents() {
+
+        var result: MutableList<AgentModel>?
         viewModelScope.launch {
 
             isLoading.postValue(true)
-            val result= service.getAgents()
-
+            result = repository.getAllAgents()
             isLoading.postValue(false)
-            //filtra que no salga sova npc
-            result.data.filter{ it.isPlayableCharacter }.also{
 
-                result.data=it.toMutableList()
-                mutableAgentList.postValue(result)
-                agents=result
+            if (result != null) {
+                mutableAgentList.postValue(result!!)
+
             }
 
         }
 
-    }
-
-    fun getAgents(){
-
-        mutableAgentList.postValue(agents)
-
 
     }
-    fun filterAgent(role:String){
 
-        viewModelScope.launch {
+    suspend fun filterAgent(role: String) {
 
-            val result= service.getAgents()
+        val result = repository.getAgentByRole(role)
 
-            result.data.filter{ it.isPlayableCharacter }.also {
+        Log.e("TAG", result!!.size.toString())
+        mutableAgentList.postValue(result)
 
-                it.filter { it.role.displayName.contentEquals(role)}.also {
-
-                    result.data=it.toMutableList()
-                    mutableAgentList.postValue(result)
-                }
-
-
-
-            }
-
-
-        }
 
     }
+
+
 }
+
+

@@ -1,43 +1,34 @@
 package com.sokah.valorantapp.viewmodel
 
-import android.util.Log
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.agents.AgentModel
-import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.repository.AgentRepository
 import kotlinx.coroutines.launch
-import java.util.*
 
-class AgentDetailViewModel(agentUuid:String) : ViewModel() {
+class AgentDetailViewModel(agentUuid: String, application: Application) :
+    AndroidViewModel(application) {
 
-    private var service = ValorantApiService()
-    val agentDetail = MutableLiveData <AgentModel>()
+    val agentDetail = MutableLiveData<AgentModel>()
 
+    val repository: AgentRepository
 
     init {
 
-        viewModelScope.launch{
+        val agentDao = ValorantDatabase.getInstance(application).agentDao()
+        repository = AgentRepository(agentDao)
+        viewModelScope.launch {
 
-            lateinit var languageCode :String
+            //val result = service.getAgent(agentUuid,languageCode)
 
-            languageCode = when (Locale.getDefault().language){
+            val agent = repository.getAgentById(agentUuid)
 
-                "es"-> "es-ES"
+            for ((index, ability) in agent.abilities.withIndex()) {
 
-                else -> "en-US"
-            }
-
-
-
-            val result = service.getAgent(agentUuid,languageCode)
-
-            val agent = result.data
-
-            for((index,ability) in agent.abilities.withIndex()) {
-
-                if(ability.slot.contentEquals("Passive")){
+                if (ability.slot.contentEquals("Passive")) {
 
                     agent.abilities.removeAt(index)
                 }

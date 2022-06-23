@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.view.fragments
 
+import android.app.Application
 import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -21,9 +22,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.DecodeFormat
 import com.sokah.valorantapp.view.adapters.SkinAdapter
+import com.sokah.valorantapp.view.adapters.SkinAdapter2
 
 
-class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.OnSkinListener {
+class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2.OnSkinListener {
 
     private var _binding: SkinDetailFragmentBinding? = null
     private lateinit var factory: SkinDetailViewModelFactory
@@ -38,28 +40,28 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
     ): View? {
 
 
-        val arg = SkinDetailFragmentArgs.fromBundle(arguments!!)
+        val arg = SkinDetailFragmentArgs.fromBundle(requireArguments())
 
-        factory = SkinDetailViewModelFactory(arg.skin)
+        factory = SkinDetailViewModelFactory(arg.skin, Application())
         _binding = SkinDetailFragmentBinding.inflate(inflater, container, false)
         chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
         viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)
 
-        val adapter = SkinAdapter(this)
+        val adapter = SkinAdapter2(this)
 
         binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.rvSkinsFromCollection.adapter = adapter
 
-        viewModel.skinLive.observe(viewLifecycleOwner, {
+        viewModel.skinLive.observe(viewLifecycleOwner) {
 
             loadSkin(it)
-        })
+        }
 
-        viewModel.mutableSkinList.observe(viewLifecycleOwner, {
+        viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
         adapter.SetSkins(it)
             skinsList=it
-        })
+        }
         return binding.root
     }
 

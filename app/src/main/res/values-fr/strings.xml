@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Valorant App</string>
+    <string name="abilities">compétences</string>
+    <string name="agents">Agents</string>
+    <string name="weapons">Armes</string>
+    <string name="skins">Skins</string>
+    <string name="stats">Statistiques</string>
+    <string name="fire_rate">Cadence de feu</string>
+    <string name="equip_speed">Vitesse équipée</string>
+    <string name="reload_speed">La vitesse de rechargement</string>
+    <string name="magazine">Chargeur</string>
+    <string name="duelist">Duelliste</string>
+    <string name="sentinel">Sentinelle</string>
+    <string name="initiator">Initiateur</string>
+    <string name="controller">Contrôleur</string>
+    <string name="agent_details">Détails de l\'agent</string>
+    <string name="weapon_details">Détails de l\'arme</string>
+    <string name="no_internet">Aucune donnée reçue, vérifiez votre connexion</string>
+</resources>

@@ -1,17 +1,18 @@
 package com.sokah.valorantapp.model.agents
 
 
+import androidx.room.ColumnInfo
 import com.google.gson.annotations.SerializedName
 
 data class Role(
-    @SerializedName("assetPath")
-    val assetPath: String,
+   /* @SerializedName("assetPath")
+    val assetPath: String,*/
     @SerializedName("description")
-    val description: String,
+    val roleDescription: String,
     @SerializedName("displayIcon")
-    val displayIcon: String,
+    val roleIcon: String,
     @SerializedName("displayName")
-    val displayName: String,
+    val roleName: String,
     @SerializedName("uuid")
-    val uuid: String
+    val roleuuid: String
 )

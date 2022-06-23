@@ -1,55 +1,56 @@
 package com.sokah.valorantapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.weapons.WeaponModel
-import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.repository.WeaponRepository
 import kotlinx.coroutines.launch
 
-class WeaponListViewModel : ViewModel() {
+class WeaponListViewModel(application: Application) : AndroidViewModel(application) {
 
     val isLoading = MutableLiveData<Boolean>()
-    private var service = ValorantApiService()
 
-      val weaponList = MutableLiveData <BaseModel<MutableList<WeaponModel>>>()
-
-    private lateinit var weapons : BaseModel<MutableList<WeaponModel>>
+    val weaponList = MutableLiveData<MutableList<WeaponModel>>()
+    val repository: WeaponRepository
 
     init {
+
+        val weaponDao = ValorantDatabase.getInstance(application).weaponDao()
+        repository = WeaponRepository(weaponDao)
+
+        getWeapons()
+
+
+    }
+
+    fun getWeapons() {
 
         viewModelScope.launch {
 
             isLoading.postValue(true)
-            val  response = service.getWeapons()
+            val result = repository.getAllWeapons()
             isLoading.postValue(false)
-            weapons=response
 
-            weaponList.postValue(response)
+            if (result != null) {
+                weaponList.postValue(result!!)
+
+            }
         }
+
+
     }
 
-    fun getWeapons(){
-
-        weaponList.postValue(weapons)
-    }
-     fun sortWeapon(type:String){
+    fun sortWeapon(type: String) {
 
         viewModelScope.launch {
 
-            val response = service.getWeapons()
+            val response = repository.getWeaponByCategory(type)
 
-            response.data.filter {
-                it.category.contains(type)
-            }.also {
-
-                response.data=it.toMutableList()
-                weaponList.postValue(response)
-            }
-
+            weaponList.postValue(response)
         }
-
 
 
     }
