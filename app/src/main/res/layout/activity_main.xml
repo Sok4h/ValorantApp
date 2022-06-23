@@ -23,7 +23,6 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:clipChildren="false"
         android:clipToPadding="true"
         app:elevation="40dp"

@@ -58,7 +58,7 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
             for(ability in agent.abilities){
 
-                Glide.with(view.context).load(ability.displayIcon).downloadOnly(500,500)
+                Glide.with(view.context).load(ability.displayIcon)
             }
             Glide.with(view.context).load(agent.bustPortrait)
                 .placeholder(R.drawable.fade)

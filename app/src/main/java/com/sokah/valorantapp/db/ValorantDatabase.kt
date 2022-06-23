@@ -6,12 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.model.weapons.WeaponModel
 
 
 @Database(
 
-    entities = [AgentModel::class, WeaponModel::class],
+    entities = [AgentModel::class, WeaponModel::class,Skin::class],
     version = 1,
     exportSchema = false
 )
@@ -21,12 +22,15 @@ import com.sokah.valorantapp.model.weapons.WeaponModel
     RoleConverter::class,
     ShopDataConverter::class,
     SkinConverter::class,
-    WeaponStatsConverter::class
+    LevelConverter::class,
+    WeaponStatsConverter::class,
+    ChromaConverter::class
 )
 abstract class ValorantDatabase : RoomDatabase() {
 
     abstract fun agentDao(): AgentDao
     abstract fun weaponDao(): WeaponDao
+    abstract fun skinDao(): SkinDao
 
     companion object {
 

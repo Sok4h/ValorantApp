@@ -19,4 +19,6 @@ interface WeaponDao {
 
     @Query("SELECT * from weapons where category LIKE :category")
     suspend fun getWeaponByCategory(category:String):MutableList<WeaponModel>?
+
+
 }

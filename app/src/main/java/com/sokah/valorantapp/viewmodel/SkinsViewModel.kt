@@ -1,73 +1,71 @@
 package com.sokah.valorantapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.weapons.Skin
-
 import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.repository.SkinRepository
 import kotlinx.coroutines.launch
 
-class SkinsViewModel : ViewModel() {
+class SkinsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val service = ValorantApiService()
-
+    val repository: SkinRepository
     val mutableSkinList = MutableLiveData<MutableList<Skin>>()
     lateinit var skins: MutableList<Skin>
     val isLoading = MutableLiveData<Boolean>()
 
     init {
 
+        val skinDao = ValorantDatabase.getInstance(application).skinDao()
+        repository = SkinRepository(skinDao)
+
         viewModelScope.launch {
-
-            isLoading.postValue(true)
-
-            val response = service.getSkins()
-
-            response.data.filterNot {
-
-                it.displayName.contains("Standar") || it.displayName.contentEquals("Melee")
-
-            }.also {
-
-                response.data = it.toMutableList()
-                mutableSkinList.postValue(response.data!!)
-                skins = response.data
-                isLoading.postValue(false)
-            }
+            getSkins()
 
         }
 
     }
 
-    fun filterSkins(query: String) {
+    suspend fun getSkins() {
 
-        if(query.isEmpty()){
+        isLoading.postValue(true)
+        var response = repository.getAllSkins()
+
+        response.filterNot {
+
+            it.displayName.contains("Standar") || it.displayName.contentEquals("Melee")
+
+        }.also {
+
+            response = it.toMutableList()
+            mutableSkinList.postValue(response)
+            skins = response as MutableList<Skin>
+            isLoading.postValue(false)
+        }
+    }
+
+     fun filterSkins(query: String) {
+
+        if (query.isEmpty()) {
 
             mutableSkinList.postValue(skins)
 
-        }else{
+        } else {
 
             viewModelScope.launch {
 
-                val response = service.getWeapons()
+                val response = repository.getSkinByType(query)
 
-                response.data.filter {
+                response.filterNot {
+                    it.displayName.contains("Standar")
 
-                    it.displayName.contains(query)
                 }.also {
-                    response.data = it.toMutableList()
-                    response.data.first().skins.filter {
-                        !it.displayName.contains("Standar")
 
-                    }.also {
-
-                        val respons = it.toMutableList()
-                        mutableSkinList.postValue(respons)
-                    }
-
+                    val respons = it.toMutableList()
+                    mutableSkinList.postValue(respons)
                 }
 
             }
@@ -77,5 +75,7 @@ class SkinsViewModel : ViewModel() {
     }
 
 }
+
+
 
 

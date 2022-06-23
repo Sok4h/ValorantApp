@@ -25,13 +25,18 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.airbnb.paris.extensions.style
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.view.MainActivity
+import kotlinx.coroutines.launch
 
 
 class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListener {
@@ -59,7 +64,11 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
-            Log.e("TAG", it.size.toString())
+            if(it.isEmpty()){
+                showSnackBar()
+            }else{
+
+            }
             adapter.SetSkins(it)
             // hace que se suba el scroll cuando cambia algo en la lista
             layoutManager.scrollToPositionWithOffset(0, 0)
@@ -74,8 +83,6 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
 
         binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
-
-
 
               if(position ==0){
 
@@ -109,13 +116,27 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
     override fun onSkinClick(position: Int) {
 
-        val gson = Gson()
-
-        val skin = gson.toJson(skinsList[position])
+        val skin = skinsList[position].uuid
 
         binding.root.findNavController()
             .navigate(SkinsFragmentDirections.actionSkinsFragmentToSkinDetailFragment(skin))
     }
 
+    private fun showSnackBar() {
+
+        val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
+
+        Snackbar.make(binding.root,R.string.no_internet, BaseTransientBottomBar.LENGTH_INDEFINITE)
+            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
+            .setAction("Retry"){
+
+                lifecycleScope.launch {
+                    viewModel.getSkins()
+                }
+
+            }.setAnchorView(bottomNavView)
+
+            .show()
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.view.fragments
 
+import android.app.Application
 import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -41,7 +42,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2
 
         val arg = SkinDetailFragmentArgs.fromBundle(requireArguments())
 
-        factory = SkinDetailViewModelFactory(arg.skin)
+        factory = SkinDetailViewModelFactory(arg.skin, Application())
         _binding = SkinDetailFragmentBinding.inflate(inflater, container, false)
         chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
         viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)

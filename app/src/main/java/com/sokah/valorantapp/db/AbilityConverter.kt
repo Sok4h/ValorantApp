@@ -4,6 +4,8 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.sokah.valorantapp.model.agents.Ability
 import com.sokah.valorantapp.model.agents.Role
+import com.sokah.valorantapp.model.weapons.Chroma
+import com.sokah.valorantapp.model.weapons.Level
 
 class AbilityConverter {
 
@@ -45,4 +47,37 @@ class RoleConverter {
 
     }
 
+}
+
+class LevelConverter{
+
+    val gson = Gson()
+    @TypeConverter
+
+    fun fromLevel(level:List<Level>):String{
+
+        return  gson.toJson(level)
+    }
+    @TypeConverter
+    fun toLevel(level:String):List<Level>{
+
+        return  gson.fromJson(level,Array<Level>::class.java).toList()
+    }
+
+}
+
+class  ChromaConverter{
+
+    val gson = Gson()
+    @TypeConverter
+    fun fromChroma(chroma:List<Chroma>):String{
+
+        return gson.toJson(chroma)
+    }
+    @TypeConverter
+
+    fun toChroma(chroma:String):List<Chroma>{
+
+        return gson.fromJson(chroma,Array<Chroma>::class.java).toList()
+    }
 }

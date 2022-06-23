@@ -1,32 +1,45 @@
 package com.sokah.valorantapp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
-import com.sokah.valorantapp.model.BaseModel
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.repository.SkinRepository
 import kotlinx.coroutines.launch
 
-class SkinDetailViewModel(skin: String) : ViewModel() {
+class SkinDetailViewModel(var uuid: String, application: Application) :
+    AndroidViewModel(application) {
 
     val skinLive = MutableLiveData<Skin>()
 
     val mutableSkinList = MutableLiveData<MutableList<Skin>>()
-    val service = ValorantApiService()
     val isLoading = MutableLiveData<Boolean>()
-    var skinObject: Skin
+     var skinObject :Skin ?=null
+    val repository: SkinRepository
 
     init {
 
-        var gson = Gson()
-        skinObject = gson.fromJson(skin, Skin::class.java)
+        val skinDao = ValorantDatabase.getInstance(application).skinDao()
+        repository = SkinRepository(skinDao)
+        /* var gson = Gson()
+         skinObject = gson.fromJson(skin, Skin::class.java)*/
 
+
+
+        viewModelScope.launch {
+            getSkin()
+            getSkinsFiltered()
+
+        }
+
+    }
+
+    suspend fun getSkin() {
+        skinObject = repository.getSkinByUuid(uuid)
         skinLive.postValue(skinObject)
-
-        viewModelScope.launch { getSkinsFiltered() }
-
     }
 
 
@@ -34,9 +47,9 @@ class SkinDetailViewModel(skin: String) : ViewModel() {
 
         isLoading.postValue(true)
 
-        val response = service.getSkins()
+        var response = repository.getAllSkinsdb()
 
-        response.data.filterNot {
+        response.filterNot {
 
             it.displayName.contains("Standar") || it.displayName.contentEquals("Melee")
 
@@ -44,11 +57,11 @@ class SkinDetailViewModel(skin: String) : ViewModel() {
 
             it.filter {
 
-                it.themeUuid.contentEquals(skinObject.themeUuid)
+                it.themeUuid.contentEquals(skinObject?.themeUuid)
             }.also {
 
-                response.data = it.toMutableList()
-                mutableSkinList.postValue(response.data!!)
+                response = it.toMutableList()
+                mutableSkinList.postValue(response)
                 isLoading.postValue(false)
             }
 
