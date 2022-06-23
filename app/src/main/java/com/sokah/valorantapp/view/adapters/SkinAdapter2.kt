@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
+import com.sokah.valorantapp.databinding.SkinCard2Binding
 import com.sokah.valorantapp.databinding.SkinCardBinding
 import com.sokah.valorantapp.model.weapons.Skin
 
 
-class SkinAdapter(var listener: OnSkinListener) :
-    RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
+class SkinAdapter2(var listener: OnSkinListener) :
+    RecyclerView.Adapter<SkinAdapter2.ViewHolder>() {
 
     var skinList = mutableListOf<Skin>()
 
@@ -37,7 +38,7 @@ class SkinAdapter(var listener: OnSkinListener) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         return ViewHolder(
-            SkinCardBinding.inflate(
+            SkinCard2Binding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -68,7 +69,7 @@ class SkinAdapter(var listener: OnSkinListener) :
         return this.skinList.size
     }
 
-    class ViewHolder(val binding: SkinCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: SkinCard2Binding) : RecyclerView.ViewHolder(binding.root) {
 
     }
 

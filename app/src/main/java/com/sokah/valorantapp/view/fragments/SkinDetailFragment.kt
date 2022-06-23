@@ -21,9 +21,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.DecodeFormat
 import com.sokah.valorantapp.view.adapters.SkinAdapter
+import com.sokah.valorantapp.view.adapters.SkinAdapter2
 
 
-class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.OnSkinListener {
+class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2.OnSkinListener {
 
     private var _binding: SkinDetailFragmentBinding? = null
     private lateinit var factory: SkinDetailViewModelFactory
@@ -45,7 +46,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter.
         chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
         viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)
 
-        val adapter = SkinAdapter(this)
+        val adapter = SkinAdapter2(this)
 
         binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
         binding.rvSkinsFromCollection.adapter = adapter

@@ -75,7 +75,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
-              Toast.makeText(context, weapons.get(position), Toast.LENGTH_SHORT).show()
+
 
               if(position ==0){
 
