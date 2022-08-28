@@ -11,7 +11,7 @@ data class AgentModel(
    /* @SerializedName("assetPath")
     val assetPath: String,
     @SerializedName("bustPortrait")*/
-    val bustPortrait: String,
+   /* val bustPortrait: String,*/
     @SerializedName("description")
     val description: String,
     @SerializedName("developerName")

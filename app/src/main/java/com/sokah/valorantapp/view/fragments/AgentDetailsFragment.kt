@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentDetailsBinding
 import com.sokah.valorantapp.viewmodel.AgentDetailViewModel
@@ -55,8 +56,9 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
         viewmodel.agentDetail.observe(viewLifecycleOwner) { agent ->
 
-            Glide.with(this).load(agent.bustPortrait)
-                .override(1000, 1000)
+            Glide.with(this).load(agent.fullPortrait)
+                .apply( RequestOptions().override(1000, 1000))
+                /*.override(1000, 1000)*/
                 .thumbnail(0.5f)
                 .into(binding.imgAgentDetail)
             Glide.with(this).load(agent.role.roleIcon).into(binding.imgAgentTypeDetail)
@@ -65,7 +67,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
             binding.tvAgentDescription.text = agent.description
             binding.tvAgentDeveloperName.text = agent.developerName
 
-            // TODO: 29/12/2021  pensar como hacer esto sin dos loops
+
             for ((index, img) in abilitiesimg.withIndex()) {
 
                 abilitiesimg[index].alpha = 0.3f
