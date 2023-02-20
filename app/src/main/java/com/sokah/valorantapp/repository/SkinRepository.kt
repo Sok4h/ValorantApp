@@ -2,10 +2,13 @@ package com.sokah.valorantapp.repository
 
 import android.util.Log
 import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.db.SkinDao
 import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.BaseModel
-import com.sokah.valorantapp.model.weapons.Skin
+import com.sokah.valorantapp.model.dataModel.SkinModel
+import com.sokah.valorantapp.model.dtos.SkinDto
+import com.sokah.valorantapp.model.dtos.toSkinEntity
+import com.sokah.valorantapp.model.entities.SkinEntity
+import com.sokah.valorantapp.model.entities.toSkinModel
 import com.sokah.valorantapp.network.ValorantApiService
 import retrofit2.HttpException
 import java.io.IOException
@@ -16,9 +19,9 @@ class SkinRepository():ISkinRepository {
     private val database:ValorantDatabase  by lazy { MyApplication.getDatabase() }
     private val skinDao = database.skinDao()
 
-    override suspend fun getAllSkins(): MutableList<Skin> {
+    override suspend fun getAllSkins(): MutableList<SkinModel> {
 
-        var resultApi: BaseModel<MutableList<Skin>>? = null
+        var resultApi: BaseModel<MutableList<SkinDto>>? = null
 
 
         try {
@@ -37,7 +40,7 @@ class SkinRepository():ISkinRepository {
         if (resultApi != null) {
 
             if(resultApi.data.size > getAllSkinsdb().size){
-                addSkins(resultApi.data)
+                addSkins(resultApi.data.map { it.toSkinEntity() }.toMutableList())
             }
 
         }
@@ -47,25 +50,25 @@ class SkinRepository():ISkinRepository {
         return getAllSkinsdb()
     }
 
-     override suspend fun getAllSkinsdb(): MutableList<Skin> {
+     override suspend fun getAllSkinsdb(): MutableList<SkinModel> {
 
-       return skinDao.getAllSkins()
+       return skinDao.getAllSkins().map { it.toSkinModel() }.toMutableList()
     }
 
-     override suspend fun addSkins(data: MutableList<Skin>) {
+     override suspend fun addSkins(data: MutableList<SkinEntity>) {
 
          skinDao.InsertSkins(data)
     }
 
-    override suspend fun getSkinByUuid(uuid: String): Skin{
+    override suspend fun getSkinByUuid(uuid: String): SkinModel {
 
-        return  skinDao.getSkinByUuid(uuid)
+        return  skinDao.getSkinByUuid(uuid).toSkinModel()
     }
 
-    override suspend fun  getSkinByType(type: String): MutableList<Skin>{
+    override suspend fun  getSkinByType(type: String): MutableList<SkinModel>{
 
 
-        return  skinDao.getSkinByType("%${type}%")
+        return  skinDao.getSkinByType("%${type}%").map { it.toSkinModel() }.toMutableList()
     }
 
 

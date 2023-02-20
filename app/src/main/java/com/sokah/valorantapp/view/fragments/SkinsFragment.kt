@@ -1,42 +1,24 @@
 package com.sokah.valorantapp.view.fragments
 
-import android.app.Activity
-import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinsFragmentBinding
-import com.sokah.valorantapp.view.adapters.AgentAdapter
 import com.sokah.valorantapp.view.adapters.SkinAdapter
 import com.sokah.valorantapp.viewmodel.SkinsViewModel
-import android.content.DialogInterface
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import com.airbnb.paris.extensions.style
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.view.MainActivity
+import com.sokah.valorantapp.model.dataModel.SkinModel
 import kotlinx.coroutines.launch
 
 
@@ -46,7 +28,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
     private var _binding: SkinsFragmentBinding? = null
     private val binding get() = _binding!!
     lateinit var weapons: Array<String>
-    lateinit var skinsList: MutableList<Skin>
+    lateinit var skinsList: MutableList<SkinModel>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

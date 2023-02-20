@@ -1,20 +1,18 @@
 package com.sokah.valorantapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import com.sokah.valorantapp.repository.ISkinRepository
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.db.ValorantDatabase
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.network.ValorantApiService
+import com.sokah.valorantapp.model.dataModel.SkinModel
 import com.sokah.valorantapp.repository.SkinRepository
 import kotlinx.coroutines.launch
 
-class SkinsViewModel(application: Application) : AndroidViewModel(application) {
+class SkinsViewModel() : ViewModel() {
 
-    val repository: SkinRepository = SkinRepository()
-    val mutableSkinList = MutableLiveData<MutableList<Skin>>()
-    lateinit var skins: MutableList<Skin>
+    val repository: ISkinRepository = SkinRepository()
+    val mutableSkinList = MutableLiveData<MutableList<SkinModel>>()
+    lateinit var skins: MutableList<SkinModel>
     val isLoading = MutableLiveData<Boolean>()
 
     init {
@@ -39,7 +37,7 @@ class SkinsViewModel(application: Application) : AndroidViewModel(application) {
 
             response = it.toMutableList()
             mutableSkinList.postValue(response)
-            skins = response as MutableList<Skin>
+            skins = response
             isLoading.postValue(false)
         }
     }

@@ -1,7 +1,5 @@
 package com.sokah.valorantapp.view.fragments
 
-import android.app.Application
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,10 +11,10 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinDetailFragmentBinding
-import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.DecodeFormat
+import com.sokah.valorantapp.model.dataModel.SkinModel
 import com.sokah.valorantapp.view.adapters.SkinAdapter2
 
 
@@ -26,7 +24,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
     private val binding get() = _binding!!
     private val viewModel: SkinDetailViewModel by viewModels()
     lateinit var chromasImg: Array<ImageView>
-    lateinit var skinsList: MutableList<Skin>
+    lateinit var skinsList: MutableList<SkinModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +55,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
     }
 
 
-    fun loadSkin(skin: Skin) {
+    fun loadSkin(skin: SkinModel) {
 
         Glide.with(this).load(skin.levels[0].displayIcon)
             .format(DecodeFormat.PREFER_ARGB_8888)

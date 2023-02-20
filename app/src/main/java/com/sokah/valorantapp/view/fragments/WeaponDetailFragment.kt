@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponDetailBinding
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.dataModel.WeaponModel
 import com.sokah.valorantapp.viewmodel.WeaponDetailViewModel
 
 

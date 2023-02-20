@@ -3,7 +3,7 @@ package com.sokah.valorantapp.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.dataModel.WeaponModel
 
 class WeaponDetailViewModel() :ViewModel() {
 

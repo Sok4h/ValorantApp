@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.AgentCardBinding
-import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.dataModel.AgentModel
 import com.sokah.valorantapp.utils.MyDiffUtil
 import com.sokah.valorantapp.view.fragments.AgentsFragmentDirections
 

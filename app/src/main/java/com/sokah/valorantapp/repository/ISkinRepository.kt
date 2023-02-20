@@ -1,12 +1,13 @@
 package com.sokah.valorantapp.repository
 
-import com.sokah.valorantapp.model.weapons.Skin
+import com.sokah.valorantapp.model.dataModel.SkinModel
+import com.sokah.valorantapp.model.entities.SkinEntity
 
 interface ISkinRepository {
 
-    suspend fun getAllSkins(): MutableList<Skin>
-    suspend fun getAllSkinsdb(): MutableList<Skin>
-    suspend fun addSkins(data: MutableList<Skin>)
-    suspend fun getSkinByType(type: String): MutableList<Skin>
-    suspend fun getSkinByUuid(uuid: String): Skin
+    suspend fun getAllSkins(): MutableList<SkinModel>
+    suspend fun getAllSkinsdb(): MutableList<SkinModel>
+    suspend fun addSkins(data: MutableList<SkinEntity>)
+    suspend fun getSkinByType(type: String): MutableList<SkinModel>
+    suspend fun getSkinByUuid(uuid: String): SkinModel
 }

@@ -2,10 +2,13 @@ package com.sokah.valorantapp.repository
 
 import android.util.Log
 import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.db.AgentDao
 import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.BaseModel
-import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.agents.AgentDto
+import com.sokah.valorantapp.model.agents.toAgentEntity
+import com.sokah.valorantapp.model.dataModel.AgentModel
+import com.sokah.valorantapp.model.entities.AgentEntity
+import com.sokah.valorantapp.model.entities.toAgentModel
 import com.sokah.valorantapp.network.ValorantApiService
 import retrofit2.HttpException
 import java.io.IOException
@@ -19,8 +22,8 @@ class AgentRepository():IAgentRepository {
 
     override suspend fun getAllAgents(): MutableList<AgentModel>? {
 
-        var resultApi: BaseModel<MutableList<AgentModel>>? = null
-        var result: MutableList<AgentModel>? = null
+        var resultApi: BaseModel<MutableList<AgentDto>>? = null
+        var result: MutableList<AgentDto>? = null
 
 
         try {
@@ -38,7 +41,7 @@ class AgentRepository():IAgentRepository {
 
         if (resultApi != null) {
 
-            addAgents(resultApi.data)
+            addAgents(resultApi.data.map { it.toAgentEntity() }.toMutableList())
         }
 
 
@@ -48,24 +51,27 @@ class AgentRepository():IAgentRepository {
     }
 
 
-    override suspend fun addAgents(agents: MutableList<AgentModel>) {
+
+
+    override suspend fun addAgents(agents: MutableList<AgentEntity>) {
 
         agentDao.insertAgents(agents)
     }
 
     override suspend fun getAllAgentsdb(): MutableList<AgentModel>? {
 
-        return agentDao.getAllAgents()
+        return agentDao.getAllAgents()?.map { it.toAgentModel() }?.toMutableList()
     }
 
     override suspend fun getAgentByRole(role: String): MutableList<AgentModel>? {
 
-        return agentDao.getAgentbyRole(role)
+        return agentDao.getAgentbyRole(role)?.map { it.toAgentModel() }?.toMutableList()
 
     }
 
+    //debe devolver agentModel o AgentEntity
     override suspend fun getAgentById(id: String): AgentModel {
 
-        return agentDao.getAgentById(id)
+        return agentDao.getAgentById(id).toAgentModel()
     }
 }

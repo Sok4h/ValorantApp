@@ -2,16 +2,16 @@ package com.sokah.valorantapp.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.sokah.valorantapp.model.weapons.ShopData
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.model.weapons.WeaponStats
+import com.sokah.valorantapp.model.entities.ShopDataEntity
+import com.sokah.valorantapp.model.entities.SkinEntity
+import com.sokah.valorantapp.model.entities.WeaponStatsEntity
 
 class ShopDataConverter {
 
     val gson = Gson()
 
     @TypeConverter
-    fun fromShopData(data: ShopData?): String? {
+    fun fromShopData(data: ShopDataEntity?): String? {
 
 
         return gson.toJson(data)
@@ -19,10 +19,10 @@ class ShopDataConverter {
 
 
     @TypeConverter
-    fun toShopData(data: String?): ShopData? {
+    fun toShopData(data: String?): ShopDataEntity? {
 
 
-        return gson.fromJson(data, ShopData::class.java)
+        return gson.fromJson(data, ShopDataEntity::class.java)
     }
 }
 
@@ -31,15 +31,15 @@ class SkinConverter {
     val gson = Gson()
 
     @TypeConverter
-    fun fromSkin(skins: MutableList<Skin>): String {
+    fun fromSkin(skins: MutableList<SkinEntity>): String {
 
         return gson.toJson(skins)
     }
 
     @TypeConverter
-    fun toSkin(skins: String): MutableList<Skin> {
+    fun toSkin(skins: String): MutableList<SkinEntity> {
 
-        return gson.fromJson(skins, Array<Skin>::class.java).toMutableList()
+        return gson.fromJson(skins, Array<SkinEntity>::class.java).toMutableList()
     }
 }
 
@@ -48,15 +48,15 @@ class WeaponStatsConverter {
     val gson = Gson()
 
     @TypeConverter
-    fun fromWeaponStats(stats: WeaponStats?): String? {
+    fun fromWeaponStats(stats: WeaponStatsEntity?): String? {
 
 
         return gson.toJson(stats)
     }
 
     @TypeConverter
-    fun toWeaponStats(stat:String?):WeaponStats?{
+    fun toWeaponStats(stat:String?):WeaponStatsEntity?{
 
-        return gson.fromJson(stat,WeaponStats::class.java)
+        return gson.fromJson(stat,WeaponStatsEntity::class.java)
     }
 }

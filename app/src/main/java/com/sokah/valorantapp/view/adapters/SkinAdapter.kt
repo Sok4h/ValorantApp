@@ -1,27 +1,25 @@
 package com.sokah.valorantapp.view.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinCardBinding
-import com.sokah.valorantapp.model.weapons.Skin
+import com.sokah.valorantapp.model.dataModel.SkinModel
 
 
 class SkinAdapter(var listener: OnSkinListener) :
     RecyclerView.Adapter<SkinAdapter.ViewHolder>() {
 
-    var skinList = mutableListOf<Skin>()
+    var skinList = mutableListOf<SkinModel>()
 
     companion object {
         var onSkinLister: OnSkinListener? = null
     }
 
 
-    fun SetSkins(newList: MutableList<Skin>) {
+    fun SetSkins(newList: MutableList<SkinModel>) {
 
         val diffUtil = SkinDiffUtil(skinList, newList)
 
@@ -78,8 +76,8 @@ class SkinAdapter(var listener: OnSkinListener) :
     }
     class SkinDiffUtil(
 
-        private val oldList: MutableList<Skin>,
-        private val newList: MutableList<Skin>
+        private val oldList: MutableList<SkinModel>,
+        private val newList: MutableList<SkinModel>
 
     ) : DiffUtil.Callback() {
 

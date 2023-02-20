@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.sokah.valorantapp.databinding.WeaponCardBinding
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.dataModel.WeaponModel
 import com.sokah.valorantapp.view.fragments.WeaponListFragmentDirections
 
 class WeaponAdapter : RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {

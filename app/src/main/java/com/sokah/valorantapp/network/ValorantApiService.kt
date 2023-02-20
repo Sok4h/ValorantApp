@@ -1,11 +1,9 @@
 package com.sokah.valorantapp.network
 
-import android.util.Log
-import android.widget.Toast
-import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.model.BaseModel
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.agents.AgentDto
+import com.sokah.valorantapp.model.dtos.SkinDto
+import com.sokah.valorantapp.model.weapons.WeaponDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.*
@@ -14,7 +12,7 @@ class ValorantApiService {
 
     private val retrofit = RetrofitHelper.getRetrofit()
 
-    suspend fun getAgents(): BaseModel<MutableList<AgentModel>> {
+    suspend fun getAgents(): BaseModel<MutableList<AgentDto>> {
 
         lateinit var languageCode :String
 
@@ -37,23 +35,8 @@ class ValorantApiService {
 
     }
 
-/*
-    suspend fun getAgent(agentUuid:String,language:String) :AgentModel{
 
-        return  withContext(Dispatchers.IO) {
-
-
-            val response = retrofit.create(ValorantApi::class.java).getAgent(agentUuid,language)
-
-            response.body()?.data!!
-
-        }
-
-
-    }
-*/
-
-    suspend fun getWeapons():BaseModel<MutableList<WeaponModel>>{
+    suspend fun getWeapons():BaseModel<MutableList<WeaponDto>>{
 
         return withContext(Dispatchers.IO) {
 
@@ -62,7 +45,7 @@ class ValorantApiService {
         }
     }
 
-    suspend fun getSkins():BaseModel<MutableList<Skin>>{
+    suspend fun getSkins():BaseModel<MutableList<SkinDto>>{
 
         return withContext(Dispatchers.IO) {
 
@@ -72,7 +55,7 @@ class ValorantApiService {
         }
     }
 
-    suspend fun getWeapon(weaponUuid:String):BaseModel<WeaponModel>{
+    suspend fun getWeapon(weaponUuid:String):BaseModel<WeaponDto>{
 
         return withContext(Dispatchers.IO) {
 

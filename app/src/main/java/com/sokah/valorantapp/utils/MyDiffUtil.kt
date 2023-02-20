@@ -1,7 +1,7 @@
 package com.sokah.valorantapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.dataModel.AgentModel
 
 class MyDiffUtil (
 

@@ -1,9 +1,9 @@
 package com.sokah.valorantapp.network
 
 import com.sokah.valorantapp.model.BaseModel
-import com.sokah.valorantapp.model.agents.AgentModel
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.agents.AgentDto
+import com.sokah.valorantapp.model.dtos.SkinDto
+import com.sokah.valorantapp.model.weapons.WeaponDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,7 +15,7 @@ interface ValorantApi {
     suspend fun getAgents(
         @Query("language") language: String,
         @Query("isPlayableCharacter") isPlayableCharacter: Boolean = true
-    ): Response<BaseModel<MutableList<AgentModel>>>
+    ): Response<BaseModel<MutableList<AgentDto>>>
 
     /*  @GET("agents/{agentUuid}")
       suspend fun getAgent(
@@ -24,14 +24,14 @@ interface ValorantApi {
       ):Response <BaseModel<AgentModel>>*/
 
     @GET("weapons")
-    suspend fun getWeapons(): Response<BaseModel<MutableList<WeaponModel>>>
+    suspend fun getWeapons(): Response<BaseModel<MutableList<WeaponDto>>>
 
     @GET("weapons/skins")
-    suspend fun getSkins(): Response<BaseModel<MutableList<Skin>>>
+    suspend fun getSkins(): Response<BaseModel<MutableList<SkinDto>>>
 
     @GET("weapons/{weaponUuid}")
 
     suspend fun getWeapon(
         @Path("weaponUuid") weaponUuid: String
-    ): Response<BaseModel<WeaponModel>>
+    ): Response<BaseModel<WeaponDto>>
 }

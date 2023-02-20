@@ -1,13 +1,10 @@
 package com.sokah.valorantapp.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.db.ValorantDatabase
-import com.sokah.valorantapp.model.agents.AgentModel
+import com.sokah.valorantapp.model.dataModel.AgentModel
 import com.sokah.valorantapp.repository.AgentRepository
 import com.sokah.valorantapp.repository.IAgentRepository
 import kotlinx.coroutines.launch

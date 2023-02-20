@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.db.ValorantDatabase
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.dataModel.WeaponModel
 import com.sokah.valorantapp.repository.IWeaponRepository
 import com.sokah.valorantapp.repository.WeaponRepository
 import kotlinx.coroutines.launch

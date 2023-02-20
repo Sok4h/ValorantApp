@@ -4,6 +4,8 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.sokah.valorantapp.model.agents.Ability
 import com.sokah.valorantapp.model.agents.Role
+import com.sokah.valorantapp.model.entities.AbilityEntity
+import com.sokah.valorantapp.model.entities.RoleEntity
 import com.sokah.valorantapp.model.weapons.Chroma
 import com.sokah.valorantapp.model.weapons.Level
 
@@ -13,17 +15,17 @@ class AbilityConverter {
 
     @TypeConverter
 
-    fun fromAbility(abilities: MutableList<Ability>): String {
+    fun fromAbility(abilities: MutableList<AbilityEntity>): String {
 
 
         return gson.toJson(abilities)
     }
 
     @TypeConverter
-    fun toAbilities(abilites: String): MutableList<Ability> {
+    fun toAbilities(abilites: String): MutableList<AbilityEntity> {
 
 
-        return gson.fromJson(abilites, Array<Ability>::class.java).toMutableList()
+        return gson.fromJson(abilites, Array<AbilityEntity>::class.java).toMutableList()
 
     }
 }
@@ -35,15 +37,15 @@ class RoleConverter {
 
     @TypeConverter
 
-    fun fromRole(role: Role): String {
+    fun fromRole(role: RoleEntity): String {
         return gson.toJson(role)
     }
 
     @TypeConverter
-    fun toRole(role: String): Role {
+    fun toRole(role: String): RoleEntity {
 
 
-        return gson.fromJson(role, Role::class.java)
+        return gson.fromJson(role, RoleEntity::class.java)
 
     }
 

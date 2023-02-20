@@ -5,14 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.sokah.valorantapp.model.agents.AgentModel
-import com.sokah.valorantapp.model.weapons.Skin
-import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.model.entities.AgentEntity
+import com.sokah.valorantapp.model.entities.SkinEntity
+import com.sokah.valorantapp.model.entities.WeaponEntity
 
 
 @Database(
 
-    entities = [AgentModel::class, WeaponModel::class,Skin::class],
+    entities = [AgentEntity::class, WeaponEntity::class, SkinEntity::class],
     version = 1,
     exportSchema = false
 )
