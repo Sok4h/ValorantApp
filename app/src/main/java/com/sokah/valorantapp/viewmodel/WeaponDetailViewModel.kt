@@ -5,12 +5,14 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.sokah.valorantapp.model.weapons.WeaponModel
 
-class WeaponDetailViewModel(weapon :String) :ViewModel() {
+class WeaponDetailViewModel() :ViewModel() {
 
 
     val agentWeapon = MutableLiveData <WeaponModel>()
 
-    init {
+
+
+    fun getWeapon(weapon:String){
 
         var gson = Gson()
         val weaponObject =  gson.fromJson(weapon,WeaponModel::class.java)

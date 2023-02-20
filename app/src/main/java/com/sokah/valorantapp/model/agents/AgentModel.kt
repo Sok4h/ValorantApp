@@ -24,8 +24,6 @@ data class AgentModel(
     val agentName: String,
     @SerializedName("fullPortrait")
     val fullPortrait: String,
-    @SerializedName("isAvailableForTest")
-    val isAvailableForTest: Boolean,
     @SerializedName("isBaseContent")
     val isBaseContent: Boolean,
     @SerializedName("isFullPortraitRightFacing")
@@ -40,7 +38,5 @@ data class AgentModel(
     @SerializedName("uuid")
     @PrimaryKey(autoGenerate = false)
     val uuid: String,
-   /* @SerializedName("voiceLine")
-    @Ignore
-    val voiceLine: VoiceLine*/
+
 )

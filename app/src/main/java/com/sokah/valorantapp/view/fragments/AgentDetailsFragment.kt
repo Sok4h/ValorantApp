@@ -1,26 +1,24 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentDetailsBinding
 import com.sokah.valorantapp.viewmodel.AgentDetailViewModel
-import com.sokah.valorantapp.viewmodel.AgentDetailViewModelFactory
 
 
 class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
     private var _binding: FragmentAgentDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewmodel: AgentDetailViewModel
+    private val viewmodel: AgentDetailViewModel by viewModels()
     lateinit var abilitiesimg: Array<ImageView>
 
     override fun onCreateView(
@@ -34,11 +32,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
         abilitiesimg =
             arrayOf(binding.ability0, binding.ability1, binding.ability2, binding.ability3)
 
-        val viewmodelfactory =
-            AgentDetailViewModelFactory(args.agentUuid, requireActivity().application)
-
-        viewmodel = ViewModelProvider(this, viewmodelfactory).get(AgentDetailViewModel::class.java)
-
+        viewmodel.getAgentDetail(args.agentUuid)
         setupAgent()
 
 

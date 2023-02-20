@@ -3,23 +3,24 @@ package com.sokah.valorantapp.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.weapons.WeaponModel
+import com.sokah.valorantapp.repository.IWeaponRepository
 import com.sokah.valorantapp.repository.WeaponRepository
 import kotlinx.coroutines.launch
 
-class WeaponListViewModel(application: Application) : AndroidViewModel(application) {
+class WeaponListViewModel() : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
 
     val weaponList = MutableLiveData<MutableList<WeaponModel>>()
-    val repository: WeaponRepository
+    val repository: IWeaponRepository
 
     init {
 
-        val weaponDao = ValorantDatabase.getInstance(application).weaponDao()
-        repository = WeaponRepository(weaponDao)
+        repository = WeaponRepository()
 
         getWeapons()
 
@@ -49,7 +50,7 @@ class WeaponListViewModel(application: Application) : AndroidViewModel(applicati
 
             val response = repository.getWeaponByCategory(type)
 
-            weaponList.postValue(response)
+            weaponList.postValue(response!!)
         }
 
 

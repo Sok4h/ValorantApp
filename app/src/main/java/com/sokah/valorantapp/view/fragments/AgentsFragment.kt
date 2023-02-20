@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -25,7 +27,7 @@ import kotlinx.coroutines.launch
 
 class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
-    private lateinit var viewmodel: AgentListViewModel
+    private val viewmodel: AgentListViewModel by viewModels()
     private var _binding: FragmentAgentsBinding? = null
     private val binding get() = _binding!!
     val adapter = AgentAdapter()
@@ -44,11 +46,6 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         internetConnection = CheckInternet(requireContext())
 
         setupRV()
-
-
-
-
-        viewmodel = ViewModelProvider(this)[AgentListViewModel::class.java]
 
         viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
 

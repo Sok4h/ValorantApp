@@ -1,18 +1,22 @@
 package com.sokah.valorantapp.repository
 
 import android.util.Log
+import com.sokah.valorantapp.MyApplication
 import com.sokah.valorantapp.db.SkinDao
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.BaseModel
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.network.ValorantApiService
 import retrofit2.HttpException
 import java.io.IOException
 
-class SkinRepository(private val skinDAO: SkinDao) {
+class SkinRepository():ISkinRepository {
 
     private var service = ValorantApiService()
+    private val database:ValorantDatabase  by lazy { MyApplication.getDatabase() }
+    private val skinDao = database.skinDao()
 
-    suspend fun getAllSkins(): MutableList<Skin> {
+    override suspend fun getAllSkins(): MutableList<Skin> {
 
         var resultApi: BaseModel<MutableList<Skin>>? = null
 
@@ -43,24 +47,25 @@ class SkinRepository(private val skinDAO: SkinDao) {
         return getAllSkinsdb()
     }
 
-     suspend fun getAllSkinsdb(): MutableList<Skin> {
+     override suspend fun getAllSkinsdb(): MutableList<Skin> {
 
-       return skinDAO.getAllSkins()
+       return skinDao.getAllSkins()
     }
 
-     suspend fun addSkins(data: MutableList<Skin>) {
+     override suspend fun addSkins(data: MutableList<Skin>) {
 
-        skinDAO.InsertSkins(data)
+         skinDao.InsertSkins(data)
     }
 
-    suspend fun getSkinByUuid(uuid: String): Skin{
+    override suspend fun getSkinByUuid(uuid: String): Skin{
 
-        return  skinDAO.getSkinByUuid(uuid)
+        return  skinDao.getSkinByUuid(uuid)
     }
 
-    suspend fun  getSkinByType(type: String): MutableList<Skin>{
+    override suspend fun  getSkinByType(type: String): MutableList<Skin>{
 
-        return  skinDAO.getSkinByType(type)
+
+        return  skinDao.getSkinByType("%${type}%")
     }
 
 

@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
@@ -41,11 +42,11 @@ import kotlinx.coroutines.launch
 
 class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListener {
 
-    private lateinit var viewModel: SkinsViewModel
+    private val viewModel: SkinsViewModel by viewModels()
     private var _binding: SkinsFragmentBinding? = null
     private val binding get() = _binding!!
     lateinit var weapons: Array<String>
-    lateinit var skinsList : MutableList<Skin>
+    lateinit var skinsList: MutableList<Skin>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,14 +60,12 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
         val adapter = SkinAdapter(this)
 
         binding.rvSkins.adapter = adapter
-        viewModel = ViewModelProvider(this).get(SkinsViewModel::class.java)
-
 
         viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
-            if(it.isEmpty()){
+            if (it.isEmpty()) {
                 showSnackBar()
-            }else{
+            } else {
 
             }
             adapter.SetSkins(it)
@@ -84,14 +83,14 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
-              if(position ==0){
+            if (position == 0) {
 
-                  viewModel.filterSkins("")
-              }else{
-                  viewModel.filterSkins(weapons.get(position))
-              }
+                viewModel.filterSkins("")
+            } else {
+                viewModel.filterSkins(weapons.get(position))
+            }
 
-          }
+        }
 
 
         return binding.root
@@ -124,11 +123,12 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
     private fun showSnackBar() {
 
-        val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
+        val bottomNavView: BottomNavigationView =
+            activity?.findViewById(R.id.bottomNavigationView)!!
 
-        Snackbar.make(binding.root,R.string.no_internet, BaseTransientBottomBar.LENGTH_INDEFINITE)
+        Snackbar.make(binding.root, R.string.no_internet, BaseTransientBottomBar.LENGTH_INDEFINITE)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
-            .setAction("Retry"){
+            .setAction("Retry") {
 
                 lifecycleScope.launch {
                     viewModel.getSkins()

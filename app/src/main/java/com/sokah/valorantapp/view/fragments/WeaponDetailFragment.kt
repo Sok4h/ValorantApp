@@ -1,20 +1,16 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.github.mikephil.charting.data.Entry
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponDetailBinding
 import com.sokah.valorantapp.model.weapons.WeaponModel
 import com.sokah.valorantapp.viewmodel.WeaponDetailViewModel
-import com.sokah.valorantapp.viewmodel.WeaponDetailViewModelFactory
-import java.lang.reflect.Array.get
 
 
 class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
@@ -33,9 +29,10 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
         val args = WeaponDetailFragmentArgs.fromBundle(requireArguments())
         _binding = FragmentWeaponDetailBinding.inflate(inflater,container,false)
 
-        val provider = WeaponDetailViewModelFactory(args.weapon)
 
-        viewModel = ViewModelProvider(this,provider).get(WeaponDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this)[WeaponDetailViewModel::class.java]
+
+        viewModel.getWeapon(args.weapon)
 
         viewModel.agentWeapon.observe(viewLifecycleOwner) {
 

@@ -1,24 +1,27 @@
 package com.sokah.valorantapp.repository
 
 import android.util.Log
+import com.sokah.valorantapp.MyApplication
 import com.sokah.valorantapp.db.AgentDao
+import com.sokah.valorantapp.db.ValorantDatabase
 import com.sokah.valorantapp.model.BaseModel
 import com.sokah.valorantapp.model.agents.AgentModel
 import com.sokah.valorantapp.network.ValorantApiService
 import retrofit2.HttpException
 import java.io.IOException
 
-class AgentRepository(private val agentDao: AgentDao) {
-
+class AgentRepository():IAgentRepository {
+    private val database :ValorantDatabase by lazy { MyApplication.getDatabase() }
+     private val agentDao = database.agentDao()
     private var service = ValorantApiService()
     private val conflict ="this should cause conflict since its a new PR"
 
-    suspend fun getAllAgents(): MutableList<AgentModel>? {
+
+    override suspend fun getAllAgents(): MutableList<AgentModel>? {
 
         var resultApi: BaseModel<MutableList<AgentModel>>? = null
         var result: MutableList<AgentModel>? = null
 
-        // var allBooks: LiveData<MutableList<Book>>
 
         try {
 
@@ -45,23 +48,23 @@ class AgentRepository(private val agentDao: AgentDao) {
     }
 
 
-    suspend fun addAgents(agents: MutableList<AgentModel>) {
+    override suspend fun addAgents(agents: MutableList<AgentModel>) {
 
         agentDao.insertAgents(agents)
     }
 
-    suspend fun getAllAgentsdb(): MutableList<AgentModel>? {
+    override suspend fun getAllAgentsdb(): MutableList<AgentModel>? {
 
         return agentDao.getAllAgents()
     }
 
-    suspend fun getAgentByRole(role: String): MutableList<AgentModel>? {
+    override suspend fun getAgentByRole(role: String): MutableList<AgentModel>? {
 
         return agentDao.getAgentbyRole(role)
 
     }
 
-    suspend fun getAgentById(id: String): AgentModel {
+    override suspend fun getAgentById(id: String): AgentModel {
 
         return agentDao.getAgentById(id)
     }

@@ -12,15 +12,12 @@ import kotlinx.coroutines.launch
 
 class SkinsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val repository: SkinRepository
+    val repository: SkinRepository = SkinRepository()
     val mutableSkinList = MutableLiveData<MutableList<Skin>>()
     lateinit var skins: MutableList<Skin>
     val isLoading = MutableLiveData<Boolean>()
 
     init {
-
-        val skinDao = ValorantDatabase.getInstance(application).skinDao()
-        repository = SkinRepository(skinDao)
 
         viewModelScope.launch {
             getSkins()
@@ -47,7 +44,7 @@ class SkinsViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-     fun filterSkins(query: String) {
+    fun filterSkins(query: String) {
 
         if (query.isEmpty()) {
 

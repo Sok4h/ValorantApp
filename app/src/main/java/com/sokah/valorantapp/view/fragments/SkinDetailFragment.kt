@@ -1,7 +1,6 @@
 package com.sokah.valorantapp.view.fragments
 
 import android.app.Application
-import android.media.Image
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -10,46 +9,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinDetailFragmentBinding
 import com.sokah.valorantapp.model.weapons.Skin
 import com.sokah.valorantapp.viewmodel.SkinDetailViewModel
-import com.sokah.valorantapp.viewmodel.SkinDetailViewModelFactory
-import android.widget.RelativeLayout
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.load.DecodeFormat
-import com.sokah.valorantapp.view.adapters.SkinAdapter
 import com.sokah.valorantapp.view.adapters.SkinAdapter2
 
 
-class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2.OnSkinListener {
+class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2.OnSkinListener {
 
     private var _binding: SkinDetailFragmentBinding? = null
-    private lateinit var factory: SkinDetailViewModelFactory
     private val binding get() = _binding!!
-    private lateinit var viewModel: SkinDetailViewModel
+    private val viewModel: SkinDetailViewModel by viewModels()
     lateinit var chromasImg: Array<ImageView>
-    lateinit var skinsList : MutableList<Skin>
+    lateinit var skinsList: MutableList<Skin>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-
         val arg = SkinDetailFragmentArgs.fromBundle(requireArguments())
-
-        factory = SkinDetailViewModelFactory(arg.skin, Application())
         _binding = SkinDetailFragmentBinding.inflate(inflater, container, false)
         chromasImg = arrayOf(binding.chroma0, binding.chroma1, binding.chroma2, binding.chroma3)
-        viewModel = ViewModelProvider(this, factory).get(SkinDetailViewModel::class.java)
-
+        viewModel.getSkin(arg.skin)
         val adapter = SkinAdapter2(this)
-
-        binding.rvSkinsFromCollection.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+        viewModel.getSkinsFiltered()
+        binding.rvSkinsFromCollection.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvSkinsFromCollection.adapter = adapter
 
         viewModel.skinLive.observe(viewLifecycleOwner) {
@@ -59,8 +50,8 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2
 
         viewModel.mutableSkinList.observe(viewLifecycleOwner) {
 
-        adapter.SetSkins(it)
-            skinsList=it
+            adapter.SetSkins(it)
+            skinsList = it
         }
         return binding.root
     }
@@ -85,36 +76,35 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment) ,SkinAdapter2
 
         }
         //muestra texto si no hay ningun chroma
-        if (skin.chromas.size==1){
+        if (skin.chromas.size == 1) {
             binding.tvNoChromas.visibility = View.VISIBLE
 
-            for(img in chromasImg){
+            for (img in chromasImg) {
 
-                img.visibility=View.GONE
+                img.visibility = View.GONE
             }
-        }
-        else{
+        } else {
             binding.tvNoChromas.visibility = View.INVISIBLE
 
 
         }
 
-        Log.e("TAG", "loadSkin: "+ skin.chromas.size.toString() )
-        for(chroma in skin.chromas){
+        Log.e("TAG", "loadSkin: " + skin.chromas.size.toString())
+        for (chroma in skin.chromas) {
 
             for ((index, img) in chromasImg.withIndex()) {
                 // cambia imagenes skin
                 img.setOnClickListener {
 
                     Log.e("TAG", index.toString())
-                    Glide.with(this).load(skin.chromas[index].fullRender).into(binding.imgSkinDetail)
+                    Glide.with(this).load(skin.chromas[index].fullRender)
+                        .into(binding.imgSkinDetail)
 
                 }
 
             }
 
         }
-
 
 
     }
