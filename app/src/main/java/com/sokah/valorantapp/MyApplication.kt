@@ -3,7 +3,7 @@ package com.sokah.valorantapp
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.sokah.valorantapp.db.ValorantDatabase
+import com.sokah.valorantapp.data.database.ValorantDatabase
 
 class MyApplication : Application() {
 
