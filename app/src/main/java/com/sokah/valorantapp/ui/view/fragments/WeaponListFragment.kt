@@ -4,24 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.google.android.material.snackbar.BaseTransientBottomBar.*
+import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_FADE
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
 import com.sokah.valorantapp.ui.view.adapters.WeaponAdapter
+import com.sokah.valorantapp.ui.viewStates.WeaponViewState
 import com.sokah.valorantapp.ui.viewmodel.WeaponListViewModel
 
 
 class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
-    lateinit var viewmodel: WeaponListViewModel
+    val viewmodel: WeaponListViewModel by viewModels()
     private var _binding: FragmentWeaponListBinding? = null
     val binding get() = _binding!!
     val adapter = WeaponAdapter()
@@ -35,18 +37,22 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
         _binding = FragmentWeaponListBinding.inflate(inflater, container, false)
 
         setupRV()
-        viewmodel = ViewModelProvider(this).get(WeaponListViewModel::class.java)
 
-        viewmodel.weaponList.observe(viewLifecycleOwner) {
+        viewmodel.viewState.observe(this) { state ->
 
-            if(it.isEmpty()) showSnackBar()
-            adapter.setAgents(it)
-            layoutManager.scrollToPositionWithOffset(0, 0)
-        }
+            when (state) {
 
-        viewmodel.isLoading.observe(viewLifecycleOwner) {
-
-            binding.progressBar2.isVisible = it
+                is WeaponViewState.Loading -> binding.progressBar2.isVisible = true
+                is WeaponViewState.Error -> {
+                    binding.progressBar2.isVisible = false
+                    Toast.makeText(context, state.error.message, Toast.LENGTH_LONG).show()
+                }
+                is WeaponViewState.Success -> {
+                    binding.progressBar2.isVisible = false
+                    adapter.setAgents(state.data)
+                    layoutManager.scrollToPositionWithOffset(0, 0)
+                }
+            }
         }
 
         binding.chipGroupWeapons.setOnCheckedChangeListener { _, checkedId ->
@@ -86,8 +92,9 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
     private fun showSnackBar() {
 
-        val bottomNavView: BottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)!!
-        Snackbar.make(binding.root,R.string.no_internet,LENGTH_INDEFINITE)
+        val bottomNavView: BottomNavigationView =
+            activity?.findViewById(R.id.bottomNavigationView)!!
+        Snackbar.make(binding.root, R.string.no_internet, LENGTH_INDEFINITE)
             .setAnimationMode(ANIMATION_MODE_FADE)
             .setAnchorView(bottomNavView)
             .setAction("Retry") { viewmodel.getWeapons() }.show()
@@ -95,7 +102,7 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null;
+        _binding = null
     }
 
 }

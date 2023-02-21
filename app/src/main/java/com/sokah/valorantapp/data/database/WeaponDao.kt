@@ -11,14 +11,14 @@ interface WeaponDao {
 
 
     @Query("SELECT * from weapons")
-    suspend fun getAllWeapons():MutableList<WeaponEntity>?
+    suspend fun getAllWeapons(): MutableList<WeaponEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
 
     suspend fun insertWeapons(weapons:MutableList<WeaponEntity>)
 
     @Query("SELECT * from weapons where category LIKE :category")
-    suspend fun getWeaponByCategory(category:String):MutableList<WeaponEntity>?
+    suspend fun getWeaponByCategory(category: String): MutableList<WeaponEntity>
 
 
 }

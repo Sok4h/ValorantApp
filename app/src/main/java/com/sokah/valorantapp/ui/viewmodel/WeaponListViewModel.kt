@@ -3,22 +3,21 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
 import com.sokah.valorantapp.data.repository.IWeaponRepository
 import com.sokah.valorantapp.data.repository.WeaponRepository
+import com.sokah.valorantapp.ui.viewStates.WeaponViewState
 import kotlinx.coroutines.launch
 
 class WeaponListViewModel() : ViewModel() {
 
-    val isLoading = MutableLiveData<Boolean>()
-
-    val weaponList = MutableLiveData<MutableList<WeaponModel>>()
+    private val _viewState = MutableLiveData<WeaponViewState>()
+    val viewState get() = _viewState
     val repository: IWeaponRepository
 
     init {
 
-        repository = WeaponRepository()
 
+        repository = WeaponRepository()
         getWeapons()
 
 
@@ -28,14 +27,15 @@ class WeaponListViewModel() : ViewModel() {
 
         viewModelScope.launch {
 
-            isLoading.postValue(true)
+            _viewState.postValue(WeaponViewState.Loading)
             val result = repository.getAllWeapons()
-            isLoading.postValue(false)
-
-            if (result != null) {
-                weaponList.postValue(result!!)
-
+            when {
+                result.isSuccess -> _viewState.postValue(WeaponViewState.Success(result.getOrThrow()))
+                else -> {
+                    _viewState.postValue(WeaponViewState.Error(result.exceptionOrNull() as Exception))
+                }
             }
+
         }
 
 
@@ -47,7 +47,7 @@ class WeaponListViewModel() : ViewModel() {
 
             val response = repository.getWeaponByCategory(type)
 
-            weaponList.postValue(response!!)
+            _viewState.postValue(WeaponViewState.Success(response))
         }
 
 

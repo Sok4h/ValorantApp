@@ -1,32 +1,24 @@
 package com.sokah.valorantapp.ui.view.fragments
 
-import CheckInternet
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
-import com.google.android.material.snackbar.BaseTransientBottomBar.*
+import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_FADE
+import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFINITE
 import com.google.android.material.snackbar.Snackbar
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentsBinding
-import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import com.sokah.valorantapp.ui.view.adapters.AgentAdapter
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
 import com.sokah.valorantapp.ui.viewmodel.AgentListViewModel
-import kotlinx.coroutines.launch
 
 
 class AgentsFragment : Fragment(R.layout.fragment_agents) {
@@ -36,10 +28,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
     private val binding get() = _binding!!
     val adapter = AgentAdapter()
     lateinit var layoutManager: GridLayoutManager
-    lateinit var internetConnection: CheckInternet
 
-
-    lateinit var chips: Array<Chip>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,61 +36,33 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         // Inflate the layout for this fragment
         _binding = FragmentAgentsBinding.inflate(inflater, container, false)
 
-        internetConnection = CheckInternet(requireContext())
-
         setupRV()
-/*
-        viewmodel.mutableAgentList.observe(viewLifecycleOwner) {
-
-            if(it.isNullOrEmpty()){
-
-                showSnackBar()
-            }
-            adapter.setAgents(it!!)
-            layoutManager.scrollToPositionWithOffset(0, 0)
-
-        }*/
-
-        /*  viewmodel.isLoading.observe(viewLifecycleOwner) {
-
-              binding.progressBar.isVisible = it
-          }*/
-
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
-
             filterAgents(checkedId)
-
-
         }
 
-        viewmodel.viewState.observe(this) {
+        viewmodel.viewState.observe(this) { agentViewState ->
 
+            when (agentViewState) {
 
-            when (it) {
-
-                is AgentViewStates.AllAgents -> {
-                    adapter.setAgents(it.data.toMutableList())
+                is AgentViewStates.Success -> {
+                    adapter.setAgents(agentViewState.data.toMutableList())
                     layoutManager.scrollToPositionWithOffset(0, 0)
                     binding.progressBar.isVisible = false
                 }
 
                 is AgentViewStates.Loading -> binding.progressBar.isVisible = true
 
-                is AgentViewStates.Error->{
+                is AgentViewStates.Error -> {
 
-                    Toast.makeText(context, "re paila", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, agentViewState.error.message, Toast.LENGTH_LONG).show()
                     binding.progressBar.isVisible = false
-                    showSnackBar()
-
+                    //showSnackBar()
                 }
-                else -> {
 
-                }
             }
         }
         return binding.root
-
-
     }
 
 
@@ -124,7 +85,6 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
         layoutManager = GridLayoutManager(context, 2)
         binding.rvAgents.layoutManager = layoutManager
-        // chips = arrayOf(binding.chipDuelist, binding.chipController)
         binding.rvAgents.adapter = adapter
     }
 
@@ -133,12 +93,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         val chip = binding.chipGroup.findViewById<Chip>(checkedId)
 
         if (chip != null) {
-
-            lifecycleScope.launch {
-
-                viewmodel.filterAgent(chip.text.toString())
-
-            }
+            viewmodel.filterAgent(chip.text.toString())
         } else {
             viewmodel.getAgents()
         }

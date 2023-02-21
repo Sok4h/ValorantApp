@@ -1,24 +1,26 @@
 package com.sokah.valorantapp.ui.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.GridLayoutManager
-import com.sokah.valorantapp.R
-import com.sokah.valorantapp.databinding.SkinsFragmentBinding
-import com.sokah.valorantapp.ui.view.adapters.SkinAdapter
-import com.sokah.valorantapp.ui.viewmodel.SkinsViewModel
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.sokah.valorantapp.R
+import com.sokah.valorantapp.databinding.SkinsFragmentBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
+import com.sokah.valorantapp.ui.view.adapters.SkinAdapter
+import com.sokah.valorantapp.ui.viewStates.SkinViewStates
+import com.sokah.valorantapp.ui.viewmodel.SkinsViewModel
 import kotlinx.coroutines.launch
 
 
@@ -29,6 +31,8 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
     private val binding get() = _binding!!
     lateinit var weapons: Array<String>
     lateinit var skinsList: MutableList<SkinModel>
+    lateinit var layoutManager: GridLayoutManager
+    val adapter = SkinAdapter(this)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,40 +40,37 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         _binding = SkinsFragmentBinding.inflate(inflater, container, false)
 
-        val layoutManager = GridLayoutManager(context, 2)
-        binding.rvSkins.layoutManager = layoutManager
+        setupRV()
 
-        val adapter = SkinAdapter(this)
+        viewModel.viewState.observe(this) { viewState ->
 
-        binding.rvSkins.adapter = adapter
+            when (viewState) {
+                is SkinViewStates.Error -> {
+                    binding.progressBar3.isVisible = false
+                    Toast.makeText(context, viewState.error.message, Toast.LENGTH_LONG).show()
+                }
+                SkinViewStates.Loading -> {
+                    binding.progressBar3.isVisible = true
+                }
+                is SkinViewStates.Success -> {
+                    binding.progressBar3.isVisible = false
 
-        viewModel.mutableSkinList.observe(viewLifecycleOwner) {
-
-            if (it.isEmpty()) {
-                showSnackBar()
-            } else {
-
+                    adapter.SetSkins(viewState.data)
+                    layoutManager.scrollToPositionWithOffset(0, 0)
+                    skinsList = viewState.data
+                }
             }
-            adapter.SetSkins(it)
-            // hace que se suba el scroll cuando cambia algo en la lista
-            layoutManager.scrollToPositionWithOffset(0, 0)
-            skinsList = it
+
+
         }
-
-        viewModel.isLoading.observe(viewLifecycleOwner) {
-
-            binding.progressBar3.isVisible = it
-        }
-
 
 
         binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
 
             if (position == 0) {
-
-                viewModel.filterSkins("")
+                viewModel.getSkins()
             } else {
-                viewModel.filterSkins(weapons.get(position))
+                viewModel.filterSkinsByWeaponType(weapons[position])
             }
 
         }
@@ -78,6 +79,12 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
         return binding.root
     }
 
+    fun setupRV() {
+
+        layoutManager = GridLayoutManager(context, 2)
+        binding.rvSkins.layoutManager = layoutManager
+        binding.rvSkins.adapter = adapter
+    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -101,7 +108,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         binding.root.findNavController()
             .navigate(
-              SkinsFragmentDirections.actionSkinsFragmentToSkinDetailFragment(
+                SkinsFragmentDirections.actionSkinsFragmentToSkinDetailFragment(
                     skin
                 )
             )

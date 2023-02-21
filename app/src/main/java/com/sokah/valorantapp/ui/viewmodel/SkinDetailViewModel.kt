@@ -3,8 +3,8 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import com.sokah.valorantapp.data.repository.SkinRepository
+import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import kotlinx.coroutines.launch
 
 class SkinDetailViewModel() :
@@ -30,7 +30,7 @@ class SkinDetailViewModel() :
 
         isLoading.postValue(true)
         viewModelScope.launch {
-            var response = repository.getAllSkinsdb()
+            var response = repository.getAllSkinsFromDatabase()
 
 
             response.filterNot {

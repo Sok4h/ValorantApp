@@ -1,8 +1,8 @@
 package com.sokah.valorantapp.data.network
 
 import com.sokah.valorantapp.data.model.BaseModel
-import com.sokah.valorantapp.model.agents.AgentDto
 import com.sokah.valorantapp.data.model.dtos.SkinDto
+import com.sokah.valorantapp.model.agents.AgentDto
 import com.sokah.valorantapp.model.weapons.WeaponDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -35,22 +35,22 @@ class ValorantApiService {
     }
 
 
-    suspend fun getWeapons(): BaseModel<MutableList<WeaponDto>> {
+    suspend fun getWeapons(): Response<BaseModel<MutableList<WeaponDto>>> {
 
         return withContext(Dispatchers.IO) {
 
             val response = retrofit.create(ValorantApi::class.java).getWeapons()
-            response.body()!!
+            response
         }
     }
 
-    suspend fun getSkins(): BaseModel<MutableList<SkinDto>> {
+    suspend fun getSkins(): Response<BaseModel<MutableList<SkinDto>>> {
 
         return withContext(Dispatchers.IO) {
 
             val response = retrofit.create(ValorantApi::class.java).getSkins()
 
-            response.body()!!
+            response
         }
     }
 

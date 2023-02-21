@@ -1,21 +1,15 @@
 package com.sokah.valorantapp.data.repository
 
-import android.util.Log
 import com.sokah.valorantapp.MyApplication
 import com.sokah.valorantapp.data.database.ValorantDatabase
-import com.sokah.valorantapp.data.model.BaseModel
-import com.sokah.valorantapp.model.agents.AgentDto
-import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
+import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.model.entities.AgentEntity
 import com.sokah.valorantapp.data.model.toAgentEntity
 import com.sokah.valorantapp.data.network.ValorantApiService
 import com.sokah.valorantapp.ui.mapper.uiMappers.toAgentModel
+import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import com.sokah.valorantapp.data.utils.Result
-import retrofit2.HttpException
-import retrofit2.Response
-import java.io.IOException
 
 
 class AgentRepository() : IAgentRepository {
@@ -25,46 +19,38 @@ class AgentRepository() : IAgentRepository {
 
 
     override suspend fun getAllAgents(): Result<MutableList<AgentModel>> {
-
-
-        var result: MutableList<AgentModel> = mutableListOf()
-
-        val response: Response<BaseModel<MutableList<AgentDto>>>
+        var databaseResult: MutableList<AgentModel>
+        var result: Result<MutableList<AgentModel>>
 
         return withContext(Dispatchers.IO) {
 
+            databaseResult = getAllAgentsFromDatabase()
             try {
                 val response = service.getAgents()
-                when {
-
-                    response.isSuccessful -> {
-
-                        val resultApi = response.body()
-
-                        addAgents(resultApi!!.data.map { it.toAgentEntity() }.toMutableList())
-
-                        Result.Success(getAllAgentsdb())
-                    }
-                    else -> {
-
-                        /* result = getAllAgentsdb()
-                         if (result.isEmpty()) {*/
-                        Log.e("error", "cacheeee")
-                        Result.Failure(NoCacheException("No hay caché pailas"))
-
-                        /* }
-                         Result.success(getAllAgentsdb())*/
-                    }
+                if (response.isSuccessful) {
+                    val resultApi = response.body()
+                    addAgents(resultApi!!.data.map { it.toAgentEntity() }.toMutableList())
+                    result = Result.success(getAllAgentsFromDatabase())
+                } else if (databaseResult.isEmpty()) {
+                    result =
+                        Result.failure(
+                            CustomException(
+                                "Si hay internet pero la api fallo con codigo"
+                                        + " ${response.code()} y la base de datos está vacía"
+                            )
+                        )
+                } else {
+                    result = Result.success(getAllAgentsFromDatabase())
                 }
             } catch (e: Exception) {
-                result = getAllAgentsdb()
-
-                if (result.isEmpty()) {
-
-                    return@withContext Result.Failure<NoCacheException>(NoCacheException("No hay caché pailas"))
+                if (databaseResult.isNotEmpty()) {
+                    return@withContext Result.success(databaseResult)
+                } else {
+                    result =
+                        Result.failure(CustomException("No tenemos internet y la base de datos está vacia"))
                 }
             }
-
+            return@withContext result
         }
     }
 
@@ -74,7 +60,7 @@ class AgentRepository() : IAgentRepository {
         agentDao.insertAgents(agents)
     }
 
-    override suspend fun getAllAgentsdb(): MutableList<AgentModel> {
+    override suspend fun getAllAgentsFromDatabase(): MutableList<AgentModel> {
 
         return agentDao.getAllAgents().map { it.toAgentModel() }.toMutableList()
     }

@@ -1,74 +1,83 @@
 package com.sokah.valorantapp.data.repository
 
-import android.util.Log
 import com.sokah.valorantapp.MyApplication
 import com.sokah.valorantapp.data.database.ValorantDatabase
-import com.sokah.valorantapp.data.model.BaseModel
-import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
-import com.sokah.valorantapp.data.model.dtos.SkinDto
+import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.model.entities.SkinEntity
 import com.sokah.valorantapp.data.model.toSkinEntity
 import com.sokah.valorantapp.data.network.ValorantApiService
 import com.sokah.valorantapp.ui.mapper.uiMappers.toSkinModel
-import retrofit2.HttpException
-import java.io.IOException
+import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 
-class SkinRepository(): ISkinRepository {
+class SkinRepository : ISkinRepository {
 
     private var service = ValorantApiService()
     private val database: ValorantDatabase by lazy { MyApplication.getDatabase() }
     private val skinDao = database.skinDao()
 
-    override suspend fun getAllSkins(): MutableList<SkinModel> {
+    override suspend fun getAllSkins(): Result<MutableList<SkinModel>> {
 
-        var resultApi: BaseModel<MutableList<SkinDto>>? = null
-
+        val resultDatabase = getAllSkinsFromDatabase()
+        var result: Result<MutableList<SkinModel>>
 
         try {
+            val response = service.getSkins()
 
-            resultApi = service.getSkins()
-        } catch (e: IOException) {
+            if (response.isSuccessful) {
 
-            Log.e("TAG", e.message.toString())
+                val responseApi = response.body()
+                addSkins(responseApi!!.data.map { it.toSkinEntity() }.toMutableList())
+                result = Result.success(getAllSkinsFromDatabase())
 
-        } catch (e: HttpException) {
+            } else if (resultDatabase.isEmpty()) {
+                result =
+                    Result.failure(
+                        CustomException(
+                            "La conexión al api falló con codigo"
+                                    + " ${response.code()} y la base de datos está vacía"
+                        )
+                    )
+            } else {
 
-            Log.e("TAG", e.message.toString())
+                result = Result.success(getAllSkinsFromDatabase())
+            }
 
-        }
+        } catch (e: Exception) {
 
-        if (resultApi != null) {
+            result = if (resultDatabase.isNotEmpty()) {
 
-            if(resultApi.data.size > getAllSkinsdb().size){
-                addSkins(resultApi.data.map { it.toSkinEntity() }.toMutableList())
+                Result.success(getAllSkinsFromDatabase())
+            } else {
+
+                Result.failure(CustomException("No hay internet y la base de datos está vacia"))
             }
 
         }
 
+        return result
 
 
-        return getAllSkinsdb()
     }
 
-     override suspend fun getAllSkinsdb(): MutableList<SkinModel> {
+    override suspend fun getAllSkinsFromDatabase(): MutableList<SkinModel> {
 
-       return skinDao.getAllSkins().map { it.toSkinModel() }.toMutableList()
+        return skinDao.getAllSkins().map { it.toSkinModel() }.toMutableList()
     }
 
-     override suspend fun addSkins(data: MutableList<SkinEntity>) {
+    override suspend fun addSkins(data: MutableList<SkinEntity>) {
 
-         skinDao.InsertSkins(data)
+        skinDao.InsertSkins(data)
     }
 
     override suspend fun getSkinByUuid(uuid: String): SkinModel {
 
-        return  skinDao.getSkinByUuid(uuid).toSkinModel()
+        return skinDao.getSkinByUuid(uuid).toSkinModel()
     }
 
-    override suspend fun  getSkinByType(type: String): MutableList<SkinModel>{
+    override suspend fun getSkinByType(type: String): MutableList<SkinModel> {
 
 
-        return  skinDao.getSkinByType("%${type}%").map { it.toSkinModel() }.toMutableList()
+        return skinDao.getSkinByType("%${type}%").map { it.toSkinModel() }.toMutableList()
     }
 
 

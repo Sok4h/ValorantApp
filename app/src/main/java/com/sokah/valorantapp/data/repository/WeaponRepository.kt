@@ -1,18 +1,16 @@
 package com.sokah.valorantapp.data.repository
 
-import android.util.Log
 import com.sokah.valorantapp.MyApplication
 import com.sokah.valorantapp.data.database.ValorantDatabase
 import com.sokah.valorantapp.data.database.WeaponDao
-import com.sokah.valorantapp.data.model.BaseModel
-import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
+import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.model.entities.WeaponEntity
 import com.sokah.valorantapp.data.model.toWeaponEntity
-import com.sokah.valorantapp.model.weapons.WeaponDto
 import com.sokah.valorantapp.data.network.ValorantApiService
 import com.sokah.valorantapp.ui.mapper.uiMappers.toWeaponModel
-import retrofit2.HttpException
-import java.io.IOException
+import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class WeaponRepository() : IWeaponRepository {
 
@@ -21,31 +19,58 @@ class WeaponRepository() : IWeaponRepository {
     private val weaponDao: WeaponDao = database.weaponDao()
     private var service = ValorantApiService()
 
-    var resultApi: BaseModel<MutableList<WeaponDto>>? = null
+
+    override suspend fun getAllWeapons(): Result<MutableList<WeaponModel>> {
+
+        var databaseResult: MutableList<WeaponModel>
+        var result: Result<MutableList<WeaponModel>>
+
+        return withContext(Dispatchers.IO) {
+
+            databaseResult = getAllWeaponsFromDatabase()
+            try {
+
+                val response = service.getWeapons()
+
+                if (response.isSuccessful) {
+                    val responseApi = response.body()
+                    addWeapons(responseApi!!.data.map { it.toWeaponEntity() }.toMutableList())
+                    result = Result.success(getAllWeaponsFromDatabase())
+
+                } else if (databaseResult.isEmpty()) {
+                    result =
+                        Result.failure(
+                            CustomException(
+                                "Si hay internet pero la api fallo con codigo"
+                                        + " ${response.code()} y la base de datos está vacía"
+                            )
+                        )
+                } else {
+
+                    result = Result.success(getAllWeaponsFromDatabase())
+                }
+
+            } catch (e: Exception) {
+
+                if (databaseResult.isNotEmpty()) {
+
+                    val filtered = getAllWeaponsFromDatabase().filterNot {
+
+                        it.displayName.contains("Standar") || it.displayName.contentEquals("Melee")
+                    }.toMutableList()
+                    result = Result.success(filtered)
+                } else {
+
+                    result =
+                        Result.failure(CustomException("No tenemos internet y la base de datos está vacia"))
+                }
 
 
-    override suspend fun getAllWeapons(): MutableList<WeaponModel>? {
+            }
+            return@withContext result
 
-
-        try {
-
-            resultApi = service.getWeapons()
-        } catch (e: IOException) {
-
-            Log.e("TAG", e.message.toString())
-
-        } catch (e: HttpException) {
-
-            Log.e("TAG", e.message.toString())
 
         }
-
-        if (resultApi != null) {
-
-            addWeapons(resultApi!!.data.map { it.toWeaponEntity() }.toMutableList())
-        }
-
-        return getAllWeaponsdb()
     }
 
     override suspend fun addWeapons(weapons: MutableList<WeaponEntity>) {
@@ -54,16 +79,15 @@ class WeaponRepository() : IWeaponRepository {
 
     }
 
-    override suspend fun getWeaponByCategory(category: String): MutableList<WeaponModel>? {
+    override suspend fun getWeaponByCategory(category: String): MutableList<WeaponModel> {
 
-
-        return weaponDao.getWeaponByCategory("%$category%")?.map { it.toWeaponModel() }
-            ?.toMutableList()
+        return weaponDao.getWeaponByCategory("%$category%").map { it.toWeaponModel() }
+            .toMutableList()
     }
 
 
-    override suspend fun getAllWeaponsdb(): MutableList<WeaponModel>? {
+    override suspend fun getAllWeaponsFromDatabase(): MutableList<WeaponModel> {
 
-        return weaponDao.getAllWeapons()?.map { it.toWeaponModel() }?.toMutableList()
+        return weaponDao.getAllWeapons().map { it.toWeaponModel() }.toMutableList()
     }
 }

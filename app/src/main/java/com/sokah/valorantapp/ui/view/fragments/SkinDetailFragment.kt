@@ -1,21 +1,20 @@
 package com.sokah.valorantapp.ui.view.fragments
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DecodeFormat
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.SkinDetailFragmentBinding
-import com.sokah.valorantapp.ui.viewmodel.SkinDetailViewModel
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.load.DecodeFormat
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import com.sokah.valorantapp.ui.view.adapters.SkinAdapter2
+import com.sokah.valorantapp.ui.viewmodel.SkinDetailViewModel
 
 
 class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2.OnSkinListener {
@@ -85,20 +84,15 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
         } else {
             binding.tvNoChromas.visibility = View.INVISIBLE
 
-
         }
 
-        Log.e("TAG", "loadSkin: " + skin.chromas.size.toString())
         for (chroma in skin.chromas) {
 
             for ((index, img) in chromasImg.withIndex()) {
                 // cambia imagenes skin
                 img.setOnClickListener {
-
-                    Log.e("TAG", index.toString())
                     Glide.with(this).load(skin.chromas[index].fullRender)
                         .into(binding.imgSkinDetail)
-
                 }
 
             }

@@ -1,19 +1,19 @@
 package com.sokah.valorantapp.ui.viewmodel
 
-import com.sokah.valorantapp.data.repository.ISkinRepository
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
+import com.sokah.valorantapp.data.repository.ISkinRepository
 import com.sokah.valorantapp.data.repository.SkinRepository
+import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
+import com.sokah.valorantapp.ui.viewStates.SkinViewStates
 import kotlinx.coroutines.launch
 
-class SkinsViewModel() : ViewModel() {
+class SkinsViewModel : ViewModel() {
 
     val repository: ISkinRepository = SkinRepository()
-    val mutableSkinList = MutableLiveData<MutableList<SkinModel>>()
-    lateinit var skins: MutableList<SkinModel>
-    val isLoading = MutableLiveData<Boolean>()
+    private val _viewState = MutableLiveData<SkinViewStates>()
+    val viewState get() = _viewState
 
     init {
 
@@ -24,52 +24,57 @@ class SkinsViewModel() : ViewModel() {
 
     }
 
-    suspend fun getSkins() {
+    fun getSkins() {
 
-        isLoading.postValue(true)
-        var response = repository.getAllSkins()
+        viewModelScope.launch {
+            _viewState.postValue(SkinViewStates.Loading)
 
-        response.filterNot {
+            val response = repository.getAllSkins()
 
-            it.displayName.contains("Standar") || it.displayName.contentEquals("Melee")
+            when {
 
-        }.also {
+                response.isSuccess -> _viewState.postValue(
+                    SkinViewStates.Success(
+                        filterDefaulSkins(
+                            response.getOrDefault(
+                                mutableListOf()
+                            )
+                        )
+                    )
+                )
+                else -> {
 
-            response = it.toMutableList()
-            mutableSkinList.postValue(response)
-            skins = response
-            isLoading.postValue(false)
-        }
-    }
-
-    fun filterSkins(query: String) {
-
-        if (query.isEmpty()) {
-
-            mutableSkinList.postValue(skins)
-
-        } else {
-
-            viewModelScope.launch {
-
-                val response = repository.getSkinByType(query)
-
-                response.filterNot {
-                    it.displayName.contains("Standar")
-
-                }.also {
-
-                    val respons = it.toMutableList()
-                    mutableSkinList.postValue(respons)
+                    _viewState.postValue(SkinViewStates.Error(response.exceptionOrNull() as Exception))
                 }
-
             }
-
         }
 
     }
 
+    fun filterSkinsByWeaponType(query: String) {
+        viewModelScope.launch {
+            val response = repository.getSkinByType(query)
+            viewState.postValue(SkinViewStates.Success(filterDefaulSkins(response)))
+
+        }
+    }
+
+    fun filterDefaulSkins(skins: MutableList<SkinModel>): MutableList<SkinModel> {
+
+        skins.filterNot {
+            it.displayName.contains("Standar") || it.displayName.contains("Random")
+
+
+        }.toMutableList().also {
+            return it
+        }
+
+    }
 }
+
+
+
+
 
 
 
