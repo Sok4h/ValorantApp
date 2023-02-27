@@ -1,19 +1,18 @@
 package com.sokah.valorantapp.data.repository
 
-import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.data.database.ValorantDatabase
+import com.sokah.valorantapp.data.database.SkinDao
 import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.model.entities.SkinEntity
 import com.sokah.valorantapp.data.model.toSkinEntity
-import com.sokah.valorantapp.data.network.ValorantApiService
+import com.sokah.valorantapp.data.network.ValorantApi
 import com.sokah.valorantapp.ui.mapper.uiMappers.toSkinModel
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
+import javax.inject.Inject
 
-class SkinRepository : ISkinRepository {
-
-    private var service = ValorantApiService()
-    private val database: ValorantDatabase by lazy { MyApplication.getDatabase() }
-    private val skinDao = database.skinDao()
+class SkinRepository @Inject constructor(
+    private val service: ValorantApi,
+    private val skinDao: SkinDao
+) : ISkinRepository {
 
     override suspend fun getAllSkins(): Result<MutableList<SkinModel>> {
 

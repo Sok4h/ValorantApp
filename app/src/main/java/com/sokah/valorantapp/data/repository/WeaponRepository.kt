@@ -1,7 +1,5 @@
 package com.sokah.valorantapp.data.repository
 
-import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.data.database.ValorantDatabase
 import com.sokah.valorantapp.data.database.WeaponDao
 import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.model.entities.WeaponEntity
@@ -11,14 +9,12 @@ import com.sokah.valorantapp.ui.mapper.uiMappers.toWeaponModel
 import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WeaponRepository() : IWeaponRepository {
-
-
-    private val database: ValorantDatabase by lazy { MyApplication.getDatabase() }
-    private val weaponDao: WeaponDao = database.weaponDao()
-    private var service = ValorantApiService()
-
+class WeaponRepository @Inject constructor(
+    private val service: ValorantApiService,
+    private val weaponDao: WeaponDao
+) : IWeaponRepository {
 
     override suspend fun getAllWeapons(): Result<MutableList<WeaponModel>> {
 

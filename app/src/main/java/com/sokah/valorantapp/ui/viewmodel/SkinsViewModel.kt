@@ -3,15 +3,16 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.data.repository.ISkinRepository
 import com.sokah.valorantapp.data.repository.SkinRepository
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import com.sokah.valorantapp.ui.viewStates.SkinViewStates
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SkinsViewModel : ViewModel() {
+@HiltViewModel
+class SkinsViewModel @Inject constructor(private val repository: SkinRepository) : ViewModel() {
 
-    val repository: ISkinRepository = SkinRepository()
     private val _viewState = MutableLiveData<SkinViewStates>()
     val viewState get() = _viewState
 

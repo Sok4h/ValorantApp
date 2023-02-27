@@ -11,7 +11,9 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(binding.root)
+        //val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
         navController = findNavController(R.id.navHost)
         binding.bottomNavigationView.setupWithNavController(navController)

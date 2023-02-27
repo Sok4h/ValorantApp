@@ -3,14 +3,15 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.data.repository.AgentRepository
 import com.sokah.valorantapp.data.repository.IAgentRepository
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AgentListViewModel() : ViewModel() {
-
-    private val repository: IAgentRepository = AgentRepository()
+@HiltViewModel
+class AgentListViewModel @Inject constructor(private val repository: IAgentRepository) :
+    ViewModel() {
 
     private val _viewState = MutableLiveData<AgentViewStates>()
     val viewState get() = _viewState
@@ -19,7 +20,6 @@ class AgentListViewModel() : ViewModel() {
 
         getAgents()
     }
-
 
     fun getAgents() {
 

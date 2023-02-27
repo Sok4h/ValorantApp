@@ -21,9 +21,11 @@ import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import com.sokah.valorantapp.ui.view.adapters.SkinAdapter
 import com.sokah.valorantapp.ui.viewStates.SkinViewStates
 import com.sokah.valorantapp.ui.viewmodel.SkinsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListener {
 
     private val viewModel: SkinsViewModel by viewModels()
@@ -42,7 +44,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
 
         setupRV()
 
-        viewModel.viewState.observe(this) { viewState ->
+        viewModel.viewState.observe(viewLifecycleOwner) { viewState ->
 
             when (viewState) {
                 is SkinViewStates.Error -> {

@@ -10,8 +10,6 @@ class WeaponDetailViewModel() :ViewModel() {
 
     val agentWeapon = MutableLiveData <WeaponModel>()
 
-
-
     fun getWeapon(weapon:String){
 
         var gson = Gson()

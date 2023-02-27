@@ -4,19 +4,17 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import com.sokah.valorantapp.data.repository.AgentRepository
-import com.sokah.valorantapp.data.repository.IAgentRepository
+import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AgentDetailViewModel() :
+@HiltViewModel
+class AgentDetailViewModel @Inject constructor(private val repository: AgentRepository) :
     ViewModel() {
 
     val agentDetail = MutableLiveData<AgentModel>()
-
-    val repository: IAgentRepository = AgentRepository()
-
-
     fun getAgentDetail(agentUuid: String) {
 
         viewModelScope.launch {

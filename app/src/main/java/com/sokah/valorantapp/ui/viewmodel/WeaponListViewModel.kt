@@ -4,23 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.repository.IWeaponRepository
-import com.sokah.valorantapp.data.repository.WeaponRepository
 import com.sokah.valorantapp.ui.viewStates.WeaponViewState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class WeaponListViewModel() : ViewModel() {
+@HiltViewModel
+class WeaponListViewModel @Inject constructor(private val repository: IWeaponRepository) :
+    ViewModel() {
 
     private val _viewState = MutableLiveData<WeaponViewState>()
     val viewState get() = _viewState
-    val repository: IWeaponRepository
 
     init {
-
-
-        repository = WeaponRepository()
         getWeapons()
-
-
     }
 
     fun getWeapons() {
