@@ -1,18 +1,20 @@
 package com.sokah.valorantapp.ui.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentWeaponDetailBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
 import com.sokah.valorantapp.ui.viewmodel.WeaponDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
 
     private  var _binding: FragmentWeaponDetailBinding ?=null
@@ -61,8 +63,7 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
         if(weapon.shopData==null){
 
             binding.tvWeaponPriceDetail.text="0"
-        }
-        else{
+        } else{
             binding.tvWeaponPriceDetail.text=weapon.shopData.cost.toString()
         }
 
@@ -74,8 +75,6 @@ class WeaponDetailFragment : Fragment(R.layout.fragment_weapon_detail) {
             binding.tvMagazine.text= getString(R.string.magazine_value, weapon.weaponStats.magazineSize.toString())
 
         }
-
-
 
 
     }

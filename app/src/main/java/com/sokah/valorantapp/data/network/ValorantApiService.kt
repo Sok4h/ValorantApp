@@ -8,12 +8,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.util.*
+import javax.inject.Inject
 
-class ValorantApiService {
+class ValorantApiService @Inject constructor(private val api: ValorantApi) {
 
-    private val retrofit = RetrofitHelper.getRetrofit()
+    //@Inject private val retrofit :ValorantApi
 
-    suspend fun getAgents(): Response<BaseModel<MutableList<AgentDto>>>{
+    suspend fun getAgents(): Response<BaseModel<MutableList<AgentDto>>> {
 
         lateinit var languageCode: String
 
@@ -27,7 +28,7 @@ class ValorantApiService {
         return withContext(Dispatchers.IO) {
 
 
-            val response = retrofit.create(ValorantApi::class.java).getAgents(languageCode)
+            val response = api.getAgents(languageCode)
 
             response
         }
@@ -39,7 +40,7 @@ class ValorantApiService {
 
         return withContext(Dispatchers.IO) {
 
-            val response = retrofit.create(ValorantApi::class.java).getWeapons()
+            val response = api.getWeapons()
             response
         }
     }
@@ -48,7 +49,7 @@ class ValorantApiService {
 
         return withContext(Dispatchers.IO) {
 
-            val response = retrofit.create(ValorantApi::class.java).getSkins()
+            val response = api.getSkins()
 
             response
         }
@@ -58,7 +59,7 @@ class ValorantApiService {
 
         return withContext(Dispatchers.IO) {
 
-            val response = retrofit.create(ValorantApi::class.java).getWeapon(weaponUuid)
+            val response = api.getWeapon(weaponUuid)
 
             response.body()!!
         }

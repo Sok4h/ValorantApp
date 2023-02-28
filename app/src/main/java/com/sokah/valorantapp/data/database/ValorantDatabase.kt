@@ -1,8 +1,6 @@
 package com.sokah.valorantapp.data.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.sokah.valorantapp.data.model.entities.AgentEntity
@@ -32,32 +30,6 @@ abstract class ValorantDatabase : RoomDatabase() {
     abstract fun weaponDao(): WeaponDao
     abstract fun skinDao(): SkinDao
 
-    companion object {
 
-        @Volatile
-        private var INSTANCE: ValorantDatabase? = null
-
-        fun getInstance(context: Context): ValorantDatabase {
-
-            synchronized(this) {
-                var instance = INSTANCE
-
-                if (instance == null) {
-
-                    instance =
-                        Room.databaseBuilder(
-                            context.applicationContext,
-                            ValorantDatabase::class.java,
-                            "myDB"
-                        )
-                            .fallbackToDestructiveMigration()
-                            .build()
-                    INSTANCE = instance
-                }
-
-                return instance
-            }
-        }
-
-    }
 }
+

@@ -9,13 +9,14 @@ object RetrofitHelper {
 
     const val BASEURL="https://valorant-api.com/v1/"
 
-    fun getRetrofit(): Retrofit{
+    fun getRetrofit(): ValorantApi {
 
         return Retrofit.Builder()
             .baseUrl(BASEURL)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(ValorantApi::class.java)
     }
 
 }

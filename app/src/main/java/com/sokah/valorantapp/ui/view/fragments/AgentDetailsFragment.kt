@@ -12,8 +12,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.FragmentAgentDetailsBinding
 import com.sokah.valorantapp.ui.viewmodel.AgentDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
     private var _binding: FragmentAgentDetailsBinding? = null

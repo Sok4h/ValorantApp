@@ -5,17 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.repository.SkinRepository
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SkinDetailViewModel() :
+@HiltViewModel
+class SkinDetailViewModel @Inject constructor(private val repository: SkinRepository) :
     ViewModel() {
 
     val skinLive = MutableLiveData<SkinModel>()
-
     val mutableSkinList = MutableLiveData<MutableList<SkinModel>>()
     val isLoading = MutableLiveData<Boolean>()
     var skinObject: SkinModel? = null
-    val repository: SkinRepository = SkinRepository()
 
 
     fun getSkin(uuid: String) {

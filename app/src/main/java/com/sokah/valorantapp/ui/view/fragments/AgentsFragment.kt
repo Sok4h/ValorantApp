@@ -19,8 +19,9 @@ import com.sokah.valorantapp.databinding.FragmentAgentsBinding
 import com.sokah.valorantapp.ui.view.adapters.AgentAdapter
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
 import com.sokah.valorantapp.ui.viewmodel.AgentListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
     private val viewmodel: AgentListViewModel by viewModels()
@@ -41,7 +42,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
             filterAgents(checkedId)
         }
 
-        viewmodel.viewState.observe(this) { agentViewState ->
+        viewmodel.viewState.observe(viewLifecycleOwner) { agentViewState ->
 
             when (agentViewState) {
 

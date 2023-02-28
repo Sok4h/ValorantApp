@@ -15,8 +15,9 @@ import com.sokah.valorantapp.databinding.SkinDetailFragmentBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.SkinModel
 import com.sokah.valorantapp.ui.view.adapters.SkinAdapter2
 import com.sokah.valorantapp.ui.viewmodel.SkinDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2.OnSkinListener {
 
     private var _binding: SkinDetailFragmentBinding? = null

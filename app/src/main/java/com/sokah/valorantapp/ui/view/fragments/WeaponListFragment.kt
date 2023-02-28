@@ -19,8 +19,10 @@ import com.sokah.valorantapp.databinding.FragmentWeaponListBinding
 import com.sokah.valorantapp.ui.view.adapters.WeaponAdapter
 import com.sokah.valorantapp.ui.viewStates.WeaponViewState
 import com.sokah.valorantapp.ui.viewmodel.WeaponListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
     val viewmodel: WeaponListViewModel by viewModels()
@@ -38,7 +40,7 @@ class WeaponListFragment : Fragment(R.layout.fragment_weapon_list) {
 
         setupRV()
 
-        viewmodel.viewState.observe(this) { state ->
+        viewmodel.viewState.observe(viewLifecycleOwner) { state ->
 
             when (state) {
 

@@ -1,8 +1,8 @@
 package com.sokah.valorantapp.data.repository
 
-import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.data.database.ValorantDatabase
+import com.sokah.valorantapp.data.database.AgentDao
 import com.sokah.valorantapp.data.exceptions.CustomException
+import com.sokah.valorantapp.data.exceptions.ErrorMessages
 import com.sokah.valorantapp.data.model.entities.AgentEntity
 import com.sokah.valorantapp.data.model.toAgentEntity
 import com.sokah.valorantapp.data.network.ValorantApiService
@@ -10,13 +10,13 @@ import com.sokah.valorantapp.ui.mapper.uiMappers.toAgentModel
 import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class AgentRepository() : IAgentRepository {
-    private val database: ValorantDatabase by lazy { MyApplication.getDatabase() }
-    private val agentDao = database.agentDao()
-    private var service = ValorantApiService()
-
+class AgentRepository @Inject constructor(
+    private val service: ValorantApiService,
+    private val agentDao: AgentDao
+) : IAgentRepository {
 
     override suspend fun getAllAgents(): Result<MutableList<AgentModel>> {
         var databaseResult: MutableList<AgentModel>
@@ -35,8 +35,7 @@ class AgentRepository() : IAgentRepository {
                     result =
                         Result.failure(
                             CustomException(
-                                "Si hay internet pero la api fallo con codigo"
-                                        + " ${response.code()} y la base de datos está vacía"
+                                ErrorMessages.API_FAILED_AND_NO_CACHE.error
                             )
                         )
                 } else {
@@ -47,7 +46,7 @@ class AgentRepository() : IAgentRepository {
                     return@withContext Result.success(databaseResult)
                 } else {
                     result =
-                        Result.failure(CustomException("No tenemos internet y la base de datos está vacia"))
+                        Result.failure(CustomException(ErrorMessages.NO_INTERNET_CONNECTION.error))
                 }
             }
             return@withContext result

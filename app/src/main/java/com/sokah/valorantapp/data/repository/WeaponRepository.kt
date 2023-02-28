@@ -1,9 +1,8 @@
 package com.sokah.valorantapp.data.repository
 
-import com.sokah.valorantapp.MyApplication
-import com.sokah.valorantapp.data.database.ValorantDatabase
 import com.sokah.valorantapp.data.database.WeaponDao
 import com.sokah.valorantapp.data.exceptions.CustomException
+import com.sokah.valorantapp.data.exceptions.ErrorMessages
 import com.sokah.valorantapp.data.model.entities.WeaponEntity
 import com.sokah.valorantapp.data.model.toWeaponEntity
 import com.sokah.valorantapp.data.network.ValorantApiService
@@ -11,14 +10,12 @@ import com.sokah.valorantapp.ui.mapper.uiMappers.toWeaponModel
 import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WeaponRepository() : IWeaponRepository {
-
-
-    private val database: ValorantDatabase by lazy { MyApplication.getDatabase() }
-    private val weaponDao: WeaponDao = database.weaponDao()
-    private var service = ValorantApiService()
-
+class WeaponRepository @Inject constructor(
+    private val service: ValorantApiService,
+    private val weaponDao: WeaponDao
+) : IWeaponRepository {
 
     override suspend fun getAllWeapons(): Result<MutableList<WeaponModel>> {
 
@@ -41,8 +38,7 @@ class WeaponRepository() : IWeaponRepository {
                     result =
                         Result.failure(
                             CustomException(
-                                "Si hay internet pero la api fallo con codigo"
-                                        + " ${response.code()} y la base de datos está vacía"
+                                ErrorMessages.API_FAILED_AND_NO_CACHE.error
                             )
                         )
                 } else {
@@ -62,7 +58,7 @@ class WeaponRepository() : IWeaponRepository {
                 } else {
 
                     result =
-                        Result.failure(CustomException("No tenemos internet y la base de datos está vacia"))
+                        Result.failure(CustomException(ErrorMessages.NO_INTERNET_CONNECTION.error))
                 }
 
 
