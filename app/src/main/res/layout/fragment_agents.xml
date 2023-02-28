@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".view.fragments.AgentsFragment">
+    tools:context=".ui.view.fragments.AgentsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAgents"
@@ -73,6 +73,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="false"
         android:indeterminateTint="@color/red"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/rvAgents"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
