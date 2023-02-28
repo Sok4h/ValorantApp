@@ -1,6 +1,5 @@
 package com.sokah.valorantapp.data.di
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.sokah.valorantapp.data.network.ValorantApi
 import dagger.Module
 import dagger.Provides
@@ -22,7 +21,6 @@ object NetworkModule {
 
         return Retrofit.Builder()
             .baseUrl(BASEURL)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ValorantApi::class.java)

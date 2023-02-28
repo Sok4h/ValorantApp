@@ -2,6 +2,7 @@ package com.sokah.valorantapp.data.repository
 
 import com.sokah.valorantapp.data.database.SkinDao
 import com.sokah.valorantapp.data.exceptions.CustomException
+import com.sokah.valorantapp.data.exceptions.ErrorMessages
 import com.sokah.valorantapp.data.model.entities.SkinEntity
 import com.sokah.valorantapp.data.model.toSkinEntity
 import com.sokah.valorantapp.data.network.ValorantApi
@@ -32,8 +33,7 @@ class SkinRepository @Inject constructor(
                 result =
                     Result.failure(
                         CustomException(
-                            "La conexión al api falló con codigo"
-                                    + " ${response.code()} y la base de datos está vacía"
+                            ErrorMessages.API_FAILED_AND_NO_CACHE.error
                         )
                     )
             } else {
@@ -48,7 +48,7 @@ class SkinRepository @Inject constructor(
                 Result.success(getAllSkinsFromDatabase())
             } else {
 
-                Result.failure(CustomException("No hay internet y la base de datos está vacia"))
+                Result.failure(CustomException(ErrorMessages.NO_INTERNET_CONNECTION.error))
             }
 
         }

@@ -19,8 +19,6 @@ class AgentDetailViewModel @Inject constructor(private val repository: AgentRepo
 
         viewModelScope.launch {
 
-            //val result = service.getAgent(agentUuid,languageCode)
-
             val agent = repository.getAgentById(agentUuid)
 
             for ((index, ability) in agent.abilities.withIndex()) {
