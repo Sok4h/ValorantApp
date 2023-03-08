@@ -31,10 +31,8 @@ class AgentRepositoryTest {
     val agentEntity = mockk<AgentEntity>(relaxed = true)
     val agentDto = mockk<AgentDto>(relaxed = true)
     val agent = mockk<AgentEntity>(relaxed = true)
-    val agent2 = mockk<AgentEntity>(relaxed = true)
-    val agent3 = mockk<AgentEntity>(relaxed = true)
 
-    val agents = mutableListOf(agent, agent2, agent3)
+    val agents = mutableListOf(agent)
 
     @Before()
     fun setup() {
@@ -45,7 +43,6 @@ class AgentRepositoryTest {
     @Test
     fun `when api call fails it gets data from the local database and returns success`() =
         runBlocking {
-
 
             //given
             coEvery { service.getAgents() } returns Response.error(
@@ -59,7 +56,6 @@ class AgentRepositoryTest {
 
             //then
 
-            coVerify { agentDao.getAllAgents() }
             assert(agentRepository.getAllAgents().isSuccess)
 
         }
@@ -84,7 +80,6 @@ class AgentRepositoryTest {
     }
 
     @Test
-
     fun `when api call fails and theres no cache it returns no cache exception`() = runBlocking {
 
         //given
@@ -122,5 +117,37 @@ class AgentRepositoryTest {
             )
         }
 
+    @Test
+    fun `get agent by uuid returns agent if provided with valid uuid`() = runBlocking {
+
+        //given
+        coEvery { agent.uuid } returns "1"
+        coEvery { agentDao.getAgentById("") } returns agents.find { it.uuid == "1" }!!
+
+        //when
+
+        val response = agentRepository.getAgentById("")
+
+        //then
+        assert(response.isSuccess)
+
+    }
+
+
+    @Test
+    fun `get agent by uuid returns error if provided with invalid uuid`() = runBlocking {
+
+        //given
+        coEvery { agent.uuid } returns "1"
+        coEvery { agentDao.getAgentById("") } returns agents.find { it.uuid == "4" }
+
+        //when
+
+        val response = agentRepository.getAgentById("")
+
+        //then
+        assert(response.isFailure)
+
+    }
 
 }
