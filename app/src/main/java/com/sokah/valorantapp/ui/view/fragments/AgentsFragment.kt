@@ -57,7 +57,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
                 is AgentViewStates.Error -> {
 
-                    Toast.makeText(context, agentViewState.error.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, agentViewState.error.message, Toast.LENGTH_SHORT).show()
                     binding.progressBar.isVisible = false
                     //showSnackBar()
                 }

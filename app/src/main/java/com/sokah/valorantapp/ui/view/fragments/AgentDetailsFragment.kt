@@ -49,7 +49,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
                     Toast.makeText(
                         context,
                         "Something went wrong try again later",
-                        Toast.LENGTH_LONG
+                        Toast.LENGTH_SHORT
                     ).show()
 
                     requireActivity().onBackPressed();
@@ -74,7 +74,6 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
 
         Glide.with(this).load(agent.bustPortrait)
-            .override(1000, 1000)
             .thumbnail(0.5f)
             .into(binding.imgAgentDetail)
         Glide.with(this).load(agent.role.roleIcon).into(binding.imgAgentTypeDetail)

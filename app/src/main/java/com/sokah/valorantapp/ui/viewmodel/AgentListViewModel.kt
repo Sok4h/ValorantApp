@@ -44,7 +44,7 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
     fun filterAgent(role: String) {
         viewModelScope.launch {
             val result = repository.getAgentByRole(role)
-            if (result.isEmpty()) _viewState.postValue(AgentViewStates.Error(CustomException("No se encontró por id")))
+            if (result.isEmpty()) _viewState.postValue(AgentViewStates.Error(CustomException("No agent with this role found")))
             else _viewState.postValue(AgentViewStates.AgentListSuccess(result))
         }
     }
