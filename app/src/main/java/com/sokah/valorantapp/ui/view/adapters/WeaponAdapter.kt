@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.sokah.valorantapp.databinding.WeaponCardBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.WeaponModel
 import com.sokah.valorantapp.ui.view.fragments.WeaponListFragmentDirections
+import com.sokah.valorantapp.utils.IdlingResource
 
 class WeaponAdapter : RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
@@ -56,7 +57,9 @@ class WeaponAdapter : RecyclerView.Adapter<WeaponAdapter.WeaponViewHolder>() {
 
 
         fun bind(weapon: WeaponModel) {
+            IdlingResource.increment()
             Glide.with(binding.root).load(weapon.displayIcon).into(binding.imgWeapon)
+            IdlingResource.decrement()
 
             binding.tvWeaponName.text = weapon.displayName
 

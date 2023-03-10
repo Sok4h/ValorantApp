@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.exceptions.CustomException
 import com.sokah.valorantapp.data.repository.IAgentRepository
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
+import com.sokah.valorantapp.utils.IdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,27 +19,33 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
     val viewState get() = _viewState
 
 
-
     fun getAgents() {
 
-        _viewState.postValue(AgentViewStates.Loading)
+
         viewModelScope.launch {
 
-            val result = repository.getAllAgents()
+            _viewState.postValue(AgentViewStates.Loading)
+            IdlingResource.increment()
+            _viewState.postValue(AgentViewStates.Loading)
+            viewModelScope.launch {
 
-            when {
-                result.isSuccess -> {
-                    _viewState.postValue(AgentViewStates.AgentListSuccess(result.getOrThrow()))
-                }
-                else -> {
+                val result = repository.getAllAgents()
+                IdlingResource.decrement()
 
-                    _viewState.postValue(AgentViewStates.Error(result.exceptionOrNull() as Exception))
+                when {
+                    result.isSuccess -> {
+                        _viewState.postValue(AgentViewStates.AgentListSuccess(result.getOrThrow()))
+                    }
+                    else -> {
+
+                        _viewState.postValue(AgentViewStates.Error(result.exceptionOrNull() as Exception))
+                    }
                 }
+
             }
 
+
         }
-
-
     }
 
     fun filterAgent(role: String) {
@@ -51,5 +58,6 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
 
 
 }
+
 
 
