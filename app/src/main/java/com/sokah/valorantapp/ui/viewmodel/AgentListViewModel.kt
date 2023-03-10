@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.repository.IAgentRepository
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
+import com.sokah.valorantapp.utils.IdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,8 +28,9 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
         viewModelScope.launch {
 
             _viewState.postValue(AgentViewStates.Loading)
-
+            IdlingResource.increment()
             val result = repository.getAllAgents()
+            IdlingResource.decrement()
 
             when {
                 result.isSuccess -> {

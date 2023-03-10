@@ -11,6 +11,7 @@ import com.sokah.valorantapp.R
 import com.sokah.valorantapp.databinding.AgentCardBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import com.sokah.valorantapp.ui.view.fragments.AgentsFragmentDirections
+import com.sokah.valorantapp.utils.IdlingResource
 import com.sokah.valorantapp.utils.MyDiffUtil
 
 class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
@@ -56,15 +57,19 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
             binding.tvAgentName.text = agent.agentName
 
-            for(ability in agent.abilities){
+            for (ability in agent.abilities) {
 
                 Glide.with(view.context).load(ability.displayIcon)
             }
+            IdlingResource.increment()
             Glide.with(view.context).load(agent.bustPortrait)
                 .placeholder(R.drawable.fade)
                 .override(800, 800)
                 .thumbnail(0.5f)
                 .into(binding.imgAgent)
+
+            IdlingResource.decrement()
+
 
             binding.root.setOnClickListener {
 

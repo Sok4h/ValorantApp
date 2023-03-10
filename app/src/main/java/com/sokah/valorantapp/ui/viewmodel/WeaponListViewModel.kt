@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.repository.IWeaponRepository
 import com.sokah.valorantapp.ui.viewStates.WeaponViewState
+import com.sokah.valorantapp.utils.IdlingResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +26,9 @@ class WeaponListViewModel @Inject constructor(private val repository: IWeaponRep
         viewModelScope.launch {
 
             _viewState.postValue(WeaponViewState.Loading)
+            IdlingResource.increment()
             val result = repository.getAllWeapons()
+            IdlingResource.decrement()
             when {
                 result.isSuccess -> _viewState.postValue(WeaponViewState.Success(result.getOrThrow()))
                 else -> {
