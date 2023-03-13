@@ -41,13 +41,14 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             filterAgents(checkedId)
         }
+        viewmodel.getAgents()
 
         viewmodel.viewState.observe(viewLifecycleOwner) { agentViewState ->
 
             when (agentViewState) {
 
-                is AgentViewStates.Success -> {
-                    adapter.setAgents(agentViewState.data.toMutableList())
+                is AgentViewStates.AgentListSuccess -> {
+                    adapter.setAgents(agentViewState.data)
                     layoutManager.scrollToPositionWithOffset(0, 0)
                     binding.progressBar.isVisible = false
                 }
@@ -56,11 +57,12 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
                 is AgentViewStates.Error -> {
 
-                    Toast.makeText(context, agentViewState.error.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, agentViewState.error.message, Toast.LENGTH_SHORT).show()
                     binding.progressBar.isVisible = false
                     //showSnackBar()
                 }
 
+                else -> {}
             }
         }
         return binding.root

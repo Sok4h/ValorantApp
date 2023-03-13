@@ -9,5 +9,5 @@ interface IAgentRepository {
     suspend fun addAgents(agents: MutableList<AgentEntity>)
     suspend fun getAllAgentsFromDatabase(): MutableList<AgentModel>
     suspend fun getAgentByRole(role: String): MutableList<AgentModel>
-    suspend fun getAgentById(id: String): AgentModel
+    suspend fun getAgentById(id: String): Result<AgentModel>
 }

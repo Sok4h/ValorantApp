@@ -71,8 +71,19 @@ class AgentRepository @Inject constructor(
     }
 
 
-    override suspend fun getAgentById(id: String): AgentModel {
+    override suspend fun getAgentById(id: String): Result<AgentModel> {
 
-        return agentDao.getAgentById(id).toAgentModel()
+
+        val response = agentDao.getAgentById(id)
+
+        return if (response != null) {
+
+            Result.success(response.toAgentModel())
+        } else {
+
+            Result.failure(CustomException(ErrorMessages.NO_AGENT_FOUND_WITH_UUID.error))
+        }
+
+
     }
 }

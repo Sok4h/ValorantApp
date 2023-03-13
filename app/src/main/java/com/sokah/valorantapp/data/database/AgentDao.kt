@@ -20,7 +20,7 @@ interface AgentDao {
     suspend fun insertAgents(agents: MutableList<AgentEntity>)
 
     @Query("SELECT * from agents where uuid==:agentId")
-    suspend fun  getAgentById(agentId: String): AgentEntity
+    suspend fun getAgentById(agentId: String): AgentEntity?
 
 
 

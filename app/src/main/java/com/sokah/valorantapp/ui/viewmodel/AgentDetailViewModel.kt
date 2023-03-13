@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sokah.valorantapp.data.repository.AgentRepository
-import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
+import com.sokah.valorantapp.ui.viewStates.AgentViewStates
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,21 +14,34 @@ import javax.inject.Inject
 class AgentDetailViewModel @Inject constructor(private val repository: AgentRepository) :
     ViewModel() {
 
-    val agentDetail = MutableLiveData<AgentModel>()
+    private val _viewState = MutableLiveData<AgentViewStates>()
+    val viewState get() = _viewState
+
     fun getAgentDetail(agentUuid: String) {
 
         viewModelScope.launch {
 
-            val agent = repository.getAgentById(agentUuid)
+            val result = repository.getAgentById(agentUuid)
 
-            for ((index, ability) in agent.abilities.withIndex()) {
+            if (result.isSuccess) {
 
-                if (ability.slot.contentEquals("Passive")) {
+                val agent = result.getOrThrow()
 
-                    agent.abilities.removeAt(index)
+                for ((index, ability) in agent.abilities.withIndex()) {
+                    if (ability.slot.contentEquals("Passive")) {
+                        agent.abilities.removeAt(index)
+                    }
                 }
+
+                _viewState.postValue(AgentViewStates.AgentSuccess(agent))
+
+            } else {
+
+                _viewState.postValue(AgentViewStates.Error(result.exceptionOrNull() as Exception))
+
             }
-            agentDetail.postValue(agent)
+
+
         }
     }
 
