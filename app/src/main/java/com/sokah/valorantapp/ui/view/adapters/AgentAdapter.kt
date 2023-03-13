@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,21 +13,37 @@ import com.sokah.valorantapp.databinding.AgentCardBinding
 import com.sokah.valorantapp.ui.mapper.uiModel.AgentModel
 import com.sokah.valorantapp.ui.view.fragments.AgentsFragmentDirections
 import com.sokah.valorantapp.utils.IdlingResource
-import com.sokah.valorantapp.utils.MyDiffUtil
 
 class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
-    var agentList = mutableListOf<AgentModel>()
+    val DIFF_CALLBACK = object : DiffUtil.ItemCallback<AgentModel>() {
+        override fun areItemsTheSame(oldItem: AgentModel, newItem: AgentModel): Boolean {
+            return oldItem.uuid.contentEquals(newItem.uuid)
+        }
+
+        override fun areContentsTheSame(oldItem: AgentModel, newItem: AgentModel): Boolean {
+            return when {
+
+                oldItem.uuid.contentEquals(newItem.uuid) -> false
+
+                oldItem.agentName.contentEquals(newItem.agentName) -> false
+
+                else -> true
+            }
+        }
+
+    }
+
+    val differ = AsyncListDiffer(this, DIFF_CALLBACK)
 
     fun setAgents(agents: MutableList<AgentModel>) {
 
-        val diffUtil=MyDiffUtil(agentList,agents)
+        IdlingResource.increment()
+        val callback = Runnable {
+            IdlingResource.decrement()
+        }
+        differ.submitList(agents, callback)
 
-        val diffresult = DiffUtil.calculateDiff(diffUtil)
-
-        diffresult.dispatchUpdatesTo(this)
-        this.agentList = agents
-        
     }
 
 
@@ -38,15 +55,14 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
 
     override fun onBindViewHolder(holder: AgentViewHolder, position: Int) {
 
-        val item = this.agentList[position]
+        val item = differ.currentList[position]
 
         holder.bind(item)
-
 
     }
 
     override fun getItemCount(): Int {
-        return agentList.size
+        return differ.currentList.size
     }
 
     class AgentViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -56,19 +72,20 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
         fun bind(agent: AgentModel) {
 
             binding.tvAgentName.text = agent.agentName
-
             for (ability in agent.abilities) {
 
                 Glide.with(view.context).load(ability.displayIcon)
             }
+
             IdlingResource.increment()
             Glide.with(view.context).load(agent.bustPortrait)
                 .placeholder(R.drawable.fade)
                 .override(800, 800)
                 .thumbnail(0.5f)
                 .into(binding.imgAgent)
-
             IdlingResource.decrement()
+
+
 
 
             binding.root.setOnClickListener {
@@ -77,6 +94,7 @@ class AgentAdapter : RecyclerView.Adapter<AgentAdapter.AgentViewHolder>() {
                     AgentsFragmentDirections.actionAgentsFragmentToAgentDetailsFragment(agent.uuid)
                 )
             }
+
         }
 
 

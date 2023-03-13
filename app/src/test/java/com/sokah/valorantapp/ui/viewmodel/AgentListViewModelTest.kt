@@ -26,6 +26,7 @@ class AgentListViewModelTest {
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule()
 
+
     @Test
     fun `when fetching agents succeds the viewstate is displayed correctly`() = runTest {
 
