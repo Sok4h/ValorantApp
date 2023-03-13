@@ -26,27 +26,24 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
 
             _viewState.postValue(AgentViewStates.Loading)
             IdlingResource.increment()
-            _viewState.postValue(AgentViewStates.Loading)
-            viewModelScope.launch {
+            val result = repository.getAllAgents()
+            IdlingResource.decrement()
 
-                val result = repository.getAllAgents()
-                IdlingResource.decrement()
-
-                when {
-                    result.isSuccess -> {
-                        _viewState.postValue(AgentViewStates.AgentListSuccess(result.getOrThrow()))
-                    }
-                    else -> {
-
-                        _viewState.postValue(AgentViewStates.Error(result.exceptionOrNull() as Exception))
-                    }
+            when {
+                result.isSuccess -> {
+                    _viewState.postValue(AgentViewStates.AgentListSuccess(result.getOrThrow()))
                 }
+                else -> {
 
+                    _viewState.postValue(AgentViewStates.Error(result.exceptionOrNull() as Exception))
+                }
             }
 
-
         }
+
+
     }
+
 
     fun filterAgent(role: String) {
         viewModelScope.launch {
@@ -58,6 +55,5 @@ class AgentListViewModel @Inject constructor(private val repository: IAgentRepos
 
 
 }
-
 
 
