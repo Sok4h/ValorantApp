@@ -1,5 +1,6 @@
 package com.sokah.valorantapp.ui.view.fragments
 
+
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
@@ -19,12 +20,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 @RunWith(AndroidJUnit4::class)
 class AgentsFragmentTest {
 
-
     @get : Rule
     var mActivityRule = ActivityScenarioRule(MainActivity::class.java)
+
 
     @Before
     fun setUp() {
@@ -59,10 +61,8 @@ class AgentsFragmentTest {
     @Test
     fun chip_selected_works_properly() {
 
-        onView(withId(R.id.chipDuelist)).perform(click())
-
+        onView(withId(R.id.chipDuelist)).perform()
         onView(withId(R.id.chipDuelist)).check(matches(isChecked()))
-
     }
 
     @Test

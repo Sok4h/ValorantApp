@@ -110,6 +110,7 @@ dependencies {
     def mockkVersion = "1.13.4"
     testImplementation "io.mockk:mockk:${mockkVersion}"
 
+
     testImplementation("androidx.arch.core:core-testing:2.2.0")
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -118,6 +119,9 @@ dependencies {
     def nav_version = "2.5.3"
 
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
 }
 
 kapt {

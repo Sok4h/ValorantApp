@@ -1,8 +1,11 @@
 package com.sokah.valorantapp.data.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.sokah.valorantapp.data.repository.*
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
@@ -26,3 +29,15 @@ abstract class RepositoryModule {
         skinRepository: SkinRepository
     ): ISkinRepository
 }
+
+@Module
+@InstallIn(ViewModelComponent::class)
+object PreferenceModule {
+
+    @Provides
+    fun provideMainRepositoryImpl(dataStore: DataStore<Preferences>): IPreferencesRepository {
+
+        return PreferencesRepository(dataStore)
+    }
+}
+

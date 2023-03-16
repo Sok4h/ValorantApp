@@ -1,6 +1,12 @@
 package com.sokah.valorantapp.data.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.sokah.valorantapp.data.database.AgentDao
 import com.sokah.valorantapp.data.database.SkinDao
@@ -17,6 +23,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DataBaseModule {
 
+    private const val PREFERENCES_NAME = "my_preferences"
+
     @Singleton
     @Provides
     fun provideDataBase(@ApplicationContext context: Context): ValorantDatabase {
@@ -25,6 +33,7 @@ object DataBaseModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
 
     @Provides
     fun provideAgentDao(database: ValorantDatabase): AgentDao {
@@ -44,5 +53,20 @@ object DataBaseModule {
 
         return database.skinDao()
     }
+
+    @Singleton
+    @Provides
+    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
+
+        return PreferenceDataStoreFactory.create(
+            corruptionHandler = ReplaceFileCorruptionHandler(
+                produceNewData = { emptyPreferences() }
+            ),
+            produceFile = { appContext.preferencesDataStoreFile(PREFERENCES_NAME) }
+        )
+
+    }
+
+
 }
 

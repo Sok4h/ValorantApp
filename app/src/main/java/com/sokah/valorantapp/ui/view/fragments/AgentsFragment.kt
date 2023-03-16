@@ -38,11 +38,21 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         _binding = FragmentAgentsBinding.inflate(inflater, container, false)
 
         setupRV()
+
+        viewmodel.getPreference()
+
+
+        viewmodel.preference.observe(viewLifecycleOwner) {
+
+            if (it != 0) {
+                binding.chipGroup.findViewById<Chip>(it).isChecked = true
+            } else viewmodel.getAgents()
+        }
+
+
         binding.chipGroup.setOnCheckedChangeListener { _, checkedId ->
             filterAgents(checkedId)
         }
-        viewmodel.getAgents()
-
         viewmodel.viewState.observe(viewLifecycleOwner) { agentViewState ->
 
             when (agentViewState) {
@@ -84,6 +94,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
             .show()
     }
 
+
     fun setupRV() {
 
         layoutManager = GridLayoutManager(context, 2)
@@ -103,9 +114,17 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
     }
 
+    override fun onPause() {
+        super.onPause()
+        val chipCheckedId = binding.chipGroup.checkedChipId
+        if (chipCheckedId != -1) viewmodel.savePreference(chipCheckedId)
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null;
+
     }
 
 }

@@ -4,6 +4,7 @@ package com.sokah.valorantapp.ui.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.sokah.valorantapp.MainDispatcherRule
 import com.sokah.valorantapp.data.repository.IAgentRepository
+import com.sokah.valorantapp.data.repository.IPreferencesRepository
 import com.sokah.valorantapp.ui.viewStates.AgentViewStates
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -17,8 +18,9 @@ import org.junit.Test
 class AgentListViewModelTest {
 
     val repository: IAgentRepository = mockk()
+    val prefRepository: IPreferencesRepository = mockk()
 
-    val agentViewModel = AgentListViewModel(repository)
+    val agentViewModel = AgentListViewModel(repository, prefRepository)
 
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
