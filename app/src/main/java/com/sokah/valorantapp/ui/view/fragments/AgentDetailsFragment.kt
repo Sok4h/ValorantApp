@@ -23,7 +23,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
     private var _binding: FragmentAgentDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewmodel: AgentDetailViewModel by viewModels()
-    lateinit var abilitiesimg: Array<ImageView>
+    private lateinit var abilitiesimg: Array<ImageView>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +52,7 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
                         Toast.LENGTH_SHORT
                     ).show()
 
-                    requireActivity().onBackPressed();
+                    requireActivity().onBackPressed()
                 }
                 AgentViewStates.Loading -> TODO()
                 else -> {}
@@ -67,14 +67,13 @@ class AgentDetailsFragment : Fragment(R.layout.fragment_agent_details) {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null;
+        _binding = null
     }
 
-    fun setupAgent(agent: AgentModel) {
+    private fun setupAgent(agent: AgentModel) {
 
 
         Glide.with(this).load(agent.bustPortrait)
-            .thumbnail(0.5f)
             .into(binding.imgAgentDetail)
         Glide.with(this).load(agent.role.roleIcon).into(binding.imgAgentTypeDetail)
 

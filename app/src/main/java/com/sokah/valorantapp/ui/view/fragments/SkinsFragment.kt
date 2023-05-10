@@ -32,7 +32,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
     private var _binding: SkinsFragmentBinding? = null
     private val binding get() = _binding!!
     lateinit var weapons: Array<String>
-    lateinit var skinsList: MutableList<SkinModel>
+    private lateinit var skinsList: MutableList<SkinModel>
     lateinit var layoutManager: GridLayoutManager
     val adapter = SkinAdapter(this)
     override fun onCreateView(
@@ -67,7 +67,7 @@ class SkinsFragment : Fragment(R.layout.skins_fragment), SkinAdapter.OnSkinListe
         }
 
 
-        binding.autoCompleteTextView.setOnItemClickListener { _, _, position, id ->
+        binding.autoCompleteTextView.setOnItemClickListener { _, _, position, _ ->
 
             if (position == 0) {
                 viewModel.getSkins()

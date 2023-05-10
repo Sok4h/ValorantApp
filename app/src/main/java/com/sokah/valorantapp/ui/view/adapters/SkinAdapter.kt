@@ -63,11 +63,8 @@ class SkinAdapter(var listener: OnSkinListener) :
         return this.skinList.size
     }
 
-    class ViewHolder(val binding: SkinCardBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: SkinCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-
-
-    }
 
 
     interface OnSkinListener {

@@ -23,8 +23,8 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
     private var _binding: SkinDetailFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: SkinDetailViewModel by viewModels()
-    lateinit var chromasImg: Array<ImageView>
-    lateinit var skinsList: MutableList<SkinModel>
+    private lateinit var chromasImg: Array<ImageView>
+    private lateinit var skinsList: MutableList<SkinModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +56,7 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
     }
 
 
-    fun loadSkin(skin: SkinModel) {
+    private fun loadSkin(skin: SkinModel) {
 
         Glide.with(this).load(skin.levels[0].displayIcon)
             .format(DecodeFormat.PREFER_ARGB_8888)
@@ -67,11 +67,10 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
 
             Glide.with(this).load(chroma.swatch)
                 .override(200, 200)
-                .thumbnail(0.5f)
-                .into(chromasImg.get(index))
+                .into(chromasImg[index])
 
 
-            chromasImg.get(index).visibility = View.VISIBLE
+            chromasImg[index].visibility = View.VISIBLE
 
         }
         //muestra texto si no hay ningun chroma
@@ -110,6 +109,6 @@ class SkinDetailFragment : Fragment(R.layout.skin_detail_fragment), SkinAdapter2
 
     override fun onSkinClick(position: Int) {
 
-        loadSkin(skinsList.get(position))
+        loadSkin(skinsList[position])
     }
 }
