@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/agentsFragment"
-        android:name="com.sokah.valorantapp.view.fragments.AgentsFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.AgentsFragment"
         android:label="@string/agents"
         tools:layout="@layout/fragment_agents">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/agentDetailsFragment"
-        android:name="com.sokah.valorantapp.view.fragments.AgentDetailsFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.AgentDetailsFragment"
         android:label="@string/agent_details"
         tools:layout="@layout/fragment_agent_details">
         <argument
@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/weaponListFragment"
-        android:name="com.sokah.valorantapp.view.fragments.WeaponListFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.WeaponListFragment"
         android:label="@string/weapons"
         tools:layout="@layout/fragment_weapon_list">
         <action
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/weaponDetailFragment"
-        android:name="com.sokah.valorantapp.view.fragments.WeaponDetailFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.WeaponDetailFragment"
         android:label="@string/weapon_details"
         tools:layout="@layout/fragment_weapon_detail">
         <argument
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/skinsFragment"
-        android:name="com.sokah.valorantapp.view.fragments.SkinsFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.SkinsFragment"
         android:label="@string/skins"
         tools:layout="@layout/skins_fragment" >
         <action
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/skinDetailFragment"
-        android:name="com.sokah.valorantapp.view.fragments.SkinDetailFragment"
+        android:name="com.sokah.valorantapp.ui.view.fragments.SkinDetailFragment"
         android:label="Skin" >
         <argument
             android:name="skin"
